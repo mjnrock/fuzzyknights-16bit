@@ -1,0 +1,30 @@
+{
+  "name": "fuzzyknights-arcade",
+  "version": "1.0.0",
+  "description": "FuzzyKnights: Protectors of the Forest - 16bit Adventure",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "createjs": "^1.0.1",
+    "esm": "^3.0.82",
+    "express": "^4.16.3",
+    "express-ws": "^4.0.0",
+    "path": "^0.12.7",
+    "ws": "^5.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjnrock/fuzzyknights-arcade.git"
+  },
+  "author": "Matt Nawrocki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjnrock/fuzzyknights-arcade/issues"
+  },
+  "homepage": "https://github.com/mjnrock/fuzzyknights-arcade#readme"
+}

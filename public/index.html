@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<!-- <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script> -->
+
+		<script src="./assets/js/jquery.min.js"></script>
+		<script src="./assets/js/jcanvas.min.js"></script>
+
+		<title>FuzzyKnights Client</title>
+	</head>
+	<body>
+		<canvas id="canvas" width="300" height="150"></canvas>
+
+		<script type="module">
+			console.log("[Loading...] FuzzyKnights and FuzzyKnights Client");
+
+			import FuzzyKnightsClient from "./client/FuzzyKnightsClient.js";
+
+			$(document).ready(function() {
+				const FuzzyKnights = (new FuzzyKnightsClient(window)).GetFuzzyKnights();
+				
+				console.log("[Loaded] FuzzyKnights and FuzzyKnights Client");
+				console.log(FuzzyKnights);
+			});
+		</script>
+	</body>
+</html>
