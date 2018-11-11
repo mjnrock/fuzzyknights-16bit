@@ -1,12 +1,11 @@
-import { Player } from "./Player.js";
-
 class GameManager {
-	constructor(fk, players = {}) {
+	constructor(fk, player = null) {
 		this.FuzzyKnights = fk;
 		this.GameLoop = this.FuzzyKnights.Game.GameLoop;
+
 		this.Managers = [];
 
-		this.Players = players;
+		this.Player = player;
 		
 		this.GameLoop.SetTickHook((time) => this.Tick(time));
 	}
@@ -17,37 +16,11 @@ class GameManager {
 		return this;
 	}
 
-	HasPlayer(search) {
-		let ent;
-		if(search instanceof Player) {
-			ent = this.Players[search.UUID];
-		} else if(typeof search === "string" || search instanceof String) {
-			ent = this.Players[search];
-		}
-				
-		return ent !== null && ent !== void 0;
+	GetPlayer() {
+		return this.Player;
 	}
-
-	GetPlayer(uuid) {
-		return this.Players[uuid];
-	}
-	SetPlayer(uuid, player) {
-		this.Players[uuid] = player;
-
-		return this;
-	}
-
-	Register(...players) {
-		for(let i in players) {
-			this.Players[players[i].UUID] = players[i];
-		}
-
-		return this;
-	}
-	Unregister(...players) {
-		for(let i in players) {
-			delete this.Players[players[i].UUID];
-		}
+	SetPlayer(player) {
+		this.Player = player;
 
 		return this;
 	}

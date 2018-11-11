@@ -8,6 +8,7 @@ import Entity from "./entity/package.js";
 import World from "./world/package.js";
 import Game from "./game/package.js";
 
+import Network from "./network/package.js";
 import Render from "./render/package.js";
 
 export default {
@@ -22,5 +23,6 @@ export default {
 	World,
 	Game,
 
+	Network,
 	Render
 };
