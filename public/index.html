@@ -10,20 +10,22 @@
 		<script src="./assets/js/jquery.min.js"></script>
 		<script src="./assets/js/jcanvas.min.js"></script>
 
-		<title>FuzzyKnights Client</title>
+		<link rel="shortcut icon" href="./assets/image/favicon.ico" />
+
+		<title>FuzzyKnights</title>
 	</head>
 	<body>
 		<canvas id="canvas" width="300" height="150"></canvas>
 
 		<script type="module">
-			console.log("[Loading...] FuzzyKnights and FuzzyKnights Client");
+			console.log("[Loading...] FuzzyKnights");
 
-			import FuzzyKnightsClient from "./client/FuzzyKnightsClient.js";
+			import FKBootstrap from "./FuzzyKnights.js";
 
 			$(document).ready(function() {
-				const FuzzyKnights = (new FuzzyKnightsClient(window)).GetFuzzyKnights();
+				const FuzzyKnights = (new FKBootstrap(window)).GetFuzzyKnights();
 				
-				console.log("[Loaded] FuzzyKnights and FuzzyKnights Client");
+				console.log("[Loaded] FuzzyKnights");
 				console.log(FuzzyKnights);
 			});
 		</script>
