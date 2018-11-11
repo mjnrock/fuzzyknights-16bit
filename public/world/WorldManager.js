@@ -1,11 +1,11 @@
 class WorldManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
-		this.TileManager = this.FuzzyKnights.World.Tile.TileManager;
+		this.MapManager = this.FuzzyKnights.World.MapManager;
 	}
 
 	Tick(time) {
-		this.TileManager.Tick(time);
+		this.MapManager.Tick(time);
 	}
 }
 

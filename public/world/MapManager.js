@@ -1,7 +1,7 @@
-import { Grid } from "../../utility/Grid.js";
+import { Grid } from "../utility/Grid.js";
 import { Map } from "./Map.js";
 
-class TileManager {
+class MapManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 		this.Maps = new Grid(5, 5, Map);
@@ -44,4 +44,4 @@ class TileManager {
 	}
 }
 
-export { TileManager };
+export { MapManager };

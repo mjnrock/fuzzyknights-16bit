@@ -19,9 +19,9 @@ class FuzzyKnights {
 		//@ EntityManager
 		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Entity.EntityManager);
-		//@ TileManager
-		this.FuzzyKnights.World.Tile.TileManager = new this.FuzzyKnights.World.Tile.TileManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.World.Tile.TileManager);
+		//@ MapManager
+		this.FuzzyKnights.World.MapManager = new this.FuzzyKnights.World.MapManager(this.FuzzyKnights);
+		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.World.MapManager);
 		//@ WorldManager
 		this.FuzzyKnights.World.WorldManager = new this.FuzzyKnights.World.WorldManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.World.WorldManager);

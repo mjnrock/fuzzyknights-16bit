@@ -1,8 +1,17 @@
-import Tile from "./tile/package.js";
+import { Node } from "./Node.js";
+import { Map } from "./Map.js";
+
+import { MapGenerator } from "./MapGenerator.js";
+import { MapManager } from "./MapManager.js";
+
 import { WorldManager } from "./WorldManager.js";
 
 export default {
-	Tile,
+	Node,
+	Map,
+
+	MapGenerator,
+	MapManager,
 
 	WorldManager
 };
