@@ -34,6 +34,8 @@ class MessageManager {
 			}
 		}
 
+		console.log(msg);
+
 		return false;
 	}
 
@@ -59,6 +61,8 @@ class MessageManager {
 			handler = this.FuzzyKnights.Event.Handler.InputHandler;
 		} else if(msg.HandlerType === EnumHandlerType.ENTITY) {
 			handler = this.FuzzyKnights.Event.Handler.EntityHandler;
+		} else if(msg.HandlerType === EnumHandlerType.KEY) {
+			handler = this.FuzzyKnights.Event.Handler.KeyHandler;
 		}
 
 		if(handler) {

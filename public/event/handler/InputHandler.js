@@ -8,13 +8,7 @@ class InputHandler {
 	}
 
 	onInputPlayerKeyState(msg, state) {
-		if(!this.FuzzyKnights.IsServer) {
-			this.FuzzyKnights.Message.Packet.PacketManager.SpawnServer(msg);
-		} else {
-			//TODO Lookup msg.Sender (which should be player UUID here), grab Player's Entity UUID and pass below
-			//	msg.Sender
-			// this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent();
-		}
+		console.log(...arguments);
 	}
 
 	ProcessMessage(msg) {

@@ -8,6 +8,7 @@ import { EntityConstructionEvent } from "./EntityConstructionEvent.js";
 import { EntityDestructionEvent } from "./EntityDestructionEvent.js";
 
 import Handler from "./handler/package.js";
+import Listener from "./listener/package.js";
 
 export default {
 	Event,
@@ -20,6 +21,7 @@ export default {
 	EntityDestructionEvent,
 
 	Handler,
+	Listener,
 
 	Spawn: {
 		Event: (...args) => new Event(...args),

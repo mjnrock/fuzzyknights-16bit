@@ -1,7 +1,7 @@
-import Bitwise from "./../../utility/Bitwise.js";
-import EnumPlayerKeyState from "./../../enum/bitwise/PlayerKeyState.js";
+import Bitwise from "../../utility/Bitwise.js";
+import EnumPlayerKeyState from "../../enum/bitwise/PlayerKeyState.js";
 
-class KeyHandler {
+class KeyListener {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 
@@ -24,7 +24,6 @@ class KeyHandler {
 		}
 
 		this.FlagController(e.keyCode, false);
-		// (new this.FuzzyKnights.Message.InputKeyboardMessage(e)).Send();
 		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
 			(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
 		}
@@ -39,7 +38,6 @@ class KeyHandler {
 		this.PreviousPlayerKeyState = this.PlayerKeyState;
 		this.FlagController(e.keyCode, true);
 		
-		// (new this.FuzzyKnights.Message.InputKeyboardMessage(e)).Send();
 		if(!e.repeat && this.PreviousPlayerKeyState !== this.PlayerKeyState) {
 			(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
 		}
@@ -58,4 +56,4 @@ class KeyHandler {
 	}
 }
 
-export { KeyHandler };
+export { KeyListener };

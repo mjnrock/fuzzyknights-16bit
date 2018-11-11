@@ -11,8 +11,6 @@ import { EntityDestructionMessage } from "./EntityDestructionMessage.js";
 
 import MessageManager from "./MessageManager.js";
 
-import Packet from "./packet/package.js";
-
 export default {
 	Message,
 	
@@ -28,6 +26,5 @@ export default {
 	EntityConstructionMessage,
 	EntityDestructionMessage,
 
-	MessageManager,
-	Packet
+	MessageManager
 };

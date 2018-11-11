@@ -8,6 +8,8 @@ import Entity from "./entity/package.js";
 import World from "./world/package.js";
 import Game from "./game/package.js";
 
+import Render from "./render/package.js";
+
 export default {
 	Utility,
 
@@ -18,5 +20,7 @@ export default {
 	Component,
 	Entity,
 	World,
-	Game
+	Game,
+
+	Render
 };

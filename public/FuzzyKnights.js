@@ -16,9 +16,6 @@ class FuzzyKnights {
 		this.FuzzyKnights.Message.MessageManager = new this.FuzzyKnights.Message.MessageManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Message.MessageManager);
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
-		//@ PacketManager
-		this.FuzzyKnights.Message.Packet.PacketManager = new this.FuzzyKnights.Message.Packet.PacketManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Message.Packet.PacketManager);
 		//@ EntityManager
 		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Entity.EntityManager);
@@ -34,11 +31,13 @@ class FuzzyKnights {
 		this.FuzzyKnights.Event.Handler.PlayerHandler = new this.FuzzyKnights.Event.Handler.PlayerHandler(this.FuzzyKnights);
 		//@ InputHandler
 		this.FuzzyKnights.Event.Handler.InputHandler = new this.FuzzyKnights.Event.Handler.InputHandler(this.FuzzyKnights);
-		//@ KeyHandler
-		this.FuzzyKnights.Event.Handler.KeyHandler = new this.FuzzyKnights.Event.Handler.KeyHandler(this.FuzzyKnights);
 		//@ EntityHandler
 		this.FuzzyKnights.Event.Handler.EntityHandler = new this.FuzzyKnights.Event.Handler.EntityHandler(this.FuzzyKnights);
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
+
+		
+		//@ KeyListener
+		this.FuzzyKnights.Event.Listener.KeyListener = new this.FuzzyKnights.Event.Listener.KeyListener(this.FuzzyKnights);
 
 		//@ Component Mutators
 		this.FuzzyKnights.Component.Mutator.Attributes = new this.FuzzyKnights.Component.Mutator.Attributes(this.FuzzyKnights);
