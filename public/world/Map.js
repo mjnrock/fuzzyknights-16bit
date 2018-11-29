@@ -4,10 +4,15 @@ import { Grid } from "../utility/Grid.js";
 import { Node } from "./Node.js";
 import { Position } from "../utility/physics/Position.js";
 
+import { Grass } from "./../entity/terrain/Grass.js";
+
 class Map {
 	constructor(xmax, ymax) {
 		this.Grid = new Grid(xmax, ymax, Node, (x, y, t) => {
-			return [x, y];
+			// return [x, y];
+
+			//DEBUG
+			return [x, y, [new Grass()]];
 		});
 
 		this.HasCreatures = false;

@@ -20,10 +20,10 @@
 		<script type="module">
 			console.log("[Loading...] FuzzyKnights");
 
-			import FKBootstrap from "./FuzzyKnights.js";
+			import FK from "./FuzzyKnights.js";
 
 			$(document).ready(function() {
-				const FuzzyKnights = (new FKBootstrap(window)).GetFuzzyKnights();
+				const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
 				
 				console.log("[Loaded] FuzzyKnights");
 				console.log(FuzzyKnights);
