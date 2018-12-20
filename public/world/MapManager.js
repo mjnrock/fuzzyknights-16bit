@@ -1,6 +1,8 @@
 import { Grid } from "../utility/Grid.js";
 import { Map } from "./Map.js";
 
+import { MapGenerator } from "./MapGenerator.js";
+
 class MapManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
@@ -9,7 +11,7 @@ class MapManager {
 		this.MapLookup = {};
 
 		//DEBUG
-		this.SetMap(0, 0, new Map(50, 50));
+		this.SetMap(0, 0, new Map(MapGenerator.RandomAverage(50, 50).Run().Cells));
 	}
 
 	GetMaps() {

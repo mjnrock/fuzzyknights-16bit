@@ -96,6 +96,13 @@ class RandomAverage {
 		return this;
 	}
 
+	GetGrid() {
+		return this.Cells;
+	}
+	GetMap() {
+		
+	}
+
 	GetNeighbors(x, y) {
 		let value = 0,
 			count = 0;

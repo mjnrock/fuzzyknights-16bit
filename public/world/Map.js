@@ -7,13 +7,17 @@ import { Position } from "../utility/physics/Position.js";
 import { Grass } from "./../entity/terrain/Grass.js";
 
 class Map {
-	constructor(xmax, ymax) {
-		this.Grid = new Grid(xmax, ymax, Node, (x, y, t) => {
-			// return [x, y];
+	constructor(...args) {
+		if(args.length === 1 && args[0] instanceof Grid) {
+			this.Grid = args[0];
+		} else {
+			this.Grid = new Grid(args[0], args[1], Node, (x, y, t) => {
+				// return [x, y];
 
-			//DEBUG
-			return [x, y, [new Grass()]];
-		});
+				//DEBUG
+				return [x, y, [new Grass()]];
+			});
+		}
 
 		this.HasCreatures = false;
 		this.DefaultSpawn = new Position(0, 0);
