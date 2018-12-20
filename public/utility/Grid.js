@@ -22,6 +22,13 @@ class Grid {
 		}
 	}
 
+	GetType() {
+		return this.Type;
+	}
+	SetType(type) {
+		this.Type = type;
+	}
+
 	/**
 	 * @param any value | The value to search for
 	 * @param function(value, this.Elements, this) comparator | A custom comparator function that should return TRUE or FALSE, otherwise the result will be implicitly converted to BOOLEAN anyway
@@ -75,10 +82,10 @@ class Grid {
 		return this.XMax * this.YMax;
 	}
 
-	ForEach(callback, args) {
+	ForEach(callback, ...args) {
 		for(let y = 0; y < this.YMax; y++) {
 			for(let x = 0; x < this.XMax; x++) {
-				callback({X: x, Y: y}, this.Elements[y][x], this, args);
+				callback({X: x, Y: y}, this.Elements[y][x], this, ...args);
 			}
 		}
 

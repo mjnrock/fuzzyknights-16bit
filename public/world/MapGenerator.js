@@ -2,6 +2,7 @@ import Functions from "../utility/Functions.js";
 import Dice from "../utility/Dice.js";
 
 import { Grid } from "../utility/Grid.js";
+import { Map } from "./Map.js";
 
 //TODO CellularAutomata is complete for T/F, but needs a more meaningful generation paradigm
 class CellularAutomata {
@@ -96,11 +97,19 @@ class RandomAverage {
 		return this;
 	}
 
-	GetGrid() {
+	GetGrid(run = true) {
+		if(run) {
+			this.Run();
+		}
+
 		return this.Cells;
 	}
-	GetMap() {
+	GetMap(run = true) {
+		if(run) {
+			this.Run();
+		}
 		
+		return new Map(this.Cells);
 	}
 
 	GetNeighbors(x, y) {

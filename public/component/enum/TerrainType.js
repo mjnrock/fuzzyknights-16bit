@@ -13,4 +13,12 @@ TerrainType.Lookup = function(value) {
 	return false;
 };
 
+TerrainType.ForEach = function(callback, ...args) {
+	for(let key in TerrainType) {
+		if(typeof TerrainType[key] === "number") {
+			callback(key, TerrainType[key], ...args);
+		}
+	}
+};
+
 export default TerrainType;

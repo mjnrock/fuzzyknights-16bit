@@ -9,9 +9,6 @@ class MapManager {
 		this.Maps = new Grid(5, 5, Map);
 		
 		this.MapLookup = {};
-
-		//DEBUG
-		this.SetMap(0, 0, new Map(MapGenerator.RandomAverage(50, 50).Run().Cells));
 	}
 
 	GetMaps() {

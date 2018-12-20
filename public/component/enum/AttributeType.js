@@ -22,4 +22,12 @@ AttributeType.Lookup = function(value) {
 	return false;
 };
 
+AttributeType.ForEach = function(callback, ...args) {
+	for(let key in AttributeType) {
+		if(typeof AttributeType[key] === "number") {
+			callback(key, AttributeType[key], ...args);
+		}
+	}
+};
+
 export default AttributeType;

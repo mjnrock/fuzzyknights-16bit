@@ -1,17 +1,25 @@
 import EnumComponentType from "./enum/ComponentType.js";
+import EnumAttributeType from "./enum/AttributeType.js";
 
 import { Component } from "./Component.js";
 import { Attribute } from "./element/Attribute.js";
 
 class Attributes extends Component {
 	/**
+	 * No param passed will result in ALL attributes being added with "value = 0"
 	 * @param [[EnumAttributeType, Value, ?[Modifiers]], ...] attributes : [Modifiers] parameter is optional
 	 */
 	constructor(attributes = []) {
 		super(EnumComponentType.ATTRIBUTES);
 
-		for(let i in attributes) {
-			this.Elements[attributes[i][0]] = new Attribute(...attributes[i]);
+		if(attributes.length === 0) {
+			EnumAttributeType.ForEach((k, attr) => {
+				this.Elements[attr] = new Attribute(attr, 0);
+			});
+		} else {
+			for(let i in attributes) {
+				this.Elements[attributes[i][0]] = new Attribute(...attributes[i]);
+			}
 		}
 	}
 	

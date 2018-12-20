@@ -17,4 +17,12 @@ AttributeModifierType.Lookup = function(value) {
 	return false;
 };
 
+AttributeModifierType.ForEach = function(callback, ...args) {
+	for(let key in AttributeModifierType) {
+		if(typeof AttributeModifierType[key] === "number") {
+			callback(key, AttributeModifierType[key], ...args);
+		}
+	}
+};
+
 export default AttributeModifierType;

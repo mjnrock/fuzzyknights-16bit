@@ -4,11 +4,11 @@ import { Entity } from "../Entity.js";
 
 class Terrain extends Entity {
 	constructor(type, nav, meta = null, components = []) {
-		super(EnumEntityType.TERRAIN);
+		super(EnumEntityType.TERRAIN, components);
 
 		this.Components = [
-			new Components.TerrainInfo(type, nav, meta),
-			...components
+			...this.Components,
+			new Components.TerrainInfo(type, nav, meta)
 		];
 	}
 }

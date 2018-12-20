@@ -10,12 +10,14 @@ class Map {
 	constructor(...args) {
 		if(args.length === 1 && args[0] instanceof Grid) {
 			this.Grid = args[0];
+			this.Grid.SetType(Node);
+			this.Grid.ForEach((pos, element, grid) => {
+				//TODO "new Grass()" should be dynamically read from the input and converted into appropriate Terrain
+				grid.Set(pos.X, pos.Y, new Node(pos.X, pos.Y, new Grass()));
+			});
 		} else {
 			this.Grid = new Grid(args[0], args[1], Node, (x, y, t) => {
-				// return [x, y];
-
-				//DEBUG
-				return [x, y, [new Grass()]];
+				return [x, y];
 			});
 		}
 

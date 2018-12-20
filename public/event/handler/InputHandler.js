@@ -8,7 +8,21 @@ class InputHandler {
 	}
 
 	onInputPlayerKeyState(msg, state) {
-		console.log(...arguments);
+		// console.log(...arguments);
+
+		//TODO	Add Velocities here
+		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
+			console.log("MOVE - LEFT");
+		}
+		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
+			console.log("MOVE - RIGHT");
+		}
+		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
+			console.log("MOVE - UP");
+		}
+		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
+			console.log("MOVE - DOWN");
+		}
 	}
 
 	ProcessMessage(msg) {
@@ -25,7 +39,8 @@ class InputHandler {
 		if(this.FuzzyKnights.IsServer) {
 			console.log(`[MESSAGE RECEIVED - InputHander]: ${msg.MessageType}`);
 		} else {
-			console.log(`[MESSAGE RECEIVED]: ${msg.MessageType}`, msg);
+			// console.log(`[MESSAGE RECEIVED]: ${msg.MessageType}`, msg);
+			console.log(`[MESSAGE RECEIVED - InputHander]: ${msg.MessageType}`);
 		}
 	}
 }

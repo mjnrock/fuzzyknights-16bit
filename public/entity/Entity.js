@@ -10,8 +10,8 @@ class Entity {
 
 		this.Components = [
 			new States([
-				[EnumStateType.ACTION, 0],
-				[EnumStateType.MOVEMENT, 0]
+				[ EnumStateType.ACTION, 0 ],
+				[ EnumStateType.MOVEMENT, 0 ]
 			]),
 			...components
 		];

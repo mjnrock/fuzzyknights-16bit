@@ -13,4 +13,12 @@ ResourceType.Lookup = function(value) {
 	return false;
 };
 
+ResourceType.ForEach = function(callback, ...args) {
+	for(let key in ResourceType) {
+		if(typeof ResourceType[key] === "number") {
+			callback(key, ResourceType[key], ...args);
+		}
+	}
+};
+
 export default ResourceType;

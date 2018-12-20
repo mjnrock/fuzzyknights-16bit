@@ -17,4 +17,12 @@ NavigabilityType.Lookup = function(value) {
 	return false;
 };
 
+NavigabilityType.ForEach = function(callback, ...args) {
+	for(let key in NavigabilityType) {
+		if(typeof NavigabilityType[key] === "number") {
+			callback(key, NavigabilityType[key], ...args);
+		}
+	}
+};
+
 export default NavigabilityType;

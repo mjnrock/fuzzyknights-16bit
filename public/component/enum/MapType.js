@@ -14,4 +14,12 @@ MapType.Lookup = function(value) {
 	return false;
 };
 
+MapType.ForEach = function(callback, ...args) {
+	for(let key in MapType) {
+		if(typeof MapType[key] === "number") {
+			callback(key, MapType[key], ...args);
+		}
+	}
+};
+
 export default MapType;

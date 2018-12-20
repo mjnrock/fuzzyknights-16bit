@@ -6,6 +6,18 @@ class FuzzyKnights {
 		this.Window = window;
 
 		this.Initialize();
+		this.BuildGame();
+	}
+
+	BuildGame() {
+		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(5, 5).GetMap();
+		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Creature());
+
+		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
+		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
+
+		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Player.Entity, Map);
+		console.log(Player);
 	}
 
 	Initialize() {

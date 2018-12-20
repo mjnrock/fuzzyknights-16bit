@@ -1,4 +1,5 @@
 import EnumComponentType from "./enum/ComponentType.js";
+import EnumResourceType from "./enum/ResourceType.js";
 
 import { Component } from "./Component.js";
 import { Resource } from "./element/Resource.js";
@@ -10,8 +11,14 @@ class Resources extends Component {
 	constructor(resources = []) {
 		super(EnumComponentType.RESOURCES);
 
-		for(let i in resources) {
-			this.Elements[resources[i][0]] = new Resource(...resources[i]);
+		if(resources.length === 0) {
+			EnumResourceType.ForEach((k, res) => {
+				this.Elements[res] = new Resource(res, 0);
+			});
+		} else {
+			for(let i in resources) {
+				this.Elements[resources[i][0]] = new Resource(...resources[i]);
+			}
 		}
 	}
 
