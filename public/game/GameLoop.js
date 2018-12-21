@@ -2,6 +2,7 @@ class GameLoop {
 	constructor(ticksPerSecond = 5) {
 		this.TicksPerSecond = ticksPerSecond;
 		this.TickHook = null;
+		this.RenderHook = null;
 
 		this.Ticks = 0;
 		this.LastTime = 0;
@@ -26,6 +27,11 @@ class GameLoop {
 
 		return this;
 	}
+	SetRenderHook(callback) {
+		this.RenderHook = callback;
+
+		return this;
+	}
 
 	IsRunning() {
 		return (!this.IsPaused) && (this.Ticker !== null && this.Ticker !== void 0);
@@ -42,6 +48,7 @@ class GameLoop {
 			},
 			1000 / this.TicksPerSecond
 		);
+		requestAnimationFrame(this.Render.bind(this));
 
 		//DEBUG
 		// console.log("[Started] Game Loop...");
@@ -80,6 +87,12 @@ class GameLoop {
 		this.TickHook(ms / 1000);
 
 		// console.timeEnd("Tick");
+	}
+	Render(time) {
+		time = (+Date.now() - this.LastTime) / 1000;
+		this.RenderHook(time);
+
+		requestAnimationFrame(this.Render.bind(this));
 	}
 }
 

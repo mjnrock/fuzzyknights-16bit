@@ -6,14 +6,22 @@ class FuzzyKnights {
 		this.Window = window;
 
 		this.Init().PostInit().BuildPlayer();
-		this.RenderInit();
+		this.RenderInit().RenderRegistry();
 
+		console.log(this.FuzzyKnights.Game.GameManager);
 		this.FuzzyKnights.Game.GameLoop.Run();
 	}
 
 	RenderInit() {
 		//@ RenderManager
-		this.FuzzyKnights.Render.ViewPort = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights);
+		this.FuzzyKnights.Render.RenderManager = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights);
+		this.FuzzyKnights.Game.GameManager.AddRenderManager(this.FuzzyKnights.Render.RenderManager);
+		
+		return this;
+	}
+
+	RenderRegistry() {
+		this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Entity.Creature.Raccoon, this.FuzzyKnights.Render.Entity.Creature.Raccoon);
 		
 		return this;
 	}
@@ -24,17 +32,17 @@ class FuzzyKnights {
 
 		//@ MessageManager
 		this.FuzzyKnights.Message.MessageManager = new this.FuzzyKnights.Message.MessageManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Message.MessageManager);
+		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Message.MessageManager);
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		//@ EntityManager
 		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.Entity.EntityManager);
+		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Entity.EntityManager);
 		//@ MapManager
 		this.FuzzyKnights.World.MapManager = new this.FuzzyKnights.World.MapManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.World.MapManager);
+		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.World.MapManager);
 		//@ WorldManager
 		this.FuzzyKnights.World.WorldManager = new this.FuzzyKnights.World.WorldManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddManager(this.FuzzyKnights.World.WorldManager);
+		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.World.WorldManager);
 		
 
 		//@ PlayerHandler

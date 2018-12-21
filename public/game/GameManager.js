@@ -3,7 +3,8 @@ class GameManager {
 		this.FuzzyKnights = fk;
 		this.GameLoop = this.FuzzyKnights.Game.GameLoop;
 
-		this.Managers = [];
+		this.TickManagers = [];
+		this.RenderManagers = [];
 
 		this.Player = player;
 		
@@ -14,10 +15,16 @@ class GameManager {
 		});
 		
 		this.GameLoop.SetTickHook((time) => this.Tick(time));
+		this.GameLoop.SetRenderHook((time) => this.Render(time));
 	}
 
-	AddManager(manager) {
-		this.Managers.push(manager);
+	AddTickManager(manager) {
+		this.TickManagers.push(manager);
+
+		return this;
+	}
+	AddRenderManager(manager) {
+		this.RenderManagers.push(manager);
 
 		return this;
 	}
@@ -32,9 +39,17 @@ class GameManager {
 	}
 
 	Tick(time) {
-		for(let i = 0; i < this.Managers.length; i++) {
-			this.Managers[i].Tick(time);
-		}
+		// for(let i = 0; i < this.TickManagers.length; i++) {
+		// 	this.TickManagers[i].Tick(time);
+		// }
+		this.TickManagers.forEach(t => t.Tick(time));
+	}
+
+	Render(time) {
+		// for(let i = 0; i < this.RenderManagers.length; i++) {
+		// 	this.RenderManagers[i].Render(time);
+		// }
+		this.RenderManagers.forEach(r => r.Render(time));
 	}
 }
 

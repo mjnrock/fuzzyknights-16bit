@@ -40,6 +40,10 @@ class Canvas {
 		this.ReScale();
 	}
 
+	PreDraw() {
+		this.Context.clearRect(0, 0, this.Width, this.Height);
+	}
+
 	/**
 	 * 
 	 * @param {number} scale ?1.0 | Change this.Scale to @scale

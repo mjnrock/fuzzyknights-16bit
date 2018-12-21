@@ -41,6 +41,16 @@ class EntityManager {
 		return this;
 	}
 
+	ForEach(callback, ...args) {
+		if(typeof callback === "function") {
+			for(let uuid in this.Entities) {
+				callback(this.Entities[uuid], ...args);
+			}
+		}
+
+		return this;
+	}
+
 	Tick(time) {
 		for(let uuid in this.Entities) {
 			this.Entities[uuid].Tick(time);

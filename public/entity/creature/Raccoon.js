@@ -14,8 +14,8 @@ class Raccoon extends Creature {
 	Tick(time) {
 		super.Tick(time);
 
-		let comp = Components.Mutator.Maps.GetComponent(this);
-		console.log(comp.ActiveMap.Position);
+		// let comp = Components.Mutator.Maps.GetComponent(this);
+		// console.log(comp.ActiveMap.Position);
 	}
 }
 

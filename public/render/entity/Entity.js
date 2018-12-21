@@ -35,6 +35,13 @@ class Entity {
 			this.Image.onload = (e) => onload(this, e);
 		}
 	}
+
+	GetFilename() {
+		return this.Filename;
+	}
+	GetImage() {
+		return this.Image;
+	}
 }
 
 export { Entity };
