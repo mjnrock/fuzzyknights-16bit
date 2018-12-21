@@ -5,7 +5,7 @@ class FuzzyKnights {
 		this.FuzzyKnights = FKFiles;
 		this.Window = window;
 
-		this.Init().BuildPlayer().PostInit();
+		this.Init().PostInit().BuildPlayer();
 		this.RenderInit();
 
 		this.FuzzyKnights.Game.GameLoop.Run();
@@ -13,7 +13,7 @@ class FuzzyKnights {
 
 	RenderInit() {
 		//@ RenderManager
-		this.FuzzyKnights.Render.ViewPort = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights, "viewport");
+		this.FuzzyKnights.Render.ViewPort = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights);
 		
 		return this;
 	}
@@ -62,7 +62,7 @@ class FuzzyKnights {
 	//	Build the game for the player
 	BuildPlayer() {
 		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(5, 5).GetMap();
-		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Creature());
+		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
 
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
 		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);

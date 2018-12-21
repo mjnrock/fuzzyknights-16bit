@@ -1,5 +1,7 @@
 import { Creature } from "./Creature.js";
+import { Raccoon } from "./Raccoon.js";
 
 export default {
-	Creature
+	Creature,
+	Raccoon
 };

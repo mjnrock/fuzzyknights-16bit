@@ -12,14 +12,17 @@
 		<!-- <script src="./assets/js/preloadjs.min.js"></script> -->
 		<!-- <script src="./assets/js/soundjs.min.js"></script> -->
 		<!-- <script src="./assets/js/tweenjs.min.js"></script> -->
-		<script src="./assets/js/createjs.min.js"></script>
+		<!-- <script src="./assets/js/createjs.min.js"></script> -->
 
 		<link rel="shortcut icon" href="./assets/image/favicon.ico" />
 
 		<title>FuzzyKnights</title>
 	</head>
 	<body>
-		<canvas id="viewport" width="500" height="500"></canvas>
+		<div style="position: relative;">
+			<canvas id="terrain" width="500" height="500" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+			<canvas id="entity" width="500" height="500" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+		</div>
 
 		<script type="module">
 			console.log("[Loading...] FuzzyKnights");

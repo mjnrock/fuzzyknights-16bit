@@ -5,6 +5,7 @@ import { WeightedPool } from "./WeightedPool.js";
 import { LinkedList } from "./LinkedList.js";
 import { OrderedList } from "./OrderedList.js";
 import { Grid } from "./Grid.js";
+import Canvas from "./Canvas.js";
 
 import Physics from "./physics/package.js";
 
@@ -16,6 +17,7 @@ export default {
 	LinkedList,
 	OrderedList,
 	Grid,
+	Canvas,
 
 	Physics
 };
