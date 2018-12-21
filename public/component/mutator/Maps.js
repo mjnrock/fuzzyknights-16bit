@@ -16,7 +16,7 @@ class Maps extends Mutator {
 	}
 
 	GetMap(entity) {
-		return this.FuzzyKnights.World.Tile.TileManager.FindMap(
+		return this.FuzzyKnights.World.MapManager.FindMap(
 			this.GetComponent(entity).ActiveMap.MapIdentifier
 		);
 	}	
@@ -33,11 +33,30 @@ class Maps extends Mutator {
 		return this;
 	}
 
+	GetPosition(entity) {
+		return this.GetComponent(entity).ActiveMap.Position;
+	}
 	SetPosition(entity, x, y) {
 		return this.GetComponent(entity).ActiveMap.Position.Set(x, y);
 	}
-	GetPosition(entity) {
-		return this.GetComponent(entity).ActiveMap.Position;
+	//TODO This could be a lot of processing per tick at scale, create an IsDirty flag in each component (at a minimum this one)
+	CalcPosition(entity, time) {
+		let pos = this.GetPosition(entity),
+			vel = this.GetVelocity(entity),
+			map = this.GetMap(entity),
+			x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax),
+			y = this.FuzzyKnights.Utility.Functions.Clamp(pos.Y + (vel.Vector.Y * time), 0, map.Grid.YMax);
+
+		this.SetPosition(entity, x, y);
+	}
+
+	GetVelocity(entity) {
+		return this.GetComponent(entity).Velocity;
+	}
+	SetVelocity(entity, x = 0, y = 0, r = 0) {
+		this.GetComponent(entity).Velocity = this.FuzzyKnights.Utility.Physics.Velocity.Generate(x, y, r);
+
+		return this;
 	}
 
 	Place(entity, x0, y0, x1, y1) {

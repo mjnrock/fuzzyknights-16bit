@@ -1,5 +1,5 @@
-import Camera from "./Camera.js";
+import { RenderManager } from "./RenderManager.js";
 
 export default {
-	Camera
+	RenderManager
 };

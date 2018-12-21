@@ -1,6 +1,5 @@
 import { NewUUID } from "../utility/Functions.js";
-import { States } from "./../component/States.js";
-import EnumStateType from "./../component/enum/StateType.js";
+import Components from "./../component/package.js";
 
 class Entity {
 	constructor(type, components = []) {
@@ -9,16 +8,16 @@ class Entity {
 		this.UUID = NewUUID();
 
 		this.Components = [
-			new States([
-				[ EnumStateType.ACTION, 0 ],
-				[ EnumStateType.MOVEMENT, 0 ]
+			new Components.States([
+				[ Components.Enum.StateType.ACTION, 0 ],
+				[ Components.Enum.StateType.MOVEMENT, 0 ]
 			]),
 			...components
 		];
 	}
 
 	Tick(time) {
-		console.log("Entity - Tick", this.UUID, time);
+		// console.log("Entity - Tick", this.UUID, time);
 	}
 }
 

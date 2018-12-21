@@ -70,12 +70,16 @@ class GameLoop {
 	}
 
 	Tick(time) {
+		// console.time("Tick");
+		
 		++this.Ticks;
 
 		let ms = time - this.LastTime;
 		this.LastTime = time;
 
 		this.TickHook(ms / 1000);
+
+		// console.timeEnd("Tick");
 	}
 }
 

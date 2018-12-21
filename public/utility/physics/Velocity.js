@@ -1,4 +1,5 @@
 import { Position } from "./Position.js";
+import { Vector } from "./Vector.js";
 import { Rotation } from "./Rotation.js";
 
 class Velocity {
@@ -44,6 +45,10 @@ class Velocity {
 			orientation.Yaw + (this.Rotation.Yaw * ms / 1000),
 			orientation.IsRadians
 		);
+	}
+
+	static Generate(x = 0, y = 0, r = 0) {
+		return new Velocity(new Vector(x, y), new Rotation(r));
 	}
 }
 

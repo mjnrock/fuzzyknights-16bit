@@ -7,8 +7,18 @@ class MapManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 		this.Maps = new Grid(5, 5, Map);
+		this.ActiveMap = null;
 		
 		this.MapLookup = {};
+	}
+
+	GetActiveMap() {
+		return this.ActiveMap;
+	}
+	SetActiveMap(uuid) {
+		this.ActiveMap = this.FindMap(uuid);
+
+		return this;
 	}
 
 	GetMaps() {

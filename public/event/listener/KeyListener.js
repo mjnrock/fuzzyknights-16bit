@@ -24,9 +24,7 @@ class KeyListener {
 		}
 
 		this.FlagController(e.keyCode, false);
-		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
-			(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
-		}
+		(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
 	}
 
 	//*	e.repeat === true allows detection of a continuous press
@@ -38,7 +36,7 @@ class KeyListener {
 		this.PreviousPlayerKeyState = this.PlayerKeyState;
 		this.FlagController(e.keyCode, true);
 		
-		if(!e.repeat && this.PreviousPlayerKeyState !== this.PlayerKeyState) {
+		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
 			(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
 		}
 	}

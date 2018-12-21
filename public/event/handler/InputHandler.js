@@ -10,19 +10,28 @@ class InputHandler {
 	onInputPlayerKeyState(msg, state) {
 		// console.log(...arguments);
 
-		//TODO	Add Velocities here
+		let vel = this.FuzzyKnights.Game.GameManager.Settings.Movement.Velocity,
+			x = 0,
+			y = 0,
+			r = 0;
+
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-			console.log("MOVE - LEFT");
+			x += -vel;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-			console.log("MOVE - RIGHT");
+			x += vel;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-			console.log("MOVE - UP");
+			y += -vel;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-			console.log("MOVE - DOWN");
+			y += vel;
 		}
+
+		this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
+
+		//	DEBUG
+		console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));
 	}
 
 	ProcessMessage(msg) {
