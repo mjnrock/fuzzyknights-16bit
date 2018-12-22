@@ -8,8 +8,7 @@ class Creature extends Entity {
 
 		this.Components.push(
 			new Components.Attributes(),
-			new Components.Resources(),
-			new Components.Maps(Components.Enum.MapType.TILE, 0, 0)
+			new Components.Resources()
 		);
 	}
 

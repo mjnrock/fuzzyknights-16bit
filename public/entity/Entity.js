@@ -12,7 +12,8 @@ class Entity {
 			new Components.States([
 				[ Components.Enum.StateType.ACTION, 0 ],
 				[ Components.Enum.StateType.MOVEMENT, 0 ]
-			])
+			]),
+			new Components.Maps(Components.Enum.MapType.TILE, 0, 0)
 		);
 	}
 

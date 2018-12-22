@@ -9,6 +9,8 @@ class RenderManager {
 		console.log(this.Canvas);
 
 		this.Assets = {};
+		this.Entities = {};
+		this.Terrain = {};
 
 		new this.FuzzyKnights.Render.Entity.Terrain.Grass((t) => {
 			for(let x = 0; x <= 5; x++) {
@@ -30,25 +32,58 @@ class RenderManager {
 
 		return schema;
 	}
-	Register(clazz, render) {
+
+	Register(entity, isTerrain = false) {
+		let cName = this.GetSchema(entity.constructor),
+			model = new (this.Assets[cName].Render)(this.FuzzyKnights, entity);
+
+		if(isTerrain === false) {
+			this.Entities[entity.UUID] = model;
+		} else {
+			this.Terrain[entity.UUID] = model;
+		}
+	}
+	
+	LinkModel(clazz, render) {
 		let cName = this.GetSchema(clazz),
 			rName = this.GetSchema(render);
 
 		this.Assets[cName] = {
 			Class: clazz,
 			ClassPath: cName,
-			Render: (new render()),
+			Render: render,
 			RenderPath: rName
 		};
 
 		return this;
 	}
 
+	ForEachEntity(callback, ...args) {
+		if(typeof callback === "function") {
+			for(let uuid in this.Entities) {
+				callback(this.Entities[uuid], ...args);
+			}
+		}
+
+		return this;
+	}
+	ForEachTerrain(callback, ...args) {
+		if(typeof callback === "function") {
+			for(let uuid in this.Terrain) {
+				callback(this.Terrain[uuid], ...args);
+			}
+		}
+
+		return this;
+	}
+
 	Draw(time) {
 		this.Canvas.Entity.PreDraw();
-		this.FuzzyKnights.Entity.EntityManager.ForEach((e) => {
-			let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(e);
-			this.Canvas.Entity.DrawTile(this.Assets[this.GetSchema(e.constructor)].Render.GetImage(), pos.X, pos.Y, 2);
+		this.ForEachEntity((e) => {
+			this.Canvas.Entity.DrawTile(...e.Render(time));
+		});
+		this.ForEachTerrain((t) => {
+			this.Canvas.Terrain.DrawColoredTile(...t.Render(time));
 		});
 	}
 

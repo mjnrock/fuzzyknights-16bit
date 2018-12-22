@@ -6,10 +6,9 @@ class Terrain extends Entity {
 	constructor(type, nav, meta = null, components = []) {
 		super(EnumEntityType.TERRAIN, components);
 
-		this.Components = [
-			...this.Components,
+		this.Components.push(
 			new Components.TerrainInfo(type, nav, meta)
-		];
+		);
 	}
 }
 

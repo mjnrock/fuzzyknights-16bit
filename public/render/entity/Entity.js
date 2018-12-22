@@ -26,7 +26,9 @@ class Entity {
 		return "entity/";
 	}
 
-	constructor(filename, onload = null) {
+	constructor(fk, entity, filename, onload = null) {
+		this.FuzzyKnights = fk;
+		this.Entity = entity;
 		this.Filename = filename;
 		this.Image = new Image();
 		this.Image.src = Entity.ASSETS(filename);
@@ -41,6 +43,21 @@ class Entity {
 	}
 	GetImage() {
 		return this.Image;
+	}
+	GetEntity() {
+		return this.Entity;
+	}
+
+	Render() {
+		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
+
+		return [
+			this.GetImage(),
+			pos.X,
+			pos.Y,
+			2,		// tx - These need to change based on STATE
+			0		// ty - These need to change based on STATE
+		];
 	}
 }
 

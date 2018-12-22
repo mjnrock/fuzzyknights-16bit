@@ -87,6 +87,17 @@ class Canvas {
 
 		return this;
 	}
+	DrawColoredTile(image, x, y, color = null, sx = 0, sy = 0) {
+		x = x * Canvas.TILE(0);
+		y = y * Canvas.TILE(1);
+		
+		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
+		if(color !== null && color !== void 0) {
+			this.ColorizeTile(x, y, color);
+		}
+
+		return this;
+	}
 
 	/**
 	 * 

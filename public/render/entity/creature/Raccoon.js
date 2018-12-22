@@ -1,8 +1,8 @@
 import { Creature } from "./Creature.js";
 
 class Raccoon extends Creature {
-	constructor() {
-		super("entity-raccoon");
+	constructor(fk, entity) {
+		super(fk, entity, "entity-raccoon");
 	}
 }
 

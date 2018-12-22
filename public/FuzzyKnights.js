@@ -1,4 +1,5 @@
 import FKFiles from "./package.js";
+import registry from "./registry.js"
 
 class FuzzyKnights {
 	constructor(fk = {}) {
@@ -21,7 +22,19 @@ class FuzzyKnights {
 	}
 
 	RenderRegistry() {
-		this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Entity.Creature.Raccoon, this.FuzzyKnights.Render.Entity.Creature.Raccoon);
+		let setup = registry(this.FuzzyKnights);
+		console.log(setup);
+		for(let i in setup) {
+			this.FuzzyKnights.Render.RenderManager.LinkModel(setup[i][0], setup[i][1]);
+		}
+
+		//* These have to be moved into an appropriate Game invocation
+		this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
+		this.FuzzyKnights.World.MapManager.GetActiveMap().Grid.ForEach((pos, node, grid) => {
+			let entity = node.GetTerrain()[0];
+			this.FuzzyKnights.Component.Mutator.Maps.SetPosition(entity, pos.X, pos.Y);
+			this.FuzzyKnights.Render.RenderManager.Register(entity, true);
+		});
 		
 		return this;
 	}
@@ -87,6 +100,7 @@ class FuzzyKnights {
 	PostInit() {
 		//@ Major Components' FuzzyKnight Hook
 		this.FuzzyKnights.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Render.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 
 		return this;

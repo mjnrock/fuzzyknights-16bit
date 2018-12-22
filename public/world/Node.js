@@ -8,8 +8,6 @@ class Node {
 	constructor(x, y, entities = null) {
 		this.Location = new Position(x, y);
 		this.Entities = new OrderedList(entities);
-
-		this.HasCreatures = false;
 	}
 
 	GetLocation() {
@@ -69,18 +67,6 @@ class Node {
 
 	GetEntityArray() {
 		return this.Entities.ToArray();
-	}
-
-	CheckCreatures() {
-		this.HasCreatures = this.GetCreatures().length > 0;
-
-		return this;
-	}
-	/**
-	 * A function to determine whether or not the Node needs a Tick() update
-	 */
-	IsOccupied() {
-		return this.HasCreatures;
 	}
 }
 
