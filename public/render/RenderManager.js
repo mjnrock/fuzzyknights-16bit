@@ -11,10 +11,11 @@ class RenderManager {
 		this.Assets = {};
 
 		new this.FuzzyKnights.Render.Entity.Terrain.Grass((t) => {
-			this.Canvas.Terrain.DrawColorizedFitToTile(t.Image, 0, 0, "#296b30", 0.3);
-			this.Canvas.Terrain.DrawColorizedFitToTile(t.Image, 1, 0, "#296b30", 0.3);
-			this.Canvas.Terrain.DrawColorizedFitToTile(t.Image, 1, 1, "#296b30", 0.3);
-			this.Canvas.Terrain.DrawColorizedFitToTile(t.Image, 0, 1, "#296b30", 0.3);
+			for(let x = 0; x <= 5; x++) {
+				for(let y = 0; y <= 5; y++) {
+					this.Canvas.Terrain.DrawColorizedFitToTile(t.Image, x, y, "#296b30");
+				}
+			}
 		});
 	}
 
@@ -46,7 +47,8 @@ class RenderManager {
 	Draw(time) {
 		this.Canvas.Entity.PreDraw();
 		this.FuzzyKnights.Entity.EntityManager.ForEach((e) => {
-			this.Canvas.Entity.DrawFitToTile(this.Assets[this.GetSchema(e.constructor)].Render.GetImage(), 0, 0, 2);
+			let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(e);
+			this.Canvas.Entity.DrawTile(this.Assets[this.GetSchema(e.constructor)].Render.GetImage(), pos.X, pos.Y, 2);
 		});
 	}
 

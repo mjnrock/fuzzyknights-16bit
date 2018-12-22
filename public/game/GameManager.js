@@ -10,7 +10,7 @@ class GameManager {
 		
 		this.Settings = Object.freeze({
 			Movement: {
-				Velocity: 0.35
+				Velocity: 2.5
 			}
 		});
 		
@@ -39,16 +39,10 @@ class GameManager {
 	}
 
 	Tick(time) {
-		// for(let i = 0; i < this.TickManagers.length; i++) {
-		// 	this.TickManagers[i].Tick(time);
-		// }
 		this.TickManagers.forEach(t => t.Tick(time));
 	}
 
 	Render(time) {
-		// for(let i = 0; i < this.RenderManagers.length; i++) {
-		// 	this.RenderManagers[i].Render(time);
-		// }
 		this.RenderManagers.forEach(r => r.Render(time));
 	}
 }

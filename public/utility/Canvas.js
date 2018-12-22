@@ -79,6 +79,15 @@ class Canvas {
 		return this;
 	}
 
+	DrawTile(image, x, y, sx = 0, sy = 0) {
+		x = x * Canvas.TILE(0);
+		y = y * Canvas.TILE(1);
+		
+		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
+
+		return this;
+	}
+
 	/**
 	 * 
 	 * @param {Image} image 
@@ -90,7 +99,6 @@ class Canvas {
 	DrawFitToTile(image, tx, ty, sx = 0, sy = 0) {
 		let x = tx * Canvas.TILE(0),
 			y = ty * Canvas.TILE(1);
-
 		
 		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
 

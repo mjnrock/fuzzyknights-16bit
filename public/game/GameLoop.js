@@ -1,5 +1,5 @@
 class GameLoop {
-	constructor(ticksPerSecond = 5) {
+	constructor(ticksPerSecond = 30) {
 		this.TicksPerSecond = ticksPerSecond;
 		this.TickHook = null;
 		this.RenderHook = null;
