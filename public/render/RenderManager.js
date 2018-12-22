@@ -18,47 +18,40 @@ class RenderManager {
 		});
 	}
 
-	async Register(clazz, render) {
+	GetSchema(clazz) {
 		let c = clazz,
-			cName = clazz.name;
+			schema = clazz.name;
 
 		while(typeof c.__proto__ === "function" && c.__proto__ !== Object && c.__proto__.name.length > 0) {
-			cName = `${ c.__proto__.name }.${ cName }`;
+			schema = `${ c.__proto__.name }.${ schema }`;
 			c = c.__proto__;
 		}
 
-		let r = render,
-			rName = render.name;
-
-		while(typeof r.__proto__ === "function" && r.__proto__ !== Object && r.__proto__.name.length > 0) {
-			rName = `${ r.__proto__.name }.${ rName }`;
-			r = r.__proto__;
-		}
+		return schema;
+	}
+	Register(clazz, render) {
+		let cName = this.GetSchema(clazz),
+			rName = this.GetSchema(render);
 
 		this.Assets[cName] = {
-			ClassPath: cName,
 			Class: clazz,
-			RenderPath: rName,
-			Render: render
+			ClassPath: cName,
+			Render: (new render()),
+			RenderPath: rName
 		};
 
-
-		new render(t => this.Assets[cName]["Render"] = t);
 		return this;
 	}
 
-	Draw() {		
+	Draw(time) {
+		this.Canvas.Entity.PreDraw();
 		this.FuzzyKnights.Entity.EntityManager.ForEach((e) => {
-			new this.FuzzyKnights.Render.Entity.Creature.Raccoon((t) => {
-				this.Canvas.Entity.DrawFitToTile(t.Image, 0, 0, 2);
-			});
+			this.Canvas.Entity.DrawFitToTile(this.Assets[this.GetSchema(e.constructor)].Render.GetImage(), 0, 0, 2);
 		});
 	}
 
 	Render(time) {
-		// this.Canvas.Entity.PreDraw();
-
-		this.Draw();
+		this.Draw(time);
 	}
 }
 

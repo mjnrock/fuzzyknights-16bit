@@ -97,26 +97,21 @@ class Canvas {
 		return this;
 	}
 
-	DrawColorizedFitToTile(image, tx, ty, color, alpha = 0.3, sx = 0, sy = 0) {		
+	DrawColorizedFitToTile(image, tx, ty, color, sx = 0, sy = 0) {		
 		let x = tx * Canvas.TILE(0),
 			y = ty * Canvas.TILE(1);
 
 		this.DrawFitToTile(image, tx, ty, sx = 0, sy = 0);
-		this.Colorize(x, y, color, alpha);
+		this.ColorizeTile(x, y, color);
 
 		return this;
 	}
 
-	//	Not great...
-	Colorize(x, y, color, alpha = 0.3) {
-        this.Context.globalCompositeOperation = "source-atop";
-        this.Context.globalAlpha = alpha;
-        this.Context.fillStyle = color;
+	ColorizeTile(x, y, color = "rgb(54, 132, 54)") {
+		this.Context.globalCompositeOperation = "color";
+		this.Context.fillStyle = color;
 		this.Context.fillRect(x, y, Canvas.TILE(0), Canvas.TILE(1));
-		
-        // reset
-        this.Context.globalCompositeOperation = "source-over";
-        this.Context.globalAlpha = 1.0;
+		this.Context.globalCompositeOperation = "source-over";
     }
 }
 
