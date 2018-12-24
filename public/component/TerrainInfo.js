@@ -3,10 +3,10 @@ import EnumComponentType from "./enum/ComponentType.js";
 import { Component } from "./Component.js";
 
 class TerrainInfo extends Component {
-	constructor(type, nav, meta) {
+	constructor(tt, nav, meta) {
 		super(EnumComponentType.TERRAIN_INFO);
 
-		this.Type = type;
+		this.TerrainType = tt;
 		this.Navigability = nav;
 		this.Meta = meta;
 	}

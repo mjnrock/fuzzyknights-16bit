@@ -1,29 +1,56 @@
 class InputHandler {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
+
+		//TODO Pull the seed numbers from the Settings
+		this.Tile = {
+			Width: 128,
+			Height: 128
+		};
 	}
 
 	onInputMouseMessage(msg) {
 		// console.log(...arguments);
 		if(msg.Payload.Event.type === "mousemove") {
-			let x = msg.Payload.Event.clientX / 128,
-				y = msg.Payload.Event.clientY / 128,
-				pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
-				xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
-				yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
-				d = Math.atan2(xo - x, yo - y) / Math.PI * 180,
-				sectors = 4,
-				sArc = 360 / sectors;
-
-			if(d < 0) {
-				d += 360;
-			}
-			d = Math.abs(d - 360);
-
-			let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360;
-
-			this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+			this.OnMouseMove(msg);
+		} else if(msg.Payload.Event.type === "mousedown") {
+			this.OnMouseDown(msg);
+		} else if(msg.Payload.Event.type === "mouseup") {
+			this.OnMouseUp(msg);
 		}
+	}
+	OnMouseMove(msg) {
+		let x = msg.Payload.Event.clientX / this.Tile.Width,
+			y = msg.Payload.Event.clientY / this.Tile.Height,
+			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+			xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+			yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+			d = Math.atan2(xo - x, yo - y) / Math.PI * 180,
+			sectors = 4,
+			sArc = 360 / sectors;
+
+		if(d < 0) {
+			d += 360;
+		}
+		d = Math.abs(d - 360);
+
+		let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360 || 0;
+
+		this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+	}
+	OnMouseDown(msg) {
+		let tx = Math.floor(msg.Payload.Event.clientX / this.Tile.Width),
+			ty = Math.floor(msg.Payload.Event.clientY / this.Tile.Height);
+
+		// console.log(tx, ty);
+	}
+	OnMouseUp(msg) {
+		let tx = Math.floor(msg.Payload.Event.clientX / this.Tile.Width),
+			ty = Math.floor(msg.Payload.Event.clientY / this.Tile.Height);
+
+		// console.log(tx, ty);
+		//TODO Creatures are not currently stored in Nodes
+		// console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).GetEntityArray());
 	}
 
 	onInputKeyboard(msg) {

@@ -1,5 +1,6 @@
 import EnumComponentType from "../enum/ComponentType.js";
 import EnumMapType from "../enum/MapType.js";
+import EnumNavigabilityType from "../enum/NavigabilityType.js";
 
 import { Mutator } from "./Mutator.js";
 import { Map } from "../element/Map.js";
@@ -43,8 +44,13 @@ class Maps extends Mutator {
 	CalcPosition(entity, time) {
 		let pos = this.GetPosition(entity),
 			vel = this.GetVelocity(entity),
-			map = this.GetMap(entity),
-			x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax - 1),
+			map = this.GetMap(entity);
+
+		//? This part imposes the Navigability constraints of the Terrain on the Velocity (but does NOT overwrite the Entity's Velocity in the Component)
+		let nav = this.ImposeNavigabilityConstraints(entity, map, pos, vel);
+		vel = nav.Velocity;
+		
+		let x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax - 1),
 			y = this.FuzzyKnights.Utility.Functions.Clamp(pos.Y + (vel.Vector.Y * time), 0, map.Grid.YMax - 1);
 
 		let px = pos.X,
@@ -61,6 +67,22 @@ class Maps extends Mutator {
 		this.GetComponent(entity).Velocity = this.FuzzyKnights.Utility.Physics.Velocity.Generate(x, y, r);
 
 		return this;
+	}
+	
+	ImposeNavigabilityConstraints(entity, map = null, pos = null, vel = null) {
+		pos = pos || this.GetPosition(entity);
+		vel = vel || this.GetVelocity(entity);
+		map = map || this.GetMap(entity);
+
+		let terrain = map.GetNode(pos.X + 0.5, pos.Y + 0.5).GetTerrain()[0],
+			nav = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigability(terrain),
+			constraint = EnumNavigabilityType.GetConstraint(nav),
+			vector = vel.Vector.GetValues().map(v => v * constraint);
+
+		return {
+			Terrain: terrain,
+			Velocity: this.FuzzyKnights.Utility.Physics.Velocity.Generate(...vector, vel.Rotation.Yaw)
+		};
 	}
 
 	GetRotation(entity) {

@@ -1,6 +1,7 @@
 const TerrainType = {
 	GRASS:		1,
-	WATER:		2
+	WATER:		2,
+	SAND:		3
 };
 
 TerrainType.Lookup = function(value) {

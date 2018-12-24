@@ -1,8 +1,8 @@
 import { Terrain } from "./Terrain.js";
 
-class Grass extends Terrain {
+class Sand extends Terrain {
 	constructor(fk, entity) {
-		super(fk, entity, "terrain-grass");
+		super(fk, entity, "terrain-sand");
 	}
 
 	Render() {
@@ -12,11 +12,11 @@ class Grass extends Terrain {
 			ret[0],
 			ret[1],
 			ret[2],
-			"rgb(69, 161, 99)",
+			null,	// Tile color overlay
 			0,		// tx - These need to change based on STATE
 			0		// ty - These need to change based on STATE
 		];
 	}
 }
 
-export { Grass };
+export { Sand };
