@@ -1,14 +1,16 @@
+import EnumCreatureType from "./../../component/enum/CreatureType.js";
 import EnumEntityType from "./../../enum/bitwise/EntityType.js";
 import Components from "./../../component/package.js";
 import { Entity } from "./../Entity.js";
 
 class Creature extends Entity {
-	constructor() {
+	constructor(type = EnumCreatureType.PASSIVE, speed = 3, fr = 1) {
 		super(EnumEntityType.CREATURE);
 
 		this.Components.push(
 			new Components.Attributes(),
-			new Components.Resources()
+			new Components.Resources(),
+			new Components.CreatureInfo(type, speed, fr)
 		);
 	}
 

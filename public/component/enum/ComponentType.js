@@ -6,5 +6,6 @@ export default {
 	ATTRIBUTES:			11,
 	MAPS:				12,
 	STATES:				13,
-	TERRAIN_INFO:		14
+	TERRAIN_INFO:		14,
+	CREATURE_INFO:		15
 };

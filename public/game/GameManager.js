@@ -8,12 +8,6 @@ class GameManager {
 
 		this.Player = player;
 		
-		this.Settings = Object.freeze({
-			Movement: {
-				Velocity: 3.0
-			}
-		});
-		
 		this.GameLoop.SetTickHook((time) => this.Tick(time));
 		this.GameLoop.SetRenderHook((time) => this.Render(time));
 	}

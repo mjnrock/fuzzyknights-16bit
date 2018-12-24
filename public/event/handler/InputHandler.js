@@ -38,8 +38,7 @@ class InputHandler {
 
 	onInputPlayerKeyState(msg, state) {
 		// console.log(...arguments);
-
-		let vel = this.FuzzyKnights.Game.GameManager.Settings.Movement.Velocity,
+		let vel = this.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
 			x = 0,
 			y = 0,
 			r = 0;
@@ -60,7 +59,7 @@ class InputHandler {
 		this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
 
 		//	DEBUG
-		console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));
+		// console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));
 	}
 
 	ProcessMessage(msg) {
