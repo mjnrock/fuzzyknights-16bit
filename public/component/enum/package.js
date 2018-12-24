@@ -6,6 +6,7 @@ import MapType from "./MapType.js";
 import TerrainType from "./TerrainType.js";
 import NavigabilityType from "./NavigabilityType.js";
 import StateType from "./StateType.js";
+import ActionStateType from "./ActionStateType.js";
 
 //!	Components will have so many Enums that they have been separated for readability
 export default {
@@ -16,5 +17,6 @@ export default {
 	MapType,
 	TerrainType,
 	NavigabilityType,
-	StateType
+	StateType,
+	ActionStateType
 };

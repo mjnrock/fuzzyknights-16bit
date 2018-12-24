@@ -1,6 +1,3 @@
-import Bitwise from "../../utility/Bitwise.js";
-import EnumPlayerKeyState from "../../enum/bitwise/PlayerKeyState.js";
-
 class MouseListener {
 	constructor(fk) {
 		this.FuzzyKnights = fk;

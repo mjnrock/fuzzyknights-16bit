@@ -1,6 +1,5 @@
 const StateType = {
-	ACTION:			1,
-	MOVEMENT:		2
+	NORMAL:		1
 };
 
 StateType.Lookup = function(value) {

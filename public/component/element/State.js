@@ -9,7 +9,9 @@ class State extends Element {
 	}
 
 	Add(...flags) {
-		return Bitwise.Add(this.Value, ...flags);
+		this.Value = Bitwise.Add(this.Value, ...flags);
+
+		return this;
 	}
 	Remove(...flags) {
 		this.Value = Bitwise.Remove(this.Value, ...flags);

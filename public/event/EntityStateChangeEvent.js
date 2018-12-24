@@ -1,14 +1,13 @@
 import { Event } from "./Event.js";
 
 class EntityStateChangeEvent extends Event {
-	constructor(entityIdentifier, type, value) {
+	constructor(entityIdentifier, type) {
 		super(
 			entityIdentifier,
-			type,
-			value
+			type
 		);
 		
-		super.Invoke(Event.FuzzyKnights.Message.EntityMoveMessage);
+		super.Invoke(Event.FuzzyKnights.Message.EntityStateChangeMessage);
 	}
 }
 

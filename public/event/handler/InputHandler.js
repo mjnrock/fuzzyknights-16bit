@@ -6,27 +6,21 @@ class InputHandler {
 	onInputMouseMessage(msg) {
 		// console.log(...arguments);
 		if(msg.Payload.Event.type === "mousemove") {
-			let x = msg.Payload.Event.clientX,
-				y = msg.Payload.Event.clientY,
+			let x = msg.Payload.Event.clientX / 128,
+				y = msg.Payload.Event.clientY / 128,
 				pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
-				xo = pos.X * 128,
-				yo = pos.Y * 128,
-				d = Math.atan2(yo - y, xo - x) * (180 / Math.PI),
-				deg = 0;
+				xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+				yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+				d = Math.atan2(xo - x, yo - y) / Math.PI * 180,
+				sectors = 4,
+				sArc = 360 / sectors;
 
-			if(d >= 45 && d <= 135) {
-				// N
-				deg = 0;
-			} else if((d >= 135 && d <= 180) || (d >= -180 && d <= -135)) {
-				// E
-				deg = 90;
-			} else if(d >= -135 && d <= -35) {
-				// S
-				deg = 180;
-			} else {
-				// W
-				deg = 270;
-			} 
+			if(d < 0) {
+				d += 360;
+			}
+			d = Math.abs(d - 360);
+
+			let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360;
 
 			this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 		}

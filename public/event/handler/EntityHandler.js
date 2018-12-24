@@ -21,17 +21,28 @@ class EntityHandler {
 		}
 	}
 
-	onEntityStateChange(msg) {
-		console.log(...arguments);
+	onEntityStateChange(msg, uuid) {
+		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid),
+			flag = msg.Payload.StateType;
+
+		if(!this.FuzzyKnights.Component.Mutator.States.HasFlag(entity, flag)) {
+			this.FuzzyKnights.Component.Mutator.States.AddFlag(entity, flag);
+		} else {
+			this.FuzzyKnights.Component.Mutator.States.RemoveFlag(entity, flag);
+		}
 	}
 
 	onEntityMove(msg, uuid, x0, y0, x1, y1) {
-		console.log(...arguments);
-		// let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
+		// console.log(...arguments);
+		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
+
+		if((x0 !== x1 || y0 !== y1)) {
+			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(uuid, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+		}
 	}
 
 	onEntityDamage(msg, target, source, damage) {
-		// this.FuzzyKnights.Entity.EntityManager
+		// this.FuzzyKnights.Entity.EntityManager;
 		console.log(arguments);
 	}
 
@@ -55,7 +66,7 @@ class EntityHandler {
 		if(this.FuzzyKnights.IsServer) {
 			console.log(`[MESSAGE RECEIVED - EntityHandler]: ${msg.MessageType}`);
 		} else {
-			console.log(`[MESSAGE RECEIVED]: ${msg.MessageType}`, msg);
+			// console.log(`[MESSAGE RECEIVED]: ${msg.MessageType}`, msg);
 		}
 	}
 }
