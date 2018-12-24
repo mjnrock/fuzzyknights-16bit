@@ -5,12 +5,6 @@ class KeyListener {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 
-		this.KeyBindings = {	// By this setup, these should map 1-to-1 with PlayerKeyStates
-			LEFT: [37, 65],
-			RIGHT: [39, 68],
-			UP: [38, 87],
-			DOWN: [40, 83]
-		};
 		this.PreviousPlayerKeyState = null;
 		this.PlayerKeyState = EnumPlayerKeyState.IDLE;
 
@@ -42,12 +36,12 @@ class KeyListener {
 	}
 
 	FlagController(keyCode, isAdd = true) {
-		for(let key in this.KeyBindings) {
-			if(this.KeyBindings[key].includes(keyCode)) {
+		for(let key in this.FuzzyKnights.Game.Settings.Bindings.Movement) {
+			if(this.FuzzyKnights.Game.Settings.Bindings.Movement[key].includes(keyCode)) {
 				if(!!isAdd) {
-					this.PlayerKeyState = Bitwise.Add(this.PlayerKeyState, EnumPlayerKeyState[key]);
+					this.PlayerKeyState = Bitwise.Add(this.PlayerKeyState, EnumPlayerKeyState[key.toUpperCase()]);
 				} else {
-					this.PlayerKeyState = Bitwise.Remove(this.PlayerKeyState, EnumPlayerKeyState[key]);
+					this.PlayerKeyState = Bitwise.Remove(this.PlayerKeyState, EnumPlayerKeyState[key.toUpperCase()]);
 				}
 			}
 		}

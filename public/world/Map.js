@@ -12,8 +12,10 @@ class Map {
 			this.Grid = args[0];
 			this.Grid.SetType(Node);
 			this.Grid.ForEach((pos, element, grid) => {
+
 				//TODO "new Grass()" should be dynamically read from the input and converted into appropriate Terrain
 				let terrain = Math.random() > 0.5 ? new Terrain.Grass() : new Terrain.Sand();
+				
 				grid.Set(pos.X, pos.Y, new Node(pos.X, pos.Y, terrain));
 			});
 		} else {
@@ -21,12 +23,6 @@ class Map {
 				return [x, y];
 			});
 		}
-
-		//TODO Pull the seed numbers from the Settings
-		this.Tile = {
-			Width: 128,
-			Height: 128
-		};
 
 		this.HasCreatures = false;
 		this.DefaultSpawn = new Position(0, 0);
@@ -40,8 +36,8 @@ class Map {
 	 */
 	ConvertNonNormalizedToTilePosition(x, y) {
 		return {
-			X: Math.floor(x / this.Tile.Width),
-			Y: Math.floor(y / this.Tile.Height)
+			X: Math.floor(x / Map.FuzzyKnights.Game.Settings.View.Tile.Width),
+			Y: Math.floor(y / Map.FuzzyKnights.Game.Settings.View.Tile.Height)
 		};
 	}
 	/**

@@ -6,8 +6,6 @@ class RenderManager {
 			Entity: new this.FuzzyKnights.Utility.Canvas("entity")
 		};
 
-		console.log(this.Canvas);
-
 		this.Assets = {};
 		this.Entities = {};
 		this.Terrain = {};

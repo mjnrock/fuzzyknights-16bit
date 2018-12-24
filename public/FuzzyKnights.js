@@ -1,5 +1,6 @@
 import FKFiles from "./package.js";
 import registry from "./registry.js"
+import settings from "./settings.js"
 
 class FuzzyKnights {
 	constructor(fk = {}) {
@@ -9,10 +10,12 @@ class FuzzyKnights {
 		this.Init().PostInit().BuildEnvironment();
 		this.RenderInit().RenderRegistry();
 
-		console.log(this.FuzzyKnights.Game.GameManager);
 		this.FuzzyKnights.Game.GameLoop.Run();
 	}
 
+	/**
+	 * Fragmented Init() for the Render classes, to make Client/Common segmentation easier
+	 */
 	RenderInit() {
 		//@ RenderManager
 		this.FuzzyKnights.Render.RenderManager = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights);
@@ -21,9 +24,12 @@ class FuzzyKnights {
 		return this;
 	}
 
+	/**
+	 * Read from the imported "registry" and create Entity.Entity-Render.Entity links for client-only properties (e.g. images)
+	 * NOTE: If the paradigm is reworked to dynamically read the image alphas for collision masking, this registry will need to move to Common
+	 */
 	RenderRegistry() {
 		let setup = registry(this.FuzzyKnights);
-		console.log(setup);
 		for(let i in setup) {
 			this.FuzzyKnights.Render.RenderManager.LinkModel(setup[i][0], setup[i][1]);
 		}
@@ -39,14 +45,20 @@ class FuzzyKnights {
 		return this;
 	}
 
+	/**
+	 * Overwrite certain base classes with an instance of that same class, instead.
+	 * This paradigm is the default expectation for any: [ Manager, Handler, Listener, Mutator ]
+	 */
 	Init() {
+		//@ Clone Settings Object
+		this.FuzzyKnights.Game.Settings = JSON.parse(JSON.stringify(settings));
+
 		//@ GameManager
 		this.FuzzyKnights.Game.GameManager = new this.FuzzyKnights.Game.GameManager(this.FuzzyKnights);
 
 		//@ MessageManager
 		this.FuzzyKnights.Message.MessageManager = new this.FuzzyKnights.Message.MessageManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Message.MessageManager);
-		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		//@ EntityManager
 		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Entity.EntityManager);
@@ -84,7 +96,7 @@ class FuzzyKnights {
 		return this;
 	}
 
-	//	Build the game for the player
+	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
 		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap();
 		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
@@ -96,16 +108,20 @@ class FuzzyKnights {
 		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Player.Entity, Map);
 
 		this.FuzzyKnights.Entity.EntityManager.Register(Player.Entity);
-		console.log(Player);
 
 		return this;
 	}
 
+	/**
+	 * Allow for injections of the FuzzyKnights object into the prototypes for static access of the runtime version
+	 */
 	PostInit() {
-		//@ Major Components' FuzzyKnight Hook
+		//@ Apply FuzzyKnight Hooks
 		this.FuzzyKnights.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Render.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;
 
 		return this;
 	}
