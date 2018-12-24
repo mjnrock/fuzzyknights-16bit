@@ -1,7 +1,7 @@
 class Rotation {
-	constructor(y = 0, isRadians = true) {
+	constructor(y = 0, isDegrees = true) {
 		this.Yaw = y;
-		this.IsRadians = isRadians;
+		this.isDegrees = isDegrees;
 	}
 
 	GetValues(numsOnly = false) {
@@ -13,8 +13,18 @@ class Rotation {
 
 		return [
 			this.Yaw,
-			this.IsRadians
+			this.isDegrees
 		];
+	}
+
+	Unitize() {
+		if(this.isDegrees) {
+			this.Yaw = this.Yaw % (2 * Math.PI);
+		} else {
+			this.Yaw = this.Yaw % 360;
+		}
+
+		return this;
 	}
 
 	Set(y) {
@@ -24,18 +34,22 @@ class Rotation {
 	}
 
 	SetRadians() {
-		if(!this.IsRadians) {
+		if(!this.isDegrees) {
 			this.Yaw = this.Yaw * Math.PI / 180;
 		}
 
-		this.IsRadians = true;
+		this.isDegrees = false;
 	}
 	SetDegrees() {
-		if(this.IsRadians) {
+		if(this.isDegrees) {
 			this.Yaw = this.Yaw / Math.PI * 180;
 		}
 
-		this.IsRadians = false;
+		this.isDegrees = true;
+	}
+
+	static Generate(y = 0, isDegrees = true) {
+		return new Rotation(y, isDegrees);
 	}
 }
 

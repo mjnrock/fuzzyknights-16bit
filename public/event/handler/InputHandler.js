@@ -3,6 +3,35 @@ class InputHandler {
 		this.FuzzyKnights = fk;
 	}
 
+	onInputMouseMessage(msg) {
+		// console.log(...arguments);
+		if(msg.Payload.Event.type === "mousemove") {
+			let x = msg.Payload.Event.clientX,
+				y = msg.Payload.Event.clientY,
+				pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+				xo = pos.X * 128,
+				yo = pos.Y * 128,
+				d = Math.atan2(yo - y, xo - x) * (180 / Math.PI),
+				deg = 0;
+
+			if(d >= 45 && d <= 135) {
+				// N
+				deg = 0;
+			} else if((d >= 135 && d <= 180) || (d >= -180 && d <= -135)) {
+				// E
+				deg = 90;
+			} else if(d >= -135 && d <= -35) {
+				// S
+				deg = 180;
+			} else {
+				// W
+				deg = 270;
+			} 
+
+			this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+		}
+	}
+
 	onInputKeyboard(msg) {
 		console.log(...arguments);
 	}
@@ -40,6 +69,8 @@ class InputHandler {
 			this.onInputPlayerKeyState(msg, ...payload);
 		} else if(msg.MessageType === "InputKeyboardMessage") {
 			this.onInputKeyboard(msg, ...payload);
+		} else if(msg.MessageType === "InputMouseMessage") {
+			this.onInputMouseMessage(msg, ...payload);
 		}
 	}
 	ReceiveMessage(msg, time = null) {
@@ -49,7 +80,7 @@ class InputHandler {
 			console.log(`[MESSAGE RECEIVED - InputHander]: ${msg.MessageType}`);
 		} else {
 			// console.log(`[MESSAGE RECEIVED]: ${msg.MessageType}`, msg);
-			console.log(`[MESSAGE RECEIVED - InputHander]: ${msg.MessageType}`);
+			// console.log(`[MESSAGE RECEIVED - InputHander]: ${msg.MessageType}`);
 		}
 	}
 }

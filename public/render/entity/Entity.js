@@ -49,13 +49,15 @@ class Entity {
 	}
 
 	Render() {
-		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
+		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity),
+			rot = this.FuzzyKnights.Component.Mutator.Maps.GetRotation(this.Entity) || 0,
+			tx = rot.Yaw / 90;
 
 		return [
 			this.GetImage(),
 			pos.X,
 			pos.Y,
-			2,		// tx - These need to change based on STATE
+			tx,		// tx - These need to change based on STATE
 			0		// ty - These need to change based on STATE
 		];
 	}

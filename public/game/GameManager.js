@@ -10,7 +10,7 @@ class GameManager {
 		
 		this.Settings = Object.freeze({
 			Movement: {
-				Velocity: 2.5
+				Velocity: 3.0
 			}
 		});
 		

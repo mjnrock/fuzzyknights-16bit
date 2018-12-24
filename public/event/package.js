@@ -6,6 +6,7 @@ import { EntityMoveEvent } from "./EntityMoveEvent.js";
 import { EntityStateChangeEvent } from "./EntityStateChangeEvent.js";
 import { EntityConstructionEvent } from "./EntityConstructionEvent.js";
 import { EntityDestructionEvent } from "./EntityDestructionEvent.js";
+import { InputMouseEvent } from "./InputMouseEvent.js";
 
 import Handler from "./handler/package.js";
 import Listener from "./listener/package.js";
@@ -19,6 +20,7 @@ export default {
 	EntityStateChangeEvent,
 	EntityConstructionEvent,
 	EntityDestructionEvent,
+	InputMouseEvent,
 
 	Handler,
 	Listener,
@@ -30,6 +32,7 @@ export default {
 		EntityDamageEvent: (...args) => new EntityDamageEvent(...args),
 		EntityMoveEvent: (...args) => new EntityMoveEvent(...args),
 		EntityStateChangeEvent: (...args) => new EntityStateChangeEvent(...args),
-		EntityConstructionEvent: (...args) => new EntityConstructionEvent(...args)
+		EntityConstructionEvent: (...args) => new EntityConstructionEvent(...args),
+		InputMouseEvent: (...args) => new InputMouseEvent(...args)
 	}
 };

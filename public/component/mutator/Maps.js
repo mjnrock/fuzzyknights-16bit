@@ -44,8 +44,8 @@ class Maps extends Mutator {
 		let pos = this.GetPosition(entity),
 			vel = this.GetVelocity(entity),
 			map = this.GetMap(entity),
-			x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax),
-			y = this.FuzzyKnights.Utility.Functions.Clamp(pos.Y + (vel.Vector.Y * time), 0, map.Grid.YMax);
+			x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax - 1),
+			y = this.FuzzyKnights.Utility.Functions.Clamp(pos.Y + (vel.Vector.Y * time), 0, map.Grid.YMax - 1);
 
 		this.SetPosition(entity, x, y);
 	}
@@ -55,6 +55,15 @@ class Maps extends Mutator {
 	}
 	SetVelocity(entity, x = 0, y = 0, r = 0) {
 		this.GetComponent(entity).Velocity = this.FuzzyKnights.Utility.Physics.Velocity.Generate(x, y, r);
+
+		return this;
+	}
+
+	GetRotation(entity) {
+		return this.GetComponent(entity).Rotation;
+	}
+	SetRotation(entity, y) {
+		this.GetComponent(entity).Rotation = this.FuzzyKnights.Utility.Physics.Rotation.Generate(y);
 
 		return this;
 	}

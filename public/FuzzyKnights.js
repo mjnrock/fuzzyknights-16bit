@@ -6,7 +6,7 @@ class FuzzyKnights {
 		this.FuzzyKnights = FKFiles;
 		this.Window = window;
 
-		this.Init().PostInit().BuildPlayer();
+		this.Init().PostInit().BuildEnvironment();
 		this.RenderInit().RenderRegistry();
 
 		console.log(this.FuzzyKnights.Game.GameManager);
@@ -68,6 +68,7 @@ class FuzzyKnights {
 		
 		//@ KeyListener
 		this.FuzzyKnights.Event.Listener.KeyListener = new this.FuzzyKnights.Event.Listener.KeyListener(this.FuzzyKnights);
+		this.FuzzyKnights.Event.Listener.MouseListener = new this.FuzzyKnights.Event.Listener.MouseListener(this.FuzzyKnights);
 
 
 		//@ Component Mutators
@@ -81,8 +82,8 @@ class FuzzyKnights {
 	}
 
 	//	Build the game for the player
-	BuildPlayer() {
-		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(5, 5).GetMap();
+	BuildEnvironment() {
+		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap();
 		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
 
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
