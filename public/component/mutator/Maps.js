@@ -47,7 +47,11 @@ class Maps extends Mutator {
 			x = this.FuzzyKnights.Utility.Functions.Clamp(pos.X + (vel.Vector.X * time), 0, map.Grid.XMax - 1),
 			y = this.FuzzyKnights.Utility.Functions.Clamp(pos.Y + (vel.Vector.Y * time), 0, map.Grid.YMax - 1);
 
+		let px = pos.X,
+			py = pos.Y;
 		this.SetPosition(entity, x, y);
+
+		return [ px, py, x, y ];
 	}
 
 	GetVelocity(entity) {

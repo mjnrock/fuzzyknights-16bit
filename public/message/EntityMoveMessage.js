@@ -2,13 +2,19 @@ import EnumHandlerType from "../enum/HandlerType.js";
 import { Message } from "./Message.js";
 
 class EntityMoveMessage extends Message {
-	constructor(entityIdentifier, x, y, isServerOrigin = false) {
+	constructor(entityIdentifier, x0, y0, x1, y1, isServerOrigin = false) {
 		super(
 			EnumHandlerType.ENTITY,
 			{
                 UUID: entityIdentifier,
-				X: x,
-				Y: y
+				Old: {
+					X: x0,
+					Y: y0
+				},
+				New: {
+					X: x1,
+					Y: y1
+				}
 			},
 			isServerOrigin
 		);

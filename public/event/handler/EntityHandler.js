@@ -25,9 +25,9 @@ class EntityHandler {
 		console.log(...arguments);
 	}
 
-	onEntityMove(msg, uuid, x, y) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
-		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(entity, x, y);
+	onEntityMove(msg, uuid, x0, y0, x1, y1) {
+		console.log(...arguments);
+		// let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
 	}
 
 	onEntityDamage(msg, target, source, damage) {
