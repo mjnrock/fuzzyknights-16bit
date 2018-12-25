@@ -22,19 +22,18 @@ class Node {
 	AddEntity(entity) {
 		if(!this.Entities.Contains(entity)) {
 			this.Entities.Push(entity);
-			this.CheckCreatures();
 		}
 
 		return this;
 	}
 	RemoveEntity(entity) {
 		let len = this.Entities.Size();
-		this.Entities.RemoveByValue(entity, (entity, entities) => {
-			return entities.filter((v) => v.UUID !== entity.UUID);
+		this.Entities = this.Entities.RemoveByValue(entity, (e, nodes, t) => {
+			return nodes.filter((v) => {
+				return v.v.UUID !== e.UUID;
+			});
 		});
 
-		this.CheckCreatures();
-		//	Proxy for if anything was removed
 		return len > this.Entities.Size();
 	}
 

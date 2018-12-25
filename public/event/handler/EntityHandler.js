@@ -32,12 +32,15 @@ class EntityHandler {
 		}
 	}
 
-	onEntityMove(msg, uuid, x0, y0, x1, y1) {
-		// console.log(...arguments);
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
+	onEntityMove(msg, uuid, poso, posn) {
+		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(msg.Payload.UUID);
 
-		if((x0 !== x1 || y0 !== y1)) {
-			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(uuid, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+		//	If Node-Entity pairing is necessary
+		let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
+		map.MoveEntity(entity);
+
+		if((poso.X !== posn.X || poso.Y !== posn.Y)) {
+			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
 		}
 	}
 

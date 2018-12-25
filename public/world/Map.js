@@ -119,13 +119,17 @@ class Map {
 
 		return this;
 	}
-	MoveEntity(entity, x0, y0, x1, y1) {
-		//TODO Set move constraints within here
-		let n0 = this.GetNode(Math.floor(x0), Math.floor(y0)),
-			n1 = this.GetNode(Math.floor(x1), Math.floor(y1));
 
-		n0.RemoveEntity(entity);
-		n1.AddEntity(entity);
+	MoveEntity(entity) {
+		let pos = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity),
+			x = pos.X,
+			y = pos.Y,
+			node = this.GetNode(Math.round(x), Math.round(y));
+
+		this.Grid.ForEach((pos, n, t, e) => {
+			t.Get(Math.floor(pos.X), Math.floor(pos.Y)).RemoveEntity(e);
+		}, entity);
+		node.AddEntity(entity);
 
 		return this;
 	}
