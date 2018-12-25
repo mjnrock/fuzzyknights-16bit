@@ -120,7 +120,7 @@ class Map {
 		return this;
 	}
 
-	MoveEntity(entity) {
+	UpdateNodeOccupancy(entity) {
 		let pos = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity),
 			x = pos.X,
 			y = pos.Y,

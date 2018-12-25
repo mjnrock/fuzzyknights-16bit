@@ -37,7 +37,7 @@ class EntityHandler {
 
 		//	If Node-Entity pairing is necessary
 		let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
-		map.MoveEntity(entity);
+		map.UpdateNodeOccupancy(entity);
 
 		if((poso.X !== posn.X || poso.Y !== posn.Y)) {
 			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
