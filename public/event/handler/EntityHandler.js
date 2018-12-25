@@ -35,7 +35,7 @@ class EntityHandler {
 	onEntityMove(msg, uuid, poso, posn) {
 		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(msg.Payload.UUID);
 
-		//	If Node-Entity pairing is necessary
+		//TODO	If Node-Entity pairing is necessary, otherwise remove
 		let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
 		map.UpdateNodeOccupancy(entity);
 
