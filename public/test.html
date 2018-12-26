@@ -7,11 +7,15 @@
 	</head>
 	<body>
 		<div class="flex flex-wrap">
-			<div id="mocha" style="position: relative; flex: 1 0 100%;"></div>
-
-			<div style="position: relative; flex: 1 0 100%;">
+			<div style="position: relative; flex: 1 0 100%; height: 100vh;">
 				<canvas id="terrain" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
 				<canvas id="entity" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+			</div>
+
+			<div class="w-100">
+				<h1 class="tc">Test Suite Output</h1>
+				<hr />
+				<div id="mocha" style="position: relative; flex: 1 0 100%;"></div>
 			</div>
 		</div>
 
