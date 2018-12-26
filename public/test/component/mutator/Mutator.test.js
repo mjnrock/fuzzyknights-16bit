@@ -1,5 +1,5 @@
 describe("Mutator 1", () => {
-	it("should break", () => {
+	it("should work", () => {
 		chai.expect(2).to.equal(2);
 	});
 });
