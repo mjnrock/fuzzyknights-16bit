@@ -28,14 +28,11 @@
 			console.log("[Loading...] FuzzyKnights");
 
 			import FK from "./FuzzyKnights.js";
-
-			$(document).ready(function() {
-				const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
-				
-				console.log("[Loaded] FuzzyKnights");
-				console.log(FuzzyKnights);
-				console.log(FuzzyKnights.Game.GameManager.Player);
-			});
+			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
+			
+			console.log("[Loaded] FuzzyKnights");
+			console.log(FuzzyKnights);
+			console.log(FuzzyKnights.Game.GameManager.Player);
 		</script>
 	</body>
 </html>

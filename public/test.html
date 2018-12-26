@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Mocha Tests</title>
+		<link href="https://unpkg.com/mocha@4.0.1/mocha.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.11.1/tachyons.css" />
+	</head>
+	<body>
+		<div class="flex flex-wrap">
+			<div id="mocha" style="position: relative; flex: 1 0 100%;"></div>
+
+			<div style="position: relative; flex: 1 0 100%;">
+				<canvas id="terrain" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+				<canvas id="entity" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+			</div>
+		</div>
+
+		<script type="module">
+			console.log("[Loading...] FuzzyKnights");
+
+			import FK from "./FuzzyKnights.js";
+			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
+			
+			console.log("[Loaded] FuzzyKnights");
+			console.log(FuzzyKnights);
+			console.log(FuzzyKnights.Game.GameManager.Player);
+		</script>
+
+		<script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+		<script src="https://unpkg.com/mocha@4.0.1/mocha.js"></script>
+
+		<script>mocha.setup('bdd')</script>
+
+		<script type="module" src="./test/FuzzyKnightsSuite.test.js"></script>
+
+		<script type="module">
+			mocha.checkLeaks();
+			mocha.run();
+		</script>
+	</body>
+</html>
