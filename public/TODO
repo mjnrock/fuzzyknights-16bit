@@ -1,1 +1,2 @@
 ☐ Base all movement around the collision mask
+	☐ @bug Since movement is based *only* on current tile, character gets stuck _once_ they enter the non-navigable terrain (and thus can't leave)
