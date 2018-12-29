@@ -162,7 +162,6 @@ class RandomAverage {
 
 			this.Cells.ForEach((pos, ele, t) => {
 				if(ele >= arr[0] && ele < arr[1]) {
-					console.log(ele, arr, array);
 					terrainGrid.Get(pos.X, pos.Y).AddEntity(new arr[2]());
 				}				
 			});
