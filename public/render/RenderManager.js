@@ -2,8 +2,8 @@ class RenderManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 		this.Canvas = {
-			Terrain: new this.FuzzyKnights.Utility.Canvas("terrain"),
-			Entity: new this.FuzzyKnights.Utility.Canvas("entity")
+			Terrain: new this.FuzzyKnights.Utility.Canvas("terrain", this.FuzzyKnights.Game.Settings.View.Tile),
+			Entity: new this.FuzzyKnights.Utility.Canvas("entity", this.FuzzyKnights.Game.Settings.View.Tile)
 		};
 
 		this.Assets = {};
@@ -33,7 +33,9 @@ class RenderManager {
 
 	Register(entity, isTerrain = false) {
 		let cName = this.GetSchema(entity.constructor),
-			model = new (this.Assets[cName].Render)(this.FuzzyKnights, entity);
+			model = new (this.Assets[cName].Render)(this.FuzzyKnights, entity, (e) => {
+				console.log(this.FuzzyKnights.Utility.Canvas.GetPixel(e.Image, 64, 64, true));
+			});
 
 		if(isTerrain === false) {
 			this.Entities[entity.UUID] = model;

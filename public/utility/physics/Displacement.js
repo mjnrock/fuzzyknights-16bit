@@ -1,5 +1,5 @@
-import { Position } from "./Position.js";
-import { Rotation } from "./Rotation.js";
+import Position from "./Position.js";
+import Rotation from "./Rotation.js";
 
 class Displacement {
 	/**
@@ -46,4 +46,4 @@ class Displacement {
 	}
 }
 
-export { Displacement };
+export default Displacement;

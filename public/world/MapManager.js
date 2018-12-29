@@ -1,4 +1,4 @@
-import { Grid } from "../utility/Grid.js";
+import Grid from "../utility/Grid.js";
 import { Map } from "./Map.js";
 
 import { MapGenerator } from "./MapGenerator.js";

@@ -35,4 +35,4 @@ class WeightedPool {
 	}
 }
 
-export { WeightedPool };
+export default WeightedPool;

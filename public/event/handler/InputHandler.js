@@ -26,7 +26,7 @@ class InputHandler {
 			xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
 			yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
 			d = Math.atan2(xo - x, yo - y) / Math.PI * 180,
-			sectors = 4,
+			sectors = 8,
 			sArc = 360 / sectors;
 
 		if(d < 0) {

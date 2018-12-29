@@ -1,7 +1,7 @@
 import Functions from "../utility/Functions.js";
 import Dice from "../utility/Dice.js";
 
-import { Grid } from "../utility/Grid.js";
+import Grid from "../utility/Grid.js";
 import { Map } from "./Map.js";
 
 //TODO CellularAutomata is complete for T/F, but needs a more meaningful generation paradigm

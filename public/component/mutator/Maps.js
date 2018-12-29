@@ -110,6 +110,27 @@ class Maps extends Mutator {
 
 		return this;
 	}
+
+	
+	/**
+	 * This will create a rectangle by creating a point at (x, y) and then expand 4-directionally
+	 * to create the bounding region Top Left = (x - rx, y - ry), Bottom Right = (x + rx, y + ry)
+	 * 
+	 * NOTE: Interpret "radius" from an inscribed-circle perspective, not circumscribed
+	 * @param {number} x | Center Point X
+	 * @param {number} y | Center Point Y
+	 * @param {number} rx | The "X Radius"
+	 * @param {number} ry | The "Y Radius"
+	 */
+	//! In the absence of a true collision mask system (e.g. AABB), this is simplistically substituting ALL collision mask calculations
+	static CalcBoundingBox(x, y, rx, ry = rx) {
+		return {
+			X0: x - rx,
+			Y0: y - ry,
+			X1: x + rx,
+			Y1: y + ry
+		};
+	}
 }
 
 export { Maps };

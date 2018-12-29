@@ -102,4 +102,4 @@ class Grid {
 	}
 }
 
-export { Grid };
+export default Grid;

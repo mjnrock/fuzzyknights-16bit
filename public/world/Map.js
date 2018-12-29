@@ -1,8 +1,8 @@
 import Functions from "../utility/Functions.js";
 
-import { Grid } from "../utility/Grid.js";
+import Grid from "../utility/Grid.js";
 import { Node } from "./Node.js";
-import { Position } from "../utility/physics/Position.js";
+import Position from "../utility/physics/Position.js";
 
 import Terrain from "./../entity/terrain/package.js";
 
@@ -14,7 +14,7 @@ class Map {
 			this.Grid.ForEach((pos, element, grid) => {
 
 				//TODO "new Grass()" should be dynamically read from the input and converted into appropriate Terrain
-				let terrain = Math.random() > 0.5 ? new Terrain.Grass() : new Terrain.Sand();
+				let terrain = Math.random() > 0.15 ? new Terrain.Grass() : new Terrain.Sand();
 				
 				grid.Set(pos.X, pos.Y, new Node(pos.X, pos.Y, terrain));
 			});

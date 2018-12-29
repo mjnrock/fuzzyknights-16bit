@@ -1,4 +1,4 @@
-import { Grid } from "./Grid.js";
+import Grid from "./Grid.js";
 
 class Canvas {
 	/**
@@ -25,17 +25,28 @@ class Canvas {
 		return tile;
 	}
 
-	constructor(htmlElement) {
+	constructor(htmlElement, tileSettings = null) {
 		if(typeof htmlElement === "string" || htmlElement instanceof String) {
 			this.Element = document.getElementById(htmlElement);
 		} else {
 			this.Element = htmlElement;
 		}
+
+		if(tileSettings === null || tileSettings === void 0) {
+			this.Tile = {
+				Height: 128,
+				Width: 128,
+				Target: 128
+			};
+		} else {
+			this.Tile = tileSettings;
+		}
+
 		this.Height = this.Element.height;
 		this.Width = this.Element.width;
 		this.Context = this.Element.getContext("2d");
 
-		this.Grid = new Grid(Math.floor(this.Width / Canvas.TILE(0)), Math.floor(this.Height / Canvas.TILE(1)));
+		this.Grid = new Grid(Math.floor(this.Width / this.Tile.Width), Math.floor(this.Height / this.Tile.Height));
 
 		this.ReScale();
 	}
@@ -80,18 +91,18 @@ class Canvas {
 	}
 
 	DrawTile(image, x, y, sx = 0, sy = 0) {
-		x = x * Canvas.TILE(0);
-		y = y * Canvas.TILE(1);
+		x = x * this.Tile.Width;
+		y = y * this.Tile.Height;
 		
-		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
+		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
 
 		return this;
 	}
 	DrawColoredTile(image, x, y, color = null, sx = 0, sy = 0) {
-		x = x * Canvas.TILE(0);
-		y = y * Canvas.TILE(1);
+		x = x * this.Tile.Width;
+		y = y * this.Tile.Height;
 		
-		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
+		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
 		if(color !== null && color !== void 0) {
 			this.ColorizeTile(x, y, color);
 		}
@@ -108,17 +119,17 @@ class Canvas {
 	 * @param {number} sy ?0 | (Tile) Sprite Y
 	 */
 	DrawFitToTile(image, tx, ty, sx = 0, sy = 0) {
-		let x = tx * Canvas.TILE(0),
-			y = ty * Canvas.TILE(1);
+		let x = tx * this.Tile.Width,
+			y = ty * this.Tile.Height;
 		
-		this.DrawImage(image, sx * Canvas.TILE(0), sy * Canvas.TILE(1), Canvas.TILE(0), Canvas.TILE(1), x, y, Canvas.TILE(0), Canvas.TILE(1));
+		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
 
 		return this;
 	}
 
 	DrawColorizedFitToTile(image, tx, ty, color, sx = 0, sy = 0) {		
-		let x = tx * Canvas.TILE(0),
-			y = ty * Canvas.TILE(1);
+		let x = tx * this.Tile.Width,
+			y = ty * this.Tile.Height;
 
 		this.DrawFitToTile(image, tx, ty, sx = 0, sy = 0);
 		this.ColorizeTile(x, y, color);
@@ -129,9 +140,50 @@ class Canvas {
 	ColorizeTile(x, y, color = "rgb(54, 132, 54)") {
 		this.Context.globalCompositeOperation = "color";
 		this.Context.fillStyle = color;
-		this.Context.fillRect(x, y, Canvas.TILE(0), Canvas.TILE(1));
+		this.Context.fillRect(x, y, this.Tile.Width, this.Tile.Height);
 		this.Context.globalCompositeOperation = "source-over";
-    }
+	}
+	
+	static GetPixel(image, x, y, retAsObj = false) {
+		let canvas = document.createElement("canvas"),
+			ctx = canvas.getContext("2d");
+		ctx.drawImage(image, 0, 0);
+
+		if(retAsObj) {
+			let data = ctx.getImageData(x, y, 1, 1).data;
+
+			return {
+				R255: data[0],
+				G255: data[1],
+				B255: data[2],
+				A255: data[3],
+				A1: data[3] / 255
+			}
+		}
+
+		return ctx.getImageData(x, y, 1, 1).data;
+	}
+
+	static RGBToHex(r, g, b) {
+		return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	}
+	static HexToRGB(hex) {
+		let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+		hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+			return r + r + g + g + b + b;
+		});
+
+		let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		
+		return result ? {
+			R: parseInt(result[1], 16),
+			G: parseInt(result[2], 16),
+			B: parseInt(result[3], 16),
+			A: 1.0,
+			RGB: `rgb(${ parseInt(result[1], 16) }, ${ parseInt(result[2], 16) }, ${ parseInt(result[3], 16) })`,
+			RGBA: `rgba(${ parseInt(result[1], 16) }, ${ parseInt(result[2], 16) }, ${ parseInt(result[3], 16) }, 1.0)`
+		} : null;
+	}
 }
 
 export default Canvas;

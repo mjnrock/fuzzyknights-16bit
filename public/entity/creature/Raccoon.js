@@ -4,7 +4,7 @@ import { Entity } from "../Entity.js";
 
 class Raccoon extends Creature {
 	constructor(x = -1, y = -1) {
-		super(EnumCreatureType.HOSTILE, 3, 3);
+		super(EnumCreatureType.HOSTILE, 2.25, 3);
 
 		if(x !== -1 && y !== -1) {
 			Entity.FuzzyKnights.Component.Mutator.Maps.SetPosition(this, x, y);

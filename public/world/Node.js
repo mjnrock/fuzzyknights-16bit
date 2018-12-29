@@ -1,5 +1,5 @@
-import { Position } from "../utility/physics/Position.js";
-import { OrderedList } from "../utility/OrderedList.js";
+import Position from "../utility/physics/Position.js";
+import OrderedList from "../utility/OrderedList.js";
 
 import { Terrain } from "../entity/terrain/Terrain.js";
 import { Creature } from "../entity/creature/Creature.js";

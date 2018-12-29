@@ -142,4 +142,4 @@ class OrderedList {
 	}
 }
 
-export { OrderedList };
+export default OrderedList;

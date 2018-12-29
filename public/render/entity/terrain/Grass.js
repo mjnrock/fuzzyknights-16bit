@@ -1,8 +1,8 @@
 import { Terrain } from "./Terrain.js";
 
 class Grass extends Terrain {
-	constructor(fk, entity) {
-		super(fk, entity, "terrain-grass");
+	constructor(fk, entity, onload = null) {
+		super(fk, entity, "grass", onload);
 	}
 
 	Render() {

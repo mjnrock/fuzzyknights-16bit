@@ -1,6 +1,6 @@
-import { Position } from "./Position.js";
-import { Vector } from "./Vector.js";
-import { Rotation } from "./Rotation.js";
+import Position from "./Position.js";
+import Vector from "./Vector.js";
+import Rotation from "./Rotation.js";
 
 class Velocity {
 	/**
@@ -52,4 +52,4 @@ class Velocity {
 	}
 }
 
-export { Velocity };
+export default Velocity;

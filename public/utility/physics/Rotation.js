@@ -53,4 +53,4 @@ class Rotation {
 	}
 }
 
-export { Rotation };
+export default Rotation;

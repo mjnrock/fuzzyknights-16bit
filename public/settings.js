@@ -8,7 +8,8 @@ export default {
 	View: {
 		Tile: {
 			Width: 128,
-			Height: 128
+			Height: 128,
+			Target: 128
 		}
 	},
 	Bindings: {

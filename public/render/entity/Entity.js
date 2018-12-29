@@ -51,7 +51,7 @@ class Entity {
 	Render() {
 		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity),
 			rot = this.FuzzyKnights.Component.Mutator.Maps.GetRotation(this.Entity) || 0,
-			tx = rot.Yaw / 90 || 0;
+			tx = rot.Yaw / 45 || 0;
 
 		return [
 			this.GetImage(),
