@@ -1,19 +1,19 @@
 import Position from "./Position.js";
 import Rotation from "./Rotation.js";
 
-class Displacement {
+class Heading {
 	/**
-	 * @param Vector vector 
+	 * @param Position position 
 	 * @param Rotation rotation 
 	 */
-	constructor(vector, rotation) {
-		this.Vector = vector;
+	constructor(position, rotation) {
+		this.Position = position;
 		this.Rotation = rotation;
 	}
 
 	GetValues() {
 		return [
-			...this.Vector.GetValues(),
+			...this.Position.GetValues(),
 			...this.Rotation.GetValues()
 		];
 	}
@@ -23,8 +23,8 @@ class Displacement {
 	 */
 	CalcPosition(origin) {
 		return new Position(
-			origin.X + this.Vector.X,
-			origin.Y + this.Vector.Y
+			origin.X + this.Position.X,
+			origin.Y + this.Position.Y
 		);
 	}
 
@@ -39,11 +39,14 @@ class Displacement {
 		}
 
 		return new Rotation(
-			orientation.Pitch + this.Rotation.Pitch,
 			orientation.Yaw + this.Rotation.Yaw,
 			orientation.IsRadians
 		);
 	}
+
+	static Generate(x = 0, y = 0, r = 0) {
+		return new Heading(new Position(x, y), new Rotation(r));
+	}
 }
 
-export default Displacement;
+export default Heading;

@@ -24,6 +24,10 @@ class Position {
 			+ Math.pow(pos.Y - this.Y, 2)
 		);
 	}
+
+	static Generate(x = 0, y = 0) {
+		return new Position(x, y);
+	}
 }
 
 export default Position;

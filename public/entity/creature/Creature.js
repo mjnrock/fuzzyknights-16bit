@@ -16,7 +16,7 @@ class Creature extends Entity {
 
 	Tick(time) {
 		super.Tick(time);
-		let pos = Components.Mutator.Maps.CalcPosition(this, time);
+		let pos = Components.Mutator.Maps.CalcHeading(this, time);
 
 		if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
 			Entity.FuzzyKnights.Event.Spawn.EntityMoveEvent(this.UUID, ...pos);

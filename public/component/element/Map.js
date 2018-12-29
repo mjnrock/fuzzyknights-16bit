@@ -1,5 +1,5 @@
 import { Element } from "./Element.js";
-import Position from "./../../utility/physics/Position.js";
+import Heading from "../../utility/physics/Heading.js";
 
 class Map extends Element {
 	/**
@@ -12,15 +12,15 @@ class Map extends Element {
 	constructor(type, x, y, mapIdentifier) {
 		super(type);
 		
-		this.Position = new Position(x, y);
+		this.Heading = Heading.Generate(x, y, 0);
 		this.MapIdentifier = mapIdentifier;
 	}
 
-	GetPosition() {
-		return this.Position;
+	GetHeading() {
+		return this.Heading;
 	}
-	SetPosition(x, y) {
-		this.Position = new Position(x, y);
+	SetHeading(x = 0, y = 0, r = 0) {
+		this.Heading = Heading.Generate(x, y, r);
 		
 		return this;
 	}

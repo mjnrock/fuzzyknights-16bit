@@ -35,13 +35,31 @@ class Maps extends Mutator {
 	}
 
 	GetPosition(entity) {
-		return this.GetComponent(entity).ActiveMap.Position;
+		return this.GetComponent(entity).ActiveMap.Heading.Position;
 	}
 	SetPosition(entity, x, y) {
-		return this.GetComponent(entity).ActiveMap.Position.Set(x, y);
+		this.GetComponent(entity).ActiveMap.Heading.Position = this.FuzzyKnights.Utility.Physics.Position.Generate(x, y);
+
+		return this;
+	}
+
+	GetRotation(entity) {
+		return this.GetComponent(entity).ActiveMap.Heading.Rotation;
+	}
+	SetRotation(entity, r) {
+		this.GetComponent(entity).ActiveMap.Heading.Rotation = this.FuzzyKnights.Utility.Physics.Rotation.Generate(r);
+
+		return this;
+	}
+
+	GetHeading(entity) {
+		return this.GetComponent(entity).ActiveMap.Heading;
+	}
+	SetHeading(entity, x, y, r = 0) {
+		return this.GetComponent(entity).ActiveMap.Heading = this.FuzzyKnights.Utility.Physics.Heading.Generate(x, y, r);
 	}
 	//TODO This could be a lot of processing per tick at scale, create an IsDirty flag in each component (at a minimum this one)
-	CalcPosition(entity, time) {
+	CalcHeading(entity, time) {
 		let pos = this.GetPosition(entity),
 			vel = this.GetVelocity(entity),
 			map = this.GetMap(entity);
@@ -83,15 +101,6 @@ class Maps extends Mutator {
 			Terrain: terrain,
 			Velocity: this.FuzzyKnights.Utility.Physics.Velocity.Generate(...vector, vel.Rotation.Yaw)
 		};
-	}
-
-	GetRotation(entity) {
-		return this.GetComponent(entity).Rotation;
-	}
-	SetRotation(entity, y) {
-		this.GetComponent(entity).Rotation = this.FuzzyKnights.Utility.Physics.Rotation.Generate(y);
-
-		return this;
 	}
 
 	Place(entity, x0, y0, x1, y1) {

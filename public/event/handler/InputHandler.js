@@ -1,12 +1,6 @@
 class InputHandler {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
-
-		//TODO Pull the seed numbers from the Settings
-		this.Tile = {
-			Width: 128,
-			Height: 128
-		};
 	}
 
 	onInputMouseMessage(msg) {
@@ -20,8 +14,8 @@ class InputHandler {
 		}
 	}
 	OnMouseMove(msg) {
-		let x = msg.Payload.Event.clientX / this.Tile.Width,
-			y = msg.Payload.Event.clientY / this.Tile.Height,
+		let x = msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width,
+			y = msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height,
 			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
 			xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
 			yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
@@ -33,20 +27,20 @@ class InputHandler {
 			d += 360;
 		}
 		d = Math.abs(d - 360);
-
+		
 		let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360 || 0;
 
 		this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 	}
 	OnMouseDown(msg) {
-		let tx = Math.floor(msg.Payload.Event.clientX / this.Tile.Width),
-			ty = Math.floor(msg.Payload.Event.clientY / this.Tile.Height);
+		let tx = Math.floor(msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
+			ty = Math.floor(msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		// console.log(tx, ty);
 	}
 	OnMouseUp(msg) {
-		let tx = Math.floor(msg.Payload.Event.clientX / this.Tile.Width),
-			ty = Math.floor(msg.Payload.Event.clientY / this.Tile.Height);
+		let tx = Math.floor(msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
+			ty = Math.floor(msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		// console.log(msg);
 
