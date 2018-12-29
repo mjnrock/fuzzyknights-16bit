@@ -4,24 +4,12 @@ import Grid from "../utility/Grid.js";
 import { Node } from "./Node.js";
 import Position from "../utility/physics/Position.js";
 
-import Terrain from "./../entity/terrain/package.js";
-
 class Map {
 	constructor(...args) {
 		if(args.length === 1 && args[0] instanceof Grid) {
 			this.Grid = args[0];
-			this.Grid.SetType(Node);
-			this.Grid.ForEach((pos, element, grid) => {
-
-				//TODO "new Grass()" should be dynamically read from the input and converted into appropriate Terrain
-				let terrain = Math.random() > 0.15 ? new Terrain.Grass() : new Terrain.Sand();
-				
-				grid.Set(pos.X, pos.Y, new Node(pos.X, pos.Y, terrain));
-			});
 		} else {
-			this.Grid = new Grid(args[0], args[1], Node, (x, y, t) => {
-				return [x, y];
-			});
+			this.Grid = new Grid(args[0], args[1], Node, (x, y) => [ x, y ]);
 		}
 
 		this.HasCreatures = false;
@@ -126,9 +114,10 @@ class Map {
 			y = pos.Y,
 			node = this.GetNode(Math.round(x), Math.round(y));
 
-		this.Grid.ForEach((pos, n, t, e) => {
-			t.Get(Math.floor(pos.X), Math.floor(pos.Y)).RemoveEntity(e);
-		}, entity);
+		// this.Grid.ForEach((pos, n, t, e) => {
+		// 	t.Get(Math.floor(pos.X), Math.floor(pos.Y)).RemoveEntity(e);
+		// }, entity);
+		this.DeepRemove(entity);
 		node.AddEntity(entity);
 
 		return this;

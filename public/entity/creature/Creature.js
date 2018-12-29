@@ -4,7 +4,7 @@ import Components from "./../../component/package.js";
 import { Entity } from "./../Entity.js";
 
 class Creature extends Entity {
-	constructor(type = EnumCreatureType.PASSIVE, speed = 3, fr = 1) {
+	constructor(type = EnumCreatureType.PASSIVE, speed = 3, fr = 1, x = -1, y = -1) {
 		super(EnumEntityType.CREATURE);
 
 		this.Components.push(
@@ -12,6 +12,10 @@ class Creature extends Entity {
 			new Components.Resources(),
 			new Components.CreatureInfo(type, speed, fr)
 		);
+
+		if(x !== -1 && y !== -1) {
+			Entity.FuzzyKnights.Component.Mutator.Maps.SetPosition(this, x, y);
+		}
 	}
 
 	Tick(time) {

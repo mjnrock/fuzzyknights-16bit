@@ -48,6 +48,7 @@ class InputHandler {
 		//TODO Creatures are not currently stored in Nodes
 		console.log(this.FuzzyKnights.Game.GameManager.Player.Entity);
 		console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).GetEntityArray());
+		console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).HasCreatures());
 	}
 
 	onInputKeyboard(msg) {

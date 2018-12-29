@@ -140,6 +140,16 @@ class OrderedList {
 
 		return this;
 	}
+
+	ForEach(callback, ...args) {
+		if(typeof callback === "function") {
+			this.Elements.forEach((v, i) => {
+				callback(v, i, this, ...args);
+			});
+		}
+
+		return this;
+	}
 }
 
 export default OrderedList;

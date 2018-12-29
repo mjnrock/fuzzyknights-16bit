@@ -1,6 +1,1 @@
-☐ Build out Maps
-	☐ Create some static maps for cities
-	☐ Invoke randomly generated maps
-	☐ Create portals between maps
-☐ Build state transition sequences
-	☐ Build animation sequences
+☐ Base all movement around the collision mask

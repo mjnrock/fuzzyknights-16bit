@@ -60,6 +60,18 @@ class Node {
 	// 	return this.GetEntitySubClass(Portal);
 	// }
 
+	HasCreatures() {
+		let creatures = false;
+
+		this.Entities.ForEach((value, i, t) => {
+			if(value.v instanceof Creature) {
+				creatures = true;
+			}
+		});
+		
+		return creatures;
+	}
+
 	GetPosition() {
 		return this.Location.GetValues();
 	}

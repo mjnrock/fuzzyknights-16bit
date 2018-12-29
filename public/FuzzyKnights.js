@@ -98,8 +98,12 @@ class FuzzyKnights {
 
 	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
-		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap();
-		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
+		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap(
+			[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
+			[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
+			[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+		);
+		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Beaver());
 
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
 		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);

@@ -74,6 +74,7 @@ class Maps extends Mutator {
 		let px = pos.X,
 			py = pos.Y;
 		this.SetPosition(entity, x, y);
+		// this.Move(entity, x, y);
 
 		return [ px, py, x, y ];
 	}
@@ -110,16 +111,25 @@ class Maps extends Mutator {
 		return this;
 	}
 
-	Move(entity) {
+	Move(entity, x, y) {
 		//TODO While Key State is ACTIVE, set Component's Directional Velocity to "Navigability Speed",
 		//TODO let either some .Tick() use the LastTickTime to calculate how far Entity should move based on that velocity and elapsed time
-		let map = this.GetMap(entity);
+		// let map = this.GetMap(entity);
 
 		// this.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity.UUID, x1, y1);
 
 		return this;
 	}
 
+	CheckCollision(entity, x, y) {
+		if(entity instanceof this.FuzzyKnights.Entity) {
+			console.log(111);
+		}
+		let pos = this.GetPosition(entity),
+			bb = Maps.CalcBoundingBox(x, y, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2);
+
+		return (pos.X <= bb.BRx) && (pos.X >= bb.TLx) && (pos.Y <= bb.BRy) && (pos.Y >= bb.TLy);
+	}
 	
 	/**
 	 * This will create a rectangle by creating a point at (x, y) and then expand 4-directionally
@@ -134,10 +144,10 @@ class Maps extends Mutator {
 	//! In the absence of a true collision mask system (e.g. AABB), this is simplistically substituting ALL collision mask calculations
 	static CalcBoundingBox(x, y, rx, ry = rx) {
 		return {
-			X0: x - rx,
-			Y0: y - ry,
-			X1: x + rx,
-			Y1: y + ry
+			TLx: x - rx,
+			TLy: y - ry,
+			BRx: x + rx,
+			BRy: y + ry
 		};
 	}
 }

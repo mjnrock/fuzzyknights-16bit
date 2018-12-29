@@ -33,9 +33,7 @@ class RenderManager {
 
 	Register(entity, isTerrain = false) {
 		let cName = this.GetSchema(entity.constructor),
-			model = new (this.Assets[cName].Render)(this.FuzzyKnights, entity, (e) => {
-				console.log(this.FuzzyKnights.Utility.Canvas.GetPixel(e.Image, 64, 64, true));
-			});
+			model = new (this.Assets[cName].Render)(this.FuzzyKnights, entity);
 
 		if(isTerrain === false) {
 			this.Entities[entity.UUID] = model;

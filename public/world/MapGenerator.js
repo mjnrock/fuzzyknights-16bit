@@ -1,8 +1,11 @@
 import Functions from "../utility/Functions.js";
 import Dice from "../utility/Dice.js";
-
 import Grid from "../utility/Grid.js";
+
+import Terrain from "./../entity/terrain/package.js";
+
 import { Map } from "./Map.js";
+import { Node } from "./Node.js";
 
 //TODO CellularAutomata is complete for T/F, but needs a more meaningful generation paradigm
 class CellularAutomata {
@@ -104,12 +107,13 @@ class RandomAverage {
 
 		return this.Cells;
 	}
-	GetMap(run = true) {
-		if(run) {
-			this.Run();
-		}
+	GetMap(...terrainRanges) {
+		this.Run();
 		
-		return new Map(this.Cells);
+		let grid = this.ConvertToTerrain([
+			...terrainRanges
+		]);
+		return new Map(grid);
 	}
 
 	GetNeighbors(x, y) {
@@ -129,6 +133,42 @@ class RandomAverage {
 		}
 
 		return value / count;
+	}
+
+	/**
+	 * 
+	 * @param array | [ [ min, max, Terrain ], ... ]
+	 */
+	//TODO Build a default case here (e.g. Void or Water)
+	ConvertToTerrain(array = []) {
+		if(array.length === 0) {			
+			return null;
+		}
+
+		let terrainGrid = new Grid(this.Cells.XMax, this.Cells.YMax, Node, (x, y) => [ x, y ]);
+
+		if(array.length === 1) {
+			this.Cells.ForEach((pos, ele, t) => {				
+				if(ele >= array[0][0] && ele < array[0][1]) {
+					terrainGrid.Get(pos.X, pos.Y).AddEntity(new array[0][2]());
+				}				
+			});
+
+			return terrainGrid;
+		}
+
+		for(let i in array) {
+			let arr = array[i];
+
+			this.Cells.ForEach((pos, ele, t) => {
+				if(ele >= arr[0] && ele < arr[1]) {
+					console.log(ele, arr, array);
+					terrainGrid.Get(pos.X, pos.Y).AddEntity(new arr[2]());
+				}				
+			});
+		}
+
+		return terrainGrid;
 	}
 }
 
