@@ -1,3 +1,5 @@
+import CircleCollisionMask from "./../../utility/physics/CircleCollisionMask.js";
+
 import EnumCreatureType from "./../../component/enum/CreatureType.js";
 import EnumEntityType from "./../../enum/bitwise/EntityType.js";
 import Components from "./../../component/package.js";
@@ -8,6 +10,9 @@ class Creature extends Entity {
 		super(EnumEntityType.CREATURE);
 
 		this.Components.push(
+			new Components.RigidBody(
+				new CircleCollisionMask(0.5, 0.5, 0.25)
+			),
 			new Components.Attributes(),
 			new Components.Resources(),
 			new Components.CreatureInfo(type, speed, fr)
@@ -20,10 +25,13 @@ class Creature extends Entity {
 
 	Tick(time) {
 		super.Tick(time);
-		let pos = Components.Mutator.Maps.CalcHeading(this, time);
+		
+		if(Entity.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this).HasVelocity()) {
+			let pos = Components.Mutator.Maps.CalcHeading(this, time);
 
-		if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
-			Entity.FuzzyKnights.Event.Spawn.EntityMoveEvent(this.UUID, ...pos);
+			if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
+				Entity.FuzzyKnights.Event.Spawn.EntityMoveEvent(this.UUID, ...pos);
+			}
 		}
 	}
 }

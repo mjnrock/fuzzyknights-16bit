@@ -9,6 +9,8 @@ import { EntityMoveMessage } from "./EntityMoveMessage.js";
 import { EntityStateChangeMessage } from "./EntityStateChangeMessage.js";
 import { EntityConstructionMessage } from "./EntityConstructionMessage.js";
 import { EntityDestructionMessage } from "./EntityDestructionMessage.js";
+import { EntityCollisionMessage } from "./EntityCollisionMessage.js";
+import { EntityJoinWorldMessage } from "./EntityJoinWorldMessage.js";
 
 import MessageManager from "./MessageManager.js";
 
@@ -27,6 +29,8 @@ export default {
 	EntityStateChangeMessage,
 	EntityConstructionMessage,
 	EntityDestructionMessage,
+	EntityCollisionMessage,
+	EntityJoinWorldMessage,
 
 	MessageManager
 };

@@ -12,7 +12,11 @@ class Entity {
 			new Components.States([
 				[ Components.Enum.StateType.NORMAL, 0 ]
 			]),
-			new Components.Maps(Components.Enum.MapType.TILE, 0, 0)
+			new Components.Maps(
+				Components.Enum.MapType.TILE,
+				0.5,
+				0.5
+			)
 		);
 	}
 

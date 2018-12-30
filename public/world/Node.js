@@ -10,6 +10,11 @@ class Node {
 		this.Entities = new OrderedList(entities);
 	}
 
+	CompareId() {
+		// console.log(this.Location);
+		return `N${ this.Location.X },${ this.Location.Y }`;
+	}
+
 	GetLocation() {
 		return this.Location;
 	}
@@ -19,6 +24,9 @@ class Node {
 		return this;
 	}
 
+	HasEntity(entity) {
+		return this.Entities.Contains(entity);
+	}
 	AddEntity(entity) {
 		if(!this.Entities.Contains(entity)) {
 			this.Entities.Push(entity);

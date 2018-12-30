@@ -6,19 +6,16 @@ class EntityHandler {
 	onEntityDestruction(msg, uuid) {
 		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
 		this.FuzzyKnights.Entity.EntityManager.Unregister(entity);
-		
-		if(this.FuzzyKnights.IsServer) {
-			this.FuzzyKnights.Message.Packet.PacketManager.SpawnServer(msg);
-		}
+		this.FuzzyKnights.Render.RenderManager.Unregister(entity);
 	}
-	onEntityConstruction(msg, json) {
-		//TODO Serialize the Entity, instantiate, and assign to "entity"
-		// let entity = this.FuzzyKnights.Entity.EntityManager;
-		this.FuzzyKnights.Entity.EntityManager.Register(entity);
+	onEntityConstruction(msg, json) {}
 
-		if(this.FuzzyKnights.IsServer) {
-			this.FuzzyKnights.Message.Packet.PacketManager.SpawnServer(msg);
-		}
+	onEntityJoinWorld(msg, entity, map) {
+		this.FuzzyKnights.Entity.EntityManager.Register(entity);
+		this.FuzzyKnights.Render.RenderManager.Register(entity);
+
+		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity);
+		map.PlaceEntity(entity, pos.X, pos.Y);
 	}
 
 	onEntityStateChange(msg, uuid) {
@@ -33,18 +30,20 @@ class EntityHandler {
 	}
 
 	onEntityMove(msg, uuid, poso, posn) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(msg.Payload.UUID);
-
-		//TODO	If Node-Entity pairing is necessary, otherwise remove
-		let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
-		map.UpdateNodeOccupancy(entity);
-
+		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(msg.Payload.UUID),
+			map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
+			
 		if((poso.X !== posn.X || poso.Y !== posn.Y)) {
+			this.FuzzyKnights.Component.Mutator.Maps.AttemptMove(entity, map, poso.X, poso.Y, posn.X, posn.Y);
 			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
 		}
 	}
 
 	onEntityDamage(msg, target, source, damage) {
+		// this.FuzzyKnights.Entity.EntityManager;
+		console.log(arguments);
+	}
+	onEntityCollision(msg, collidor, collidee) {
 		// this.FuzzyKnights.Entity.EntityManager;
 		console.log(arguments);
 	}
@@ -61,6 +60,10 @@ class EntityHandler {
 			this.onEntityConstruction(msg, ...payload);
 		} else if(msg.MessageType === "EntityDestructionMessage") {
 			this.onEntityDestruction(msg, ...payload);
+		} else if(msg.MessageType === "EntityCollisionMessage") {
+			this.onEntityCollision(msg, ...payload);
+		} else if(msg.MessageType === "EntityJoinWorldMessage") {
+			this.onEntityJoinWorld(msg, ...payload);
 		}
 	}
 	ReceiveMessage(msg, time = null) {

@@ -11,6 +11,7 @@ class Map {
 		} else {
 			this.Grid = new Grid(args[0], args[1], Node, (x, y) => [ x, y ]);
 		}
+		console.log(this.Grid);
 
 		this.HasCreatures = false;
 		this.DefaultSpawn = new Position(0, 0);
@@ -114,11 +115,10 @@ class Map {
 			y = pos.Y,
 			node = this.GetNode(Math.round(x), Math.round(y));
 
-		// this.Grid.ForEach((pos, n, t, e) => {
-		// 	t.Get(Math.floor(pos.X), Math.floor(pos.Y)).RemoveEntity(e);
-		// }, entity);
-		this.DeepRemove(entity);
-		node.AddEntity(entity);
+		if(!node.HasEntity(entity)) {
+			this.DeepRemove(entity);
+			node.AddEntity(entity);
+		}
 
 		return this;
 	}

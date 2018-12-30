@@ -31,6 +31,8 @@ class Maps extends Mutator {
 			map.UUID
 		);
 
+		this.FuzzyKnights.Event.Spawn.EntityJoinWorldEvent(entity, map);
+
 		return this;
 	}
 
@@ -58,6 +60,16 @@ class Maps extends Mutator {
 	SetHeading(entity, x, y, r = 0) {
 		return this.GetComponent(entity).ActiveMap.Heading = this.FuzzyKnights.Utility.Physics.Heading.Generate(x, y, r);
 	}
+
+	GetVelocity(entity) {
+		return this.GetComponent(entity).Velocity;
+	}
+	SetVelocity(entity, x = 0, y = 0, r = 0) {
+		this.GetComponent(entity).Velocity = this.FuzzyKnights.Utility.Physics.Velocity.Generate(x, y, r);
+
+		return this;
+	}
+	
 	//TODO This could be a lot of processing per tick at scale, create an IsDirty flag in each component (at a minimum this one)
 	CalcHeading(entity, time) {
 		let pos = this.GetPosition(entity),
@@ -73,27 +85,15 @@ class Maps extends Mutator {
 
 		let px = pos.X,
 			py = pos.Y;
-		this.SetPosition(entity, x, y);
-		// this.Move(entity, x, y);
 
 		return [ px, py, x, y ];
 	}
-
-	GetVelocity(entity) {
-		return this.GetComponent(entity).Velocity;
-	}
-	SetVelocity(entity, x = 0, y = 0, r = 0) {
-		this.GetComponent(entity).Velocity = this.FuzzyKnights.Utility.Physics.Velocity.Generate(x, y, r);
-
-		return this;
-	}
-	
 	ImposeNavigabilityConstraints(entity, map = null, pos = null, vel = null) {
 		pos = pos || this.GetPosition(entity);
 		vel = vel || this.GetVelocity(entity);
 		map = map || this.GetMap(entity);
 
-		let terrain = map.GetNode(pos.X + 0.5, pos.Y + 0.5).GetTerrain()[0],
+		let terrain = map.GetNode(pos.X, pos.Y).GetTerrain()[0],
 			nav = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigability(terrain),
 			constraint = EnumNavigabilityType.GetConstraint(nav),
 			vector = vel.Vector.GetValues().map(v => v * constraint);
@@ -104,31 +104,84 @@ class Maps extends Mutator {
 		};
 	}
 
-	Place(entity, x0, y0, x1, y1) {
-		let map = this.GetMap(entity);
-		map.MoveEntity(entity, x0, y0, x1, y1);
+	AttemptMove(entity, map, x, y, nx, ny) {
+		let curr = map.GetNode(x, y),
+			next = map.GetNode(nx, ny)
+		
+		if(curr.CompareId() === next.CompareId()) {
+			this.SetPosition(entity, nx, ny);
+		} else if(curr.CompareId() !== next.CompareId()) {
+			let cNext = next.GetCreatures(),
+				isEligible = true;
 
-		return this;
-	}
+			cNext.forEach(creature => {
+				if(entity.UUID !== creature.UUID) {
+					isEligible = false;
+				}
+			});	
 
-	Move(entity, x, y) {
-		//TODO While Key State is ACTIVE, set Component's Directional Velocity to "Navigability Speed",
-		//TODO let either some .Tick() use the LastTickTime to calculate how far Entity should move based on that velocity and elapsed time
-		// let map = this.GetMap(entity);
-
-		// this.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity.UUID, x1, y1);
-
-		return this;
-	}
-
-	CheckCollision(entity, x, y) {
-		if(entity instanceof this.FuzzyKnights.Entity) {
-			console.log(111);
+			if(isEligible) {
+				map.UpdateNodeOccupancy(entity);
+				this.SetPosition(entity, nx, ny);
+			}		
 		}
-		let pos = this.GetPosition(entity),
-			bb = Maps.CalcBoundingBox(x, y, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2);
+	}
 
-		return (pos.X <= bb.BRx) && (pos.X >= bb.TLx) && (pos.Y <= bb.BRy) && (pos.Y >= bb.TLy);
+	Move(entity, map, px, py, x, y) {
+		let node = map.GetNode(x, y, false),
+			isEligible = true;
+
+		// node.GetEntityArray().forEach((v, i) => {
+		// 	let isCollision = this.CheckCollision(entity, v);
+
+		// 	if(isCollision) {
+		// 		console.log(entity, v, true);
+		// 	} else {
+		// 		console.log(entity, v, false);
+		// 	}
+		// });
+		this.SetPosition(entity, x, y);
+
+		// this.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity.UUID, px, py, x, y);
+
+		return this;
+	}
+
+	CheckCollisionBox(collidor, collidee) {
+		let posOr = this.GetPosition(collidor),
+			posEe = this.GetPosition(collidee),
+			bbOr = Maps.CalcBoundingBox(posOr.X, posOr.Y, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2),
+			bbEe = Maps.CalcBoundingBox(posEe.X, posEe.Y, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2);
+
+		for(let x = bbOr.TLx; x <= bbOr.BRx; x++) {
+			for(let y = bbOr.BRy; y <= bbOr.TLy; y++) {
+				let isCollision = (x <= bbEe.BRx) && (x >= bbEe.TLx) && (y <= bbEe.BRy) && (y >= bbEe.TLy);
+
+				if(isCollision) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	CheckPointWithinBoundaryCircle(x, y, cx, cy, cr) {
+		return (x - cx) ** 2 + (y - cy) ** 2 <= cr ** 2;
+	}
+	CheckPointWithinBoundaryBox(x, y, bx, by) {
+		let bb = Maps.CalcBoundingBox(bx, by, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2);
+
+		return (x <= bb.BRx) && (x >= bb.TLx) && (y <= bb.BRy) && (y >= bb.TLy);
+	}
+	CheckPointWithinEntityBox(entity, x, y) {
+		let pos = this.GetPosition(entity),
+			bb = Maps.CalcBoundingBox(pos.X, pos.Y, this.FuzzyKnights.Game.Settings.View.Tile.Width / 2, this.FuzzyKnights.Game.Settings.View.Tile.Height / 2);
+
+		return (x <= bb.BRx) && (x >= bb.TLx) && (y <= bb.BRy) && (y >= bb.TLy);
+	}
+	CheckPointWithinEntityCircle(entity, x, y) {
+		return (x - cx) ** 2 + (y - cy) ** 2 <= cr ** 2;
 	}
 	
 	/**

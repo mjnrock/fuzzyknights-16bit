@@ -6,6 +6,10 @@ import Heading from "./Heading.js";
 import Velocity from "./Velocity.js";
 import Acceleration from "./Acceleration.js";
 
+import CollisionMask from "./CollisionMask.js";
+import RectangleCollisionMask from "./RectangleCollisionMask.js";
+import CircleCollisionMask from "./CircleCollisionMask.js";
+
 export default {
 	Vector,
 	Rotation,
@@ -13,5 +17,9 @@ export default {
 
 	Heading,
 	Velocity,
-	Acceleration
+	Acceleration,
+
+	CollisionMask,
+	RectangleCollisionMask,
+	CircleCollisionMask
 };

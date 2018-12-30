@@ -12,6 +12,10 @@ class Velocity {
 		this.Rotation = rotation;
 	}
 
+	HasVelocity() {
+		return this.Vector.X !== 0 || this.Vector.Y !== 0 || this.Rotation.Yaw !== 0;
+	}
+
 	GetValues() {
 		return [
 			...this.Vector.GetValues(),

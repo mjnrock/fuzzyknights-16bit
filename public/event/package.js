@@ -6,6 +6,8 @@ import { EntityMoveEvent } from "./EntityMoveEvent.js";
 import { EntityStateChangeEvent } from "./EntityStateChangeEvent.js";
 import { EntityConstructionEvent } from "./EntityConstructionEvent.js";
 import { EntityDestructionEvent } from "./EntityDestructionEvent.js";
+import { EntityCollisionEvent } from "./EntityCollisionEvent.js";
+import { EntityJoinWorldEvent } from "./EntityJoinWorldEvent.js";
 import { InputMouseEvent } from "./InputMouseEvent.js";
 
 import Handler from "./handler/package.js";
@@ -20,6 +22,8 @@ export default {
 	EntityStateChangeEvent,
 	EntityConstructionEvent,
 	EntityDestructionEvent,
+	EntityCollisionEvent,
+	EntityJoinWorldEvent,
 	InputMouseEvent,
 
 	Handler,
@@ -31,8 +35,10 @@ export default {
 		PlayerDisconnectEvent: (...args) => new PlayerDisconnectEvent(...args),
 		EntityDamageEvent: (...args) => new EntityDamageEvent(...args),
 		EntityMoveEvent: (...args) => new EntityMoveEvent(...args),
+		EntityJoinWorldEvent: (...args) => new EntityJoinWorldEvent(...args),
 		EntityStateChangeEvent: (...args) => new EntityStateChangeEvent(...args),
 		EntityConstructionEvent: (...args) => new EntityConstructionEvent(...args),
+		EntityCollisionEvent: (...args) => new EntityCollisionEvent(...args),
 		InputMouseEvent: (...args) => new InputMouseEvent(...args)
 	}
 };

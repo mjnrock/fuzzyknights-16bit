@@ -1,2 +1,5 @@
 ☐ Base all movement around the collision mask
+	☐ Migrate to Boundary Circles for obvious reasons
 	☐ @bug Since movement is based *only* on current tile, character gets stuck _once_ they enter the non-navigable terrain (and thus can't leave)
+	
+☐ Create a EntityNodeChange Event and Message and convert the Mutator > Maps:119 > map.UpdateNodeOccupancy(entity); to be controlled by an Event

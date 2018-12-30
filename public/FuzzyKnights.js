@@ -35,7 +35,7 @@ class FuzzyKnights {
 		}
 
 		//* These have to be moved into an appropriate Game invocation
-		this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
+		// this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
 		this.FuzzyKnights.World.MapManager.GetActiveMap().Grid.ForEach((pos, node, grid) => {
 			let entity = node.GetTerrain()[0];
 			this.FuzzyKnights.Component.Mutator.Maps.SetHeading(entity, pos.X, pos.Y, 0);
@@ -84,6 +84,7 @@ class FuzzyKnights {
 
 
 		//@ Component Mutators
+		this.FuzzyKnights.Component.Mutator.RigidBody = new this.FuzzyKnights.Component.Mutator.RigidBody(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Attributes = new this.FuzzyKnights.Component.Mutator.Attributes(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Resources = new this.FuzzyKnights.Component.Mutator.Resources(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Maps = new this.FuzzyKnights.Component.Mutator.Maps(this.FuzzyKnights);
@@ -99,19 +100,27 @@ class FuzzyKnights {
 	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
 		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap(
-			[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
-			[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
-			[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+			[ 0, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
 		);
+		// let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap(
+		// 	[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
+		// 	[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
+		// 	[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+		// );
 		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Beaver());
+
+		let Enemy = new this.FuzzyKnights.Entity.Creature.Raccoon();
 
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
 		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);
 		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
 
 		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Player.Entity, Map);
+		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Player.Entity, 0, 0);
 
-		this.FuzzyKnights.Entity.EntityManager.Register(Player.Entity);
+		console.log(Enemy);
+		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Enemy, Map);
+		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2, 2);
 
 		return this;
 	}
