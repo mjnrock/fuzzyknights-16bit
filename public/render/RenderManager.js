@@ -78,7 +78,8 @@ class RenderManager {
 	Draw(time) {
 		this.Canvas.Entity.PreDraw();
 		this.ForEachEntity((e) => {
-			this.Canvas.Entity.DrawTile(...e.Render(time));
+			//DEBUG (the UUID comparator)
+			this.Canvas.Entity.DrawTile(...e.Render(time), e.GetEntity().UUID === this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity().UUID);
 		});
 		this.ForEachTerrain((t) => {
 			this.Canvas.Terrain.DrawColoredTile(...t.Render(time));

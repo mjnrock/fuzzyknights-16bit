@@ -11,7 +11,7 @@ class Creature extends Entity {
 
 		this.Components.push(
 			new Components.RigidBody(
-				new CircleCollisionMask(0.5, 0.5, 0.25)
+				new CircleCollisionMask(0, 0, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
 			),
 			new Components.Attributes(),
 			new Components.Resources(),
@@ -27,7 +27,7 @@ class Creature extends Entity {
 		super.Tick(time);
 		
 		if(Entity.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this).HasVelocity()) {
-			let pos = Components.Mutator.Maps.CalcHeading(this, time);
+			let pos = Entity.FuzzyKnights.World.MapManager.GetActiveMap().CalcHeading(this, time);
 
 			if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
 				Entity.FuzzyKnights.Event.Spawn.EntityMoveEvent(this.UUID, ...pos);

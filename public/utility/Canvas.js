@@ -90,15 +90,47 @@ class Canvas {
 		return this;
 	}
 
-	DrawTile(image, x, y, sx = 0, sy = 0) {
+	DrawTile(image, x, y, sx = 0, sy = 0, debugParam = false) {
+		//DEBUG
+		let ox = x,
+			oy = y;
+
 		x = x * this.Tile.Width;
 		y = y * this.Tile.Height;
 		
-		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
+		this.DrawImage(
+			image,
+			sx * this.Tile.Width,
+			sy * this.Tile.Height,
+			this.Tile.Width,
+			this.Tile.Height,
+			x - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+			y - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+			this.Tile.Width,
+			this.Tile.Height
+		);
 		
 		//DEBUG
-		this.Context.fillStyle = "rgba(0, 0, 0, 0.15)";
-		this.Context.fillRect(x, y, this.Tile.Width, this.Tile.Height);
+		if(debugParam) {
+			//? Highlight the Tile of the Player
+			this.Context.fillStyle = "rgba(0, 0, 0, 0.15)";
+			this.Context.fillRect(
+				x - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+				y - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+				this.Tile.Width,
+				this.Tile.Height
+			);
+			//? Show a radius around a creature
+			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(ox, oy, 2);
+			points.forEach(n => {
+				this.Context.fillRect(
+					n[0] * this.Tile.Width - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+					n[1] * this.Tile.Height - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+					this.Tile.Width,
+					this.Tile.Height
+				);
+			});
+		}
 
 		return this;
 	}

@@ -120,7 +120,7 @@ class FuzzyKnights {
 
 		console.log(Enemy);
 		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Enemy, Map);
-		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2, 2);
+		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2.3, 2.3);
 
 		return this;
 	}
@@ -135,6 +135,9 @@ class FuzzyKnights {
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;
+
+		//DEBUG
+		this.FuzzyKnights.Utility.Canvas.FuzzyKnights = this.FuzzyKnights;
 
 		return this;
 	}

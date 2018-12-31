@@ -17,7 +17,7 @@ class MapManager {
 	}
 	SetActiveMap(uuid) {
 		this.ActiveMap = this.FindMap(uuid);
-
+		
 		return this;
 	}
 
