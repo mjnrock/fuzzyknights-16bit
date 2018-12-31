@@ -6,14 +6,7 @@ class InputKeyboardMessage extends Message {
 		super(
 			EnumHandlerType.INPUT,
 			{
-				EventData: {
-					altKey: e.altKey,
-					ctrlKey: e.ctrlKey,
-					keyCode: e.keyCode,
-					repeat: e.repeat,
-					shiftKey: e.shiftKey,
-					type: e.type
-				}
+				Event: e
 			},
 			isServerOrigin
 		);

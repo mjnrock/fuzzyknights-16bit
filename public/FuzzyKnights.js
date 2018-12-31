@@ -107,9 +107,9 @@ class FuzzyKnights {
 		// 	[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
 		// 	[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
 		// );
-		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Beaver());
+		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
 
-		let Enemy = new this.FuzzyKnights.Entity.Creature.Raccoon();
+		let Enemy = new this.FuzzyKnights.Entity.Creature.Beaver();
 
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
 		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);

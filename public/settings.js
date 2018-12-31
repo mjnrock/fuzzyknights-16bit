@@ -6,6 +6,7 @@ export default {
 	// 	}
 	// },
 	View: {
+		DebugMode: false,
 		Tile: {
 			Width: 128,
 			Height: 128,

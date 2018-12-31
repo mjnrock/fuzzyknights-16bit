@@ -19,6 +19,8 @@ class KeyListener {
 
 		this.FlagController(e.keyCode, false);
 		(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
+		
+		this.FuzzyKnights.Event.Spawn.InputKeyboardEvent(e);
 	}
 
 	//*	e.repeat === true allows detection of a continuous press

@@ -90,13 +90,9 @@ class Canvas {
 		return this;
 	}
 
-	DrawTile(image, x, y, sx = 0, sy = 0, debugParam = false) {
-		//DEBUG
-		let ox = x,
-			oy = y;
-
-		x = x * this.Tile.Width;
-		y = y * this.Tile.Height;
+	DrawTile(image, x, y, sx = 0, sy = 0) {
+		let tx = x * this.Tile.Width;
+		let ty = y * this.Tile.Height;
 		
 		this.DrawImage(
 			image,
@@ -104,24 +100,41 @@ class Canvas {
 			sy * this.Tile.Height,
 			this.Tile.Width,
 			this.Tile.Height,
-			x - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
-			y - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+			tx - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+			ty - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
 			this.Tile.Width,
 			this.Tile.Height
 		);
 		
 		//DEBUG
-		if(debugParam) {
+		if(Canvas.FuzzyKnights.Game.Settings.View.DebugMode) {
 			//? Highlight the Tile of the Player
 			this.Context.fillStyle = "rgba(0, 0, 0, 0.15)";
 			this.Context.fillRect(
-				x - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
-				y - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+				tx - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+				ty - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
 				this.Tile.Width,
 				this.Tile.Height
 			);
+
+			let node = Canvas.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty, false);
+			//? Entity Collision Mask
+			node.GetCreatures().forEach(ent => {
+				this.Context.beginPath();
+				this.Context.arc(
+					tx,
+					ty,
+					Canvas.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(ent).Radius,
+					0,
+					2 * Math.PI
+				);
+				this.Context.lineWidth = 2;
+				this.Context.strokeStyle = "rgba(200, 35, 35, 1.0)";
+				this.Context.stroke();
+			});
+
 			//? Show a radius around a creature
-			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(ox, oy, 2);
+			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(x, y, 2);
 			points.forEach(n => {
 				this.Context.fillRect(
 					n[0] * this.Tile.Width,
@@ -144,7 +157,9 @@ class Canvas {
 		}
 
 		//DEBUG
-		this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
+		if(Canvas.FuzzyKnights.Game.Settings.View.DebugMode) {
+			this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
+		}
 
 		return this;
 	}
