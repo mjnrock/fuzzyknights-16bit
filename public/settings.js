@@ -14,6 +14,7 @@ export default {
 		}
 	},
 	Bindings: {
+		DebugMode: [ 114 ],			//	F3
 		Movement: {
 			Left: [ 37, 65 ],		//	LEFT_ARROW, A
 			Right: [ 39, 68 ],		//	RIGHT_ARROW, D
