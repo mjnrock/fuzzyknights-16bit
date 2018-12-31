@@ -124,8 +124,8 @@ class Canvas {
 			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(ox, oy, 2);
 			points.forEach(n => {
 				this.Context.fillRect(
-					n[0] * this.Tile.Width - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
-					n[1] * this.Tile.Height - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
+					n[0] * this.Tile.Width,
+					n[1] * this.Tile.Height,
 					this.Tile.Width,
 					this.Tile.Height
 				);

@@ -303,6 +303,10 @@ class Map {
 			BRy: y + ry
 		};
 	}
+
+	Tick(time) {
+		
+	}
 }
 
 export { Map };
