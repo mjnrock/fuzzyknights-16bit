@@ -95,6 +95,10 @@ class Canvas {
 		y = y * this.Tile.Height;
 		
 		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
+		
+		//DEBUG
+		this.Context.fillStyle = "rgba(0, 0, 0, 0.15)";
+		this.Context.fillRect(x, y, this.Tile.Width, this.Tile.Height);
 
 		return this;
 	}
@@ -107,24 +111,8 @@ class Canvas {
 			this.ColorizeTile(x, y, color);
 		}
 
-		return this;
-	}
-
-	//DEBUG
-	DEBUG_DrawImage(image, u, v, uw, vh, x, y, w, h) {
-		this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
-
-		this.Context.fillStyle = "rgba(0, 0, 0, 0.25)";
-		this.Context.fillRect(x, y, w, h);
-
-		return this;
-	}
-	//DEBUG
-	DEBUG_DrawTile(image, x, y, sx = 0, sy = 0) {
-		x = x * this.Tile.Width;
-		y = y * this.Tile.Height;
-		
-		this.DEBUG_DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
+		//DEBUG
+		this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
 
 		return this;
 	}
