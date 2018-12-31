@@ -1,10 +1,4 @@
 export default {
-	// Entities: {
-	// 	//	[ Enum.CreatureType, Speed, FollowRange ]
-	// 	Creature: {
-	// 		Raccoon: [ EnumCreatureType.HOSTILE, 1.6, 3 ]
-	// 	}
-	// },
 	View: {
 		DebugMode: false,
 		Tile: {
@@ -13,6 +7,8 @@ export default {
 			Target: 128
 		}
 	},
+
+	//TODO Currently does not have a paradigm for Modifier Keys
 	Bindings: {
 		DebugMode: [ 114 ],			//	F3
 		Movement: {
