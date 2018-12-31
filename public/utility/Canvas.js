@@ -154,12 +154,12 @@ class Canvas {
 
 			//? Details
 			{
-				this.Context.fillStyle = "rgba(0, 0, 0, 0.10)";
+				this.Context.fillStyle = "rgba(0, 0, 0, 0.25)";
 				this.Context.fillRect(
 					0,
 					0,
 					this.Width,
-					130
+					140
 				);
 				this.Context.fillStyle = "rgba(255, 255, 255, 1.0)";
 				this.Context.font = "14px monospace";
@@ -182,12 +182,31 @@ class Canvas {
 				
 				let r1 = rowg();
 				this.Context.fillText(`[ PLAYER ]`, col(1), r1.next().value);
-				this.Context.fillText(`Velocity: ${ compMaps.Velocity.Vector.X }, ${ compMaps.Velocity.Vector.Y }, ${ compMaps.Velocity.Rotation.Yaw }`, col(1), r1.next().value);
-				this.Context.fillText(`Position: ${ compMaps.ActiveMap.Heading.Position.X.toFixed(2) }, ${ compMaps.ActiveMap.Heading.Position.Y.toFixed(2) }`, col(1), r1.next().value);
+				this.Context.fillText(`Velocity: ${ compMaps.Velocity.Vector.X }ts, ${ compMaps.Velocity.Vector.Y }ts, ${ compMaps.Velocity.Rotation.Yaw }rs`, col(1), r1.next().value);
+				this.Context.fillText(
+					`Speed: ${
+						(compMaps.Velocity.Vector.X * Canvas.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability)).toFixed(2)
+					}ts, ${
+						(compMaps.Velocity.Vector.Y * Canvas.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability)).toFixed(2)
+					}ts`,
+					col(1),
+					r1.next().value
+				);
+				this.Context.fillText(`Position: ${ compMaps.ActiveMap.Heading.Position.X.toFixed(2) }x, ${ compMaps.ActiveMap.Heading.Position.Y.toFixed(2) }y`, col(1), r1.next().value);
 				this.Context.fillText(`Facing: ${ compMaps.ActiveMap.Heading.Rotation.Yaw }°`, col(1), r1.next().value);
-				this.Context.fillText(`Mask: ${ (compMaps.ActiveMap.Heading.Position.X + compRigBod.CollisionMask.Origin.X).toFixed(2) }, ${ (compMaps.ActiveMap.Heading.Position.Y + compRigBod.CollisionMask.Origin.Y).toFixed(2) }, ${ compRigBod.CollisionMask.Radius }`, col(1), r1.next().value);
+				this.Context.fillText(
+					`Mask: ${
+						(compMaps.ActiveMap.Heading.Position.X + (compRigBod.CollisionMask.Origin.X / Canvas.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
+					}, ${
+						(compMaps.ActiveMap.Heading.Position.Y + (compRigBod.CollisionMask.Origin.Y / Canvas.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
+					}, ${
+						compRigBod.CollisionMask.Radius
+					}`,
+					col(1),
+					r1.next().value
+				);
 				this.Context.fillText(`- Type: ${ compRigBod.CollisionMask.constructor.name.replace(/CollisionMask/gi, "") }`, col(1), r1.next().value);
-				this.Context.fillText(`- Size: ${ compRigBod.CollisionMask.Origin.X }, ${ compRigBod.CollisionMask.Origin.Y }, ${ compRigBod.CollisionMask.Radius }`, col(1), r1.next().value);
+				this.Context.fillText(`- XYR: ${ compRigBod.CollisionMask.Origin.X }px, ${ compRigBod.CollisionMask.Origin.Y }px, ${ compRigBod.CollisionMask.Radius }px`, col(1), r1.next().value);
 				
 				let r2 = rowg();
 				this.Context.fillText(`[ TERRAIN ]`, col(2), r2.next().value);

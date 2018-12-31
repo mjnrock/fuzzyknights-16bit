@@ -10,10 +10,10 @@ const NavigabilityType = {
 NavigabilityType.GetConstraint = function(value) {
 	const Speed = {
 		NONE:			0,
-		WATER:			0.25,
-		SAND:			0.33,
-		GRASS:			1,
-		ROCK:			0.5,
+		WATER:			0.33,
+		SAND:			0.60,
+		GRASS:			1.00,
+		ROCK:			0.50,
 		PATH:			1.25
 	};
 
