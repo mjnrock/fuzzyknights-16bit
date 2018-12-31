@@ -1,3 +1,4 @@
+*Currently all Rendering is based on the "Top Left" Tile corner*
 ☐ Base all movement around the collision mask
 	☐ Readjust Renderer to offset ALL renderings to be "Center Tile" rather than "Top Left"
 		☐ Shift Canvas and/or anything else if bleeding off screen
