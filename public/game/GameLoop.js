@@ -5,7 +5,11 @@ class GameLoop {
 		this.RenderHook = null;
 
 		this.Ticks = 0;
+		this.Renders = 0;
 		this.LastTime = 0;
+		this.LastRenderTime = 0;
+
+		this.RenderTime = 0;
 
 		this.IsPaused = false;
 		this.Ticker = null;
@@ -89,8 +93,12 @@ class GameLoop {
 		// console.timeEnd("Tick");
 	}
 	Render(time) {
-		time = (+Date.now() - this.LastTime) / 1000;
-		this.RenderHook(time);
+		++this.Renders;
+
+		this.LastRenderTime = time - this.RenderTime;
+		this.RenderTime = time;
+
+		this.RenderHook(this.LastRenderTime / 1000);
 
 		requestAnimationFrame(this.Render.bind(this));
 	}

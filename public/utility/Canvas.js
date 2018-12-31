@@ -200,6 +200,10 @@ class Canvas {
 				let r3 = rowg();
 				this.Context.fillText(`[ GAME ]`, col(3), r3.next().value);
 				this.Context.fillText(`Ticks: ${ Canvas.FuzzyKnights.Game.GameManager.GameLoop.Ticks }`, col(3), r3.next().value);
+				this.Context.fillText(`- FPS: ${ Canvas.FuzzyKnights.Game.GameManager.GameLoop.TicksPerSecond.toFixed(1) }`, col(3), r3.next().value);
+				this.Context.fillText(`Renders: ${ Canvas.FuzzyKnights.Game.GameManager.GameLoop.Renders }`, col(3), r3.next().value);
+				this.Context.fillText(`- FPS: ${ (1000 / Canvas.FuzzyKnights.Game.GameManager.GameLoop.LastRenderTime).toFixed(1) }`, col(3), r3.next().value);
+				this.Context.fillText(`- AFPS: ${ (Canvas.FuzzyKnights.Game.GameManager.GameLoop.Renders / (Canvas.FuzzyKnights.Game.GameManager.GameLoop.RenderTime / 1000)).toFixed(1) }`, col(3), r3.next().value);
 			}
 		}
 
