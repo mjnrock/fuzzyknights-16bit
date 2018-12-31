@@ -6,7 +6,7 @@ class RigidBody extends Component {
 	constructor(mask) {
 		super(EnumComponentType.RIGID_BODY);
 		
-		//* The "Origin" is a percentage offset from [0-1.0] for both X and Y.
+		//* The "Origin" is a PIXEL offset that will be added to the Entity's Position
 		this.CollisionMask = mask;
 	}
 }

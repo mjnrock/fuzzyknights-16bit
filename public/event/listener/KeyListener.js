@@ -17,9 +17,8 @@ class KeyListener {
 			e.preventDefault();
 		}
 
-		this.FlagController(e.keyCode, false);
-		(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
-		
+		this.FlagController(e.keyCode, false);		
+		this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 		this.FuzzyKnights.Event.Spawn.InputKeyboardEvent(e);
 	}
 
@@ -33,7 +32,7 @@ class KeyListener {
 		this.FlagController(e.keyCode, true);
 		
 		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
-			(new this.FuzzyKnights.Message.InputPlayerKeyStateMessage(this.PlayerKeyState)).Send();
+			this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 		}
 	}
 

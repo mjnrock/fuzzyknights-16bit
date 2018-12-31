@@ -187,8 +187,8 @@ class Map {
 		return points;
 	}
 
-	AttemptMove(entity, map, x, y, nx, ny) {
-		let neighbors = Map.GetNeighborsBox(nx, ny, 2),
+	AttemptMove(entity, map, nx, ny) {
+		let neighbors = Map.GetNeighborsBox(nx, ny, 1),
 			isCollisionFree = true;
 
 		for(let i in neighbors) {
@@ -222,7 +222,13 @@ class Map {
 			posEe = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(collidee),
 			maskOr = Map.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(collidor),
 			maskEe = Map.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(collidee),
-			isCollision = Math.hypot(posOr.X - posEe.X, posOr.Y - posEe.Y) <= (maskOr.Radius + maskEe.Radius) / Map.FuzzyKnights.Game.Settings.View.Tile.Target;
+
+			xOr = posOr.X + maskOr.Origin.X,
+			yOr = posOr.Y + maskOr.Origin.Y,
+			xEe = posEe.X + maskEe.Origin.X,
+			yEe = posEe.Y + maskEe.Origin.Y,
+
+			isCollision = Math.hypot(xOr - xEe, yOr - yEe) <= (maskOr.Radius + maskEe.Radius) / Map.FuzzyKnights.Game.Settings.View.Tile.Target;
 
 		return isCollision;
 	}

@@ -6,12 +6,12 @@ import Components from "./../../component/package.js";
 import { Entity } from "./../Entity.js";
 
 class Creature extends Entity {
-	constructor(type = EnumCreatureType.PASSIVE, speed = 3, fr = 1, x = -1, y = -1) {
+	constructor(type = EnumCreatureType.PASSIVE, speed = 1.0, fr = 1, x = -1, y = -1) {
 		super(EnumEntityType.CREATURE);
 
 		this.Components.push(
 			new Components.RigidBody(
-				new CircleCollisionMask(0, 0, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
+				new CircleCollisionMask(0, 4, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
 			),
 			new Components.Attributes(),
 			new Components.Resources(),

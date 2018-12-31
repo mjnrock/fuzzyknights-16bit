@@ -117,13 +117,15 @@ class Canvas {
 				this.Tile.Height
 			);
 
-			let node = Canvas.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty, false);
+			let node = Canvas.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty, false)
 			//? Entity Collision Mask
 			node.GetCreatures().forEach(ent => {
+				let origin = Canvas.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(ent).Origin;
+
 				this.Context.beginPath();
 				this.Context.arc(
-					tx,
-					ty,
+					tx + origin.X,
+					ty + origin.Y,
 					Canvas.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(ent).Radius,
 					0,
 					2 * Math.PI
@@ -134,7 +136,7 @@ class Canvas {
 			});
 
 			//? Show a radius around a creature
-			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(x, y, 2);
+			let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(x, y, 1);
 			points.forEach(n => {
 				this.Context.fillRect(
 					n[0] * this.Tile.Width,
@@ -143,6 +145,31 @@ class Canvas {
 					this.Tile.Height
 				);
 			});
+
+			//? Details
+			this.Context.fillStyle = "rgba(0, 0, 0, 0.10)";
+			this.Context.fillRect(
+				0,
+				0,
+				this.Width,
+				100
+			);
+			this.Context.fillStyle = "rgba(255, 255, 255, 1.0)";
+			this.Context.font = "14px monospace";
+
+			let player = Canvas.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
+				comp = Canvas.FuzzyKnights.Component.Mutator.Maps.GetComponent(player),
+				row = (r = 1) => r * 16,
+				col = (c = 1) => (c - 1) * 250 + 10;
+
+			this.Context.fillText(`Tile: ${ ~~comp.ActiveMap.Heading.Position.X }, ${ ~~comp.ActiveMap.Heading.Position.Y }`, col(1), row(1));
+			this.Context.fillText(`Position: ${ comp.ActiveMap.Heading.Position.X.toFixed(3) }, ${ comp.ActiveMap.Heading.Position.Y.toFixed(3) }`, col(1), row(2));
+			this.Context.fillText(`Facing: ${ comp.ActiveMap.Heading.Rotation.Yaw }°`, col(1), row(3));
+			this.Context.fillText(`Velocity: ${ comp.Velocity.Vector.X }, ${ comp.Velocity.Vector.Y }, ${ comp.Velocity.Rotation.Yaw }`, col(1), row(4));
+			
+			this.Context.fillText(`Tile: ${ ~~comp.ActiveMap.Heading.Position.X }, ${ ~~comp.ActiveMap.Heading.Position.Y }`, col(2), row(1));
+
+			this.Context.fillText(`Ticks: ${ Canvas.FuzzyKnights.Game.GameManager.GameLoop.Ticks }`, col(3), row(1));
 		}
 
 		return this;

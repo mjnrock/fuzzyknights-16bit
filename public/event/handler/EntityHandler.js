@@ -34,7 +34,7 @@ class EntityHandler {
 			map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
 			
 		if(poso.X !== posn.X || poso.Y !== posn.Y) {
-			if(this.FuzzyKnights.World.MapManager.GetActiveMap().AttemptMove(entity, map, poso.X, poso.Y, posn.X, posn.Y)) {
+			if(this.FuzzyKnights.World.MapManager.GetActiveMap().AttemptMove(entity, map, posn.X, posn.Y)) {
 				this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
 			} else {
 				// Invoke EntityCollisionEvent

@@ -52,7 +52,7 @@ class InputHandler {
 	}
 
 	onInputKeyboard(msg, event) {
-		console.log(event);
+		// console.log(event);
 		if(event.code === "F3") {
 			this.FuzzyKnights.Game.Settings.View.DebugMode = !this.FuzzyKnights.Game.Settings.View.DebugMode;
 		} else if(event.code === "Space") {
