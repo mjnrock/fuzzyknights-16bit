@@ -113,7 +113,7 @@ class Map {
 		let pos = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity),
 			x = pos.X,
 			y = pos.Y,
-			node = this.GetNode(Math.round(x), Math.round(y));
+			node = this.GetNode(x, y);
 
 		if(!node.HasEntity(entity)) {
 			this.DeepRemove(entity);

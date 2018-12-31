@@ -1,4 +1,7 @@
 ☐ Base all movement around the collision mask
+	☐ Readjust Renderer to offset ALL renderings to be "Center Tile" rather than "Top Left"
+		☐ Shift Canvas and/or anything else if bleeding off screen
+		☐ Ensure boundary conditions are met and that Entity can run in close proximity to ALL edges
 	☐ Migrate to Boundary Circles for obvious reasons
 	☐ @bug Since movement is based *only* on current tile, character gets stuck _once_ they enter the non-navigable terrain (and thus can't leave)
 	

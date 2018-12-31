@@ -30,12 +30,16 @@ class EntityHandler {
 	}
 
 	onEntityMove(msg, uuid, poso, posn) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(msg.Payload.UUID),
+		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid),
 			map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
 			
-		if((poso.X !== posn.X || poso.Y !== posn.Y)) {
-			this.FuzzyKnights.Component.Mutator.Maps.AttemptMove(entity, map, poso.X, poso.Y, posn.X, posn.Y);
-			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+		if(poso.X !== posn.X || poso.Y !== posn.Y) {
+			if(this.FuzzyKnights.Component.Mutator.Maps.AttemptMove(entity, map, poso.X, poso.Y, posn.X, posn.Y)) {
+				this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+			} else {
+				// Invoke EntityCollisionEvent
+				//! Make sure to account for attempting to pass a Collidee when the entity collided with something else that prevented movement (e.g. end of map)
+			}
 		}
 	}
 

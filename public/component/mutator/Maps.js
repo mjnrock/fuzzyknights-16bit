@@ -106,13 +106,13 @@ class Maps extends Mutator {
 
 	AttemptMove(entity, map, x, y, nx, ny) {
 		let curr = map.GetNode(x, y),
-			next = map.GetNode(nx, ny)
+			next = map.GetNode(nx, ny),
+			isEligible = true;
 		
 		if(curr.CompareId() === next.CompareId()) {
 			this.SetPosition(entity, nx, ny);
 		} else if(curr.CompareId() !== next.CompareId()) {
-			let cNext = next.GetCreatures(),
-				isEligible = true;
+			let cNext = next.GetCreatures();
 
 			cNext.forEach(creature => {
 				if(entity.UUID !== creature.UUID) {
@@ -121,10 +121,12 @@ class Maps extends Mutator {
 			});	
 
 			if(isEligible) {
-				map.UpdateNodeOccupancy(entity);
 				this.SetPosition(entity, nx, ny);
 			}		
 		}
+		map.UpdateNodeOccupancy(entity);
+
+		return isEligible;
 	}
 
 	Move(entity, map, px, py, x, y) {
