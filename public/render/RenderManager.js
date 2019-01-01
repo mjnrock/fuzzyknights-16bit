@@ -2,8 +2,8 @@ class RenderManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 		this.Canvas = {
-			Terrain: new this.FuzzyKnights.Utility.Canvas("terrain", this.FuzzyKnights.Game.Settings.View.Tile),
-			Entity: new this.FuzzyKnights.Utility.Canvas("entity", this.FuzzyKnights.Game.Settings.View.Tile)
+			Terrain: new this.FuzzyKnights.Utility.Drawing.Canvas("terrain", this.FuzzyKnights.Game.Settings.View.Tile),
+			Entity: new this.FuzzyKnights.Utility.Drawing.Canvas("entity", this.FuzzyKnights.Game.Settings.View.Tile)
 		};
 
 		this.Assets = {};
@@ -17,6 +17,13 @@ class RenderManager {
 				}
 			}
 		});
+	}
+
+	GetTerrainCanvas() {
+		return this.Canvas.Entity;
+	}
+	GetEntityCanvas() {
+		return this.Canvas.Terrain;
 	}
 
 	GetSchema(clazz) {
@@ -84,8 +91,14 @@ class RenderManager {
 		this.ForEachTerrain((t) => {
 			this.Canvas.Terrain.DrawColoredTile(...t.Render(time));
 		});
+
+		if(this.FuzzyKnights.Game.Settings.View.HUD) {
+			this.FuzzyKnights.Render.Drawing.HUD.Draw(time, this.Entities);
+		}
 	}
 
+	//TODO Make this only render what the Player can actually see
+	//TODO Have this class hold some meta data about what it will render
 	Render(time) {
 		this.Draw(time);
 	}

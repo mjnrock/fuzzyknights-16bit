@@ -3,19 +3,21 @@ class InputHandler {
 		this.FuzzyKnights = fk;
 	}
 
-	onInputMouseMessage(msg) {
+	onInputMouseMessage(msg, ...payload) {
 		// console.log(...arguments);
 		if(msg.Payload.Event.type === "mousemove") {
-			this.OnMouseMove(msg);
+			this.OnMouseMove(msg, ...payload);
 		} else if(msg.Payload.Event.type === "mousedown") {
-			this.OnMouseDown(msg);
+			this.OnMouseDown(msg, ...payload);
+			this.OnMouseMove(msg, ...payload);
 		} else if(msg.Payload.Event.type === "mouseup") {
-			this.OnMouseUp(msg);
+			this.OnMouseUp(msg, ...payload);
+			this.OnMouseMove(msg, ...payload);
 		}
 	}
-	OnMouseMove(msg) {
-		let x = msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width,
-			y = msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height,
+	OnMouseMove(msg, event) {		
+		let x = event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width,
+			y = event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height,
 			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
 			xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
 			yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
@@ -32,23 +34,32 @@ class InputHandler {
 
 		this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 	}
-	OnMouseDown(msg) {
-		let tx = Math.floor(msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
-			ty = Math.floor(msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
+	OnMouseDown(msg, event) {
+		let tx = Math.floor(event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
+			ty = Math.floor(event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
-		// console.log(tx, ty);
+		if(this.FuzzyKnights.Game.Settings.Input.Mouse.Primary === +event.button) {			
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Secondary === +event.button) {
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Auxillary === +event.button) {
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button4 === +event.button) {
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button5 === +event.button) {
+		}
 	}
-	OnMouseUp(msg) {
-		let tx = Math.floor(msg.Payload.Event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
-			ty = Math.floor(msg.Payload.Event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
+	OnMouseUp(msg, event) {
+		let tx = Math.floor(event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
+			ty = Math.floor(event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
-		// console.log(msg);
-
-		// console.log(tx, ty);
-		//TODO Creatures are not currently stored in Nodes
-		console.log(this.FuzzyKnights.Game.GameManager.Player.Entity);
-		console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).GetEntityArray());
-		console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).HasCreatures());
+		if(this.FuzzyKnights.Game.Settings.Input.Mouse.Primary === +event.button) {
+			
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Secondary === +event.button) {
+			//TODO Creatures are not currently stored in Nodes
+			console.log(this.FuzzyKnights.Game.GameManager.Player.Entity);
+			console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).GetEntityArray());
+			console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).HasCreatures());
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Auxillary === +event.button) {
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button4 === +event.button) {
+		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button5 === +event.button) {
+		}
 	}
 
 	onInputKeyboard(msg, event) {

@@ -1,6 +1,7 @@
 export default {
 	View: {
 		DebugMode: false,
+		HUD: true,
 		Tile: {
 			Width: 128,
 			Height: 128,
@@ -8,30 +9,40 @@ export default {
 		}
 	},
 
-	//TODO Currently does not have a paradigm for Modifier Keys
+	Input: {		
+		Mouse: {
+			Primary: 0,			// "B1" | Main / Left
+			Auxillary: 1,		// "B2" | Auxillary / Middle / Wheel Down
+			Secondary: 2,		// "B3" | Secondary / Right
+			Button4: 3,			// "B4" | Button 4 / Thumb Back / "Browser Back"
+			Button5: 4			// "B5" | Button 5 / Thumb Front / "Browser Forward"
+		}
+	},
+
 	Bindings: {
-		DebugMode: [ 114 ],			//	F3
+		DebugMode: [ "F3" ],			//	F3
+		HUD: [ "v" ],
 		Movement: {
-			Left: [ 37, 65 ],		//	LEFT_ARROW, A
-			Right: [ 39, 68 ],		//	RIGHT_ARROW, D
-			Up: [ 38, 87 ],			//	UP_ARROW, W
-			Down: [ 40, 83 ]		//	DOWN_ARROW, S
+			Left: [ "a", "ArrowLeft" ],
+			Right: [ "d", "ArrowRight" ],
+			Up: [ "w", "ArrowUp" ],
+			Down: [ "s", "ArrowDown" ]
 		},
 		Action: {
-			Primary: [ 81 ],		//	Q
-			Secondary: [ 69 ],		//	E
-			Interact: [ 32 ],		//	SPACE
+			Primary: [ "q", "MB1" ],
+			Secondary: [ "e", "MB2" ],
+			Interact: [ "Space", "Shift+MB1" ],
 			Slots: {
-				1: [ 49, 97 ],		//	1, 1 (NumPad)
-				2: [ 50, 98 ],		//	2, 2 (NumPad)
-				3: [ 51, 99 ],		//	3, 3 (NumPad)
-				4: [ 52, 100 ],		//	4, 4 (NumPad)
-				5: [ 53, 101 ],		//	5, 5 (NumPad)
-				6: [ 54, 102 ],		//	6, 6 (NumPad)
-				7: [ 55, 103 ],		//	7, 7 (NumPad)
-				8: [ 56, 104 ],		//	8, 8 (NumPad)
-				9: [ 57, 105 ],		//	9, 9 (NumPad)
-				0: [ 48, 96 ]		//	0, 0 (NumPad)
+				1: [ "1" ],
+				2: [ "2" ],
+				3: [ "3" ],
+				4: [ "4" ],
+				5: [ "5" ],
+				6: [ "6" ],
+				7: [ "7" ],
+				8: [ "8" ],
+				9: [ "9" ],
+				0: [ "0" ]
 			}
 		}
 	}

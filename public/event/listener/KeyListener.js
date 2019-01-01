@@ -13,32 +13,32 @@ class KeyListener {
 	}
 
 	OnKeyUp(e) {
-		if(e.keyCode !== 116 && e.keyCode !== 16) {		//! [F5] & [Shift]
+		if(e.key !== "F5" && e.key !== "ShiftLeft") {		//! [F5] & [Shift]
 			e.preventDefault();
 		}
 
-		this.FlagController(e.keyCode, false);		
+		this.FlagController(e.key, false);		
 		this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 		this.FuzzyKnights.Event.Spawn.InputKeyboardEvent(e);
 	}
 
 	//*	e.repeat === true allows detection of a continuous press
 	OnKeyDown(e) {
-		if(e.keyCode !== 116 && e.keyCode !== 16) {		//! [F5] & [Shift]
+		if(e.key !== "F5" && e.key !== "ShiftLeft") {		//! [F5] & [Shift]
 			e.preventDefault();
 		}
 
 		this.PreviousPlayerKeyState = this.PlayerKeyState;
-		this.FlagController(e.keyCode, true);
+		this.FlagController(e.key, true);
 		
 		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
 			this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 		}
 	}
 
-	FlagController(keyCode, isAdd = true) {
+	FlagController(eventKey, isAdd = true) {
 		for(let key in this.FuzzyKnights.Game.Settings.Bindings.Movement) {
-			if(this.FuzzyKnights.Game.Settings.Bindings.Movement[key].includes(keyCode)) {
+			if(this.FuzzyKnights.Game.Settings.Bindings.Movement[key].includes(eventKey)) {
 				if(!!isAdd) {
 					this.PlayerKeyState = Bitwise.Add(this.PlayerKeyState, EnumPlayerKeyState[key.toUpperCase()]);
 				} else {
