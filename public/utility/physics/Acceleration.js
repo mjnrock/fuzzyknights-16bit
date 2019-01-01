@@ -1,5 +1,6 @@
 import Position from "./Position.js";
 import Rotation from "./Rotation.js";
+import Vector from "./Vector.js";
 
 class Acceleration {
 	/**
@@ -9,6 +10,10 @@ class Acceleration {
 	constructor(vector, rotation) {
 		this.Vector = vector;
 		this.Rotation = rotation;
+	}
+
+	HasAcceleration() {
+		return this.Vector.X !== 0 || this.Vector.Y !== 0 || this.Rotation.Yaw !== 0;
 	}
 
 	GetValues() {
@@ -45,6 +50,10 @@ class Acceleration {
 			orientation.Yaw + (this.Rotation.Yaw * 0.5 * Math.pow(ms / 1000, 2)),
 			orientation.IsRadians
 		);
+	}
+
+	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {
+		return new Acceleration(new Vector(x, y), new Rotation(r, isDegrees));
 	}
 }
 

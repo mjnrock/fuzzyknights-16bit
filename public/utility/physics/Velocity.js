@@ -12,6 +12,13 @@ class Velocity {
 		this.Rotation = rotation;
 	}
 
+	Merge(velocity) {
+		this.Vector.Merge(velocity.Vector);
+		this.Rotation.Merge(velocity.Rotation);
+
+		return this;
+	}
+
 	HasVelocity() {
 		return this.Vector.X !== 0 || this.Vector.Y !== 0 || this.Rotation.Yaw !== 0;
 	}
@@ -51,8 +58,8 @@ class Velocity {
 		);
 	}
 
-	static Generate(x = 0, y = 0, r = 0) {
-		return new Velocity(new Vector(x, y), new Rotation(r));
+	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {
+		return new Velocity(new Vector(x, y), new Rotation(r, isDegrees));
 	}
 }
 

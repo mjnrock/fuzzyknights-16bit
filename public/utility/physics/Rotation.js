@@ -4,6 +4,15 @@ class Rotation {
 		this.isDegrees = isDegrees;
 	}
 
+	Merge(rot) {
+		this.SetDegrees();
+		rot.SetDegrees();
+
+		this.Yaw += rot.Yaw;
+
+		return this;
+	}
+
 	GetValues(numsOnly = false) {
 		if(numsOnly) {
 			return [
@@ -34,14 +43,14 @@ class Rotation {
 	}
 
 	SetRadians() {
-		if(!this.isDegrees) {
+		if(this.isDegrees) {
 			this.Yaw = this.Yaw * Math.PI / 180;
 		}
 
 		this.isDegrees = false;
 	}
 	SetDegrees() {
-		if(this.isDegrees) {
+		if(!this.isDegrees) {
 			this.Yaw = this.Yaw / Math.PI * 180;
 		}
 

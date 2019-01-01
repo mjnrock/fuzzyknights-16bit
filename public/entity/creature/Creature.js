@@ -22,18 +22,6 @@ class Creature extends Entity {
 			Entity.FuzzyKnights.Component.Mutator.Maps.SetPosition(this, x, y);
 		}
 	}
-
-	Tick(time) {
-		super.Tick(time);
-		
-		if(Entity.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this).HasVelocity()) {
-			let pos = Entity.FuzzyKnights.World.MapManager.GetActiveMap().CalcHeading(this, time);
-
-			if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
-				Entity.FuzzyKnights.Event.Spawn.EntityMoveEvent(this.UUID, ...pos);
-			}
-		}
-	}
 }
 
 export { Creature };

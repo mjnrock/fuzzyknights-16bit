@@ -9,11 +9,6 @@ Collision:
 ✔ Make GetNeighbor functions to get all Tiles within X-Tile radius @done(18-12-31 01:02)
 ✔ Move based on checking neighboring nodes for Entities and iterating through their collision masks @done(18-12-31 01:02)
 ☐ Spawn an Entity for EVERYTHING (e.g. Abilities, Attacks, etc.) and use Map.IsPointWithinPolygon to test if should invoke EntityCollisionEvent
-	
-EntityManager <-> Map Coupling:
-☐ Move .Tick() position functionality into (create) Map.Tick()
-	☐ Check if Map is the MapManager's ActiveMap (UUID compare) so that all Entity position functionality is handled by Map
-	☐ Run through EntityManager's registry and check if their (Maps Mutator) MapIdentifier is ActiveMap, if so, Entity.Tick()
 
 Refactors/Optimizers:
 ☐ Create a EntityNodeChange Event and Message and convert the Mutator > Maps:119 > map.UpdateNodeOccupancy(entity); to be controlled by an Event

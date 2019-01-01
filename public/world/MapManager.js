@@ -48,11 +48,7 @@ class MapManager {
 	}
 
 	Tick(time) {
-		this.Maps.ForEach((p, map, t) => {
-			if(map && map.IsOccupied()) {
-				map.Tick(time);
-			}
-		});
+		this.ActiveMap.Tick(time);
 	}
 }
 

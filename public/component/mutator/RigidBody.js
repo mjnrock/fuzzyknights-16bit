@@ -27,6 +27,33 @@ class RigidBody extends Mutator {
 
 		return this;
 	}
+
+	GetMass(entity) {
+		return this.GetComponent(entity).Mass;
+	}
+	SetMass(entity, value) {
+		this.GetComponent(entity).Mass = value;
+
+		return this;
+	}
+
+	GetAcceleration(entity) {
+		return this.GetComponent(entity).Acceleration;
+	}
+	SetAcceleration(entity, value) {
+		this.GetComponent(entity).Acceleration = value;
+
+		return this;
+	}
+
+	GetVelocity(entity) {
+		return this.GetComponent(entity).Velocity;
+	}
+	SetVelocity(entity, value) {
+		this.GetComponent(entity).Velocity = value;
+
+		return this;
+	}
 }
 
 export { RigidBody };

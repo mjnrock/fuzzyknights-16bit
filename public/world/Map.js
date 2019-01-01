@@ -188,7 +188,8 @@ class Map {
 	}
 
 	AttemptMove(entity, map, nx, ny) {
-		let neighbors = Map.GetNeighborsBox(nx, ny, 1),
+		let pos = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity),
+			neighbors = Map.GetNeighborsBox(nx, ny, 1),
 			isCollisionFree = true;
 
 		for(let i in neighbors) {
@@ -211,8 +212,18 @@ class Map {
 			}
 		}
 
-		Map.FuzzyKnights.Component.Mutator.Maps.SetPosition(entity, nx, ny);
-		map.UpdateNodeOccupancy(entity, nx, ny);
+		if(isCollisionFree) {
+			Map.FuzzyKnights.Component.Mutator.Maps.SetPosition(entity, nx, ny);
+			map.UpdateNodeOccupancy(entity, nx, ny);
+		} else {
+			let dx = pos.X - nx,
+				dy = pos.Y - ny,
+				dnx = pos.X + dx,
+				dny = pos.Y + dy;
+
+			Map.FuzzyKnights.Component.Mutator.Maps.SetPosition(entity, dnx, dny);
+			map.UpdateNodeOccupancy(entity, dnx, dny);
+		}
 
 		return isCollisionFree;
 	}
@@ -311,7 +322,21 @@ class Map {
 	}
 
 	Tick(time) {
-		
+		this.Grid.ForEach((pos, ele, grid) => {
+			let creats = ele.GetCreatures();
+
+			if(creats.length > 0) {
+				creats.forEach(ent => {
+					if(Map.FuzzyKnights.Component.Mutator.Maps.GetVelocity(ent).HasVelocity()) {
+						let pos = this.CalcHeading(ent, time);
+			
+						if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
+							Map.FuzzyKnights.Event.Spawn.EntityMoveEvent(ent.UUID, ...pos);
+						}
+					}
+				});
+			}
+		});
 	}
 }
 
