@@ -14,7 +14,10 @@ class Creature extends Entity {
 				new CircleCollisionMask(0, 4, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
 			),
 			new Components.Attributes(),
-			new Components.Resources(),
+			new Components.Resources([
+				[ Entity.FuzzyKnights.Component.Enum.ResourceType.HEALTH, 125, 125],
+				[ Entity.FuzzyKnights.Component.Enum.ResourceType.MANA, 20, 20]
+			]),
 			new Components.CreatureInfo(type, speed, fr)
 		);
 

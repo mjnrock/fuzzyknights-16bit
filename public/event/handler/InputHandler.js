@@ -63,10 +63,10 @@ class InputHandler {
 	}
 
 	onInputKeyboard(msg, event) {
-		if(this.FuzzyKnights.Game.Settings.Bindings.DebugMode.includes(event.keyCode)) {
+		if(this.FuzzyKnights.Game.Settings.Bindings.DebugMode.includes(event.key)) {
 			this.FuzzyKnights.Game.Settings.View.DebugMode = !this.FuzzyKnights.Game.Settings.View.DebugMode;
-		} else if(event.code === "Space") {
-			// Invoke interaction
+		} else if(this.FuzzyKnights.Game.Settings.Bindings.HUD.includes(event.key)) {
+			this.FuzzyKnights.Game.Settings.View.HUD = !this.FuzzyKnights.Game.Settings.View.HUD;
 		}
 	}
 

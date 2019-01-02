@@ -22,6 +22,43 @@ class FuzzyKnights {
 		this.FuzzyKnights.Game.GameManager.AddRenderManager(this.FuzzyKnights.Render.RenderManager);
 
 		//TODO This needs to get hooked into the Render loop
+		CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r, fill, stroke) {
+			if (typeof stroke == 'undefined') {
+				stroke = true;
+			}
+			if (typeof r === 'undefined') {
+				r = 5;
+			}
+			if (typeof r === 'number') {
+				r = {tl: r, tr: r, br: r, bl: r};
+			} else {
+				let defaultRadius = { tl: 0, tr: 0, br: 0, bl: 0 };
+				for (let side in defaultRadius) {
+					r[side] = r[side] || defaultRadius[side];
+				}
+			}
+			this.beginPath();
+			this.moveTo(x + r.tl, y);
+			this.lineTo(x + w - r.tr, y);
+			this.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+			this.lineTo(x + w, y + h - r.br);
+			this.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+			this.lineTo(x + r.bl, y + h);
+			this.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+			this.lineTo(x, y + r.tl);
+			this.quadraticCurveTo(x, y, x + r.tl, y);
+			this.closePath();
+
+			if (fill) {
+				this.fillStyle = fill;
+			  	this.fill();
+			}
+			if (stroke) {
+				this.stroke();
+			}
+
+			return this;
+		};
 		this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
 		
 		return this;
