@@ -1,14 +1,9 @@
 *Currently all Rendering is based on the "Top Left" Tile corner*
-Render:
-✔ Readjust Renderer to offset ALL renderings to be "Center Tile" rather than "Top Left" @done(18-12-31 01:02)
-	☐ Shift Canvas and/or anything else if bleeding off screen
-	☐ Ensure boundary conditions are met and that Entity can run in close proximity to ALL edges
-
-Collision:
-✔ Base all movement around the collision mask @done(18-12-31 01:04)
-✔ Make GetNeighbor functions to get all Tiles within X-Tile radius @done(18-12-31 01:02)
-✔ Move based on checking neighboring nodes for Entities and iterating through their collision masks @done(18-12-31 01:02)
-☐ Spawn an Entity for EVERYTHING (e.g. Abilities, Attacks, etc.) and use Map.IsPointWithinPolygon to test if should invoke EntityCollisionEvent
+Sprints:
+	☐ @critical Refactor ALL rendering to take place only if it is relevant to the Player
+		☐ @critical From MapManager.ActiveMap Entities, only render those within X tiles from the Player
+		☐ @high Lock the camera to the Player at mid screen
+			☐ @low Make the background black if bleeds over the Tile Map
 
 Refactors/Optimizers:
 ☐ Create a EntityNodeChange Event and Message and convert the Mutator > Maps:119 > map.UpdateNodeOccupancy(entity); to be controlled by an Event

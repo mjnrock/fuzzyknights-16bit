@@ -85,7 +85,7 @@ class Canvas {
 	 * @param {number} h | Render Height
 	 */
 	DrawImage(image, u, v, uw, vh, x, y, w, h) {
-		this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
+		this.Context.drawImage(image, u, v, uw, vh, x + 512, y + 512, w, h);
 
 		return this;
 	}

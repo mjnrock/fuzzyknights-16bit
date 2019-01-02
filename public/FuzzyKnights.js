@@ -21,7 +21,6 @@ class FuzzyKnights {
 		this.FuzzyKnights.Render.RenderManager = new this.FuzzyKnights.Render.RenderManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddRenderManager(this.FuzzyKnights.Render.RenderManager);
 
-		//TODO This needs to get hooked into the Render loop
 		CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r, fill, stroke) {
 			if (typeof stroke == 'undefined') {
 				stroke = true;
@@ -59,6 +58,8 @@ class FuzzyKnights {
 
 			return this;
 		};
+		
+		//TODO This needs to get hooked into the Render loop
 		this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
 		
 		return this;
