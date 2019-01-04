@@ -15,12 +15,17 @@ class InputHandler {
 			this.OnMouseMove(msg, ...payload);
 		}
 	}
-	OnMouseMove(msg, event) {		
-		let x = event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width,
-			y = event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height,
+	OnMouseMove(msg, event) {
+		let x = event.clientX,
+			y = event.clientY,
 			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
-			xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
-			yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+
+			//! These will be relevant again once this Handler becomes aware of the ViewPort
+			// xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+			// yo = pos.Y + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
+			
+			xo = window.innerWidth / 2,
+			yo = window.innerHeight / 2,
 			d = Math.atan2(xo - x, yo - y) / Math.PI * 180,
 			sectors = 8,
 			sArc = 360 / sectors;
@@ -50,12 +55,7 @@ class InputHandler {
 			ty = Math.floor(event.clientY / this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		if(this.FuzzyKnights.Game.Settings.Input.Mouse.Primary === +event.button) {
-			
 		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Secondary === +event.button) {
-			//TODO Creatures are not currently stored in Nodes
-			console.log(this.FuzzyKnights.Game.GameManager.Player.Entity);
-			console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).GetEntityArray());
-			console.log(this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty).HasCreatures());
 		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Auxillary === +event.button) {
 		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button4 === +event.button) {
 		} else if(this.FuzzyKnights.Game.Settings.Input.Mouse.Button5 === +event.button) {
