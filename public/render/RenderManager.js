@@ -7,6 +7,7 @@ class RenderManager {
 		this.ViewPort = new this.FuzzyKnights.Render.Drawing.ViewPort(fk);
 
 		window.addEventListener("resize", this.OnWindowResize.bind(this));
+		this.OnWindowResize();
 	}
 
 	OnWindowResize() {

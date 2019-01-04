@@ -8,7 +8,8 @@ class KeyListener {
 		this.Exclusions = [
 			"F5",
 			"F11",
-			"ShiftLefT"
+			"F12",
+			"ShiftLeft"
 		];
 
 		this.PreviousPlayerKeyState = null;

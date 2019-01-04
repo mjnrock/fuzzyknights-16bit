@@ -10,14 +10,23 @@ class ViewPort {
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
 			3
 		);
+		// this.Camera = new this.FuzzyKnights.Render.Drawing.Camera(
+		// 	this.FuzzyKnights.World.MapManager.GetActiveMap(),
+		// 	0,
+		// 	0,
+		// 	3
+		// );
 		
 		// this.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.Canvas);
-
 	}
 
 	Render(time) {
 		this.Canvas.PreDraw();
-		this.Canvas.DrawImage(this.Camera.GetFeed().GetHTMLCanvas(), 0, 0);
+		this.Canvas.DrawImage(
+			this.Camera.GetFeed().GetHTMLCanvas(),
+			~~((window.innerWidth - this.Camera.Canvas.Width) / 2),
+			~~((window.innerHeight - this.Camera.Canvas.Height) / 2)
+		);
 		
 		this.DrawDebugWindow();
 		
@@ -31,6 +40,7 @@ class ViewPort {
 	DrawDebugWindow() {
 		//DEBUG
 		if(this.FuzzyKnights.Game.Settings.View.DebugMode) {
+
 			let tx = this.Camera.X * this.FuzzyKnights.Game.Settings.View.Tile.Width;
 			let ty = this.Camera.Y * this.FuzzyKnights.Game.Settings.View.Tile.Height;
 
@@ -77,6 +87,9 @@ class ViewPort {
 			// 		);
 			// 	});
 			// }
+			
+			//? Outline the borders of tiles
+			// this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
 
 			//? Details
 			{
@@ -144,6 +157,10 @@ class ViewPort {
 				
 				let r3 = rowg();
 				this.Canvas.Context.fillText(`[ GAME ]`, col(3), r3.next().value);
+				this.Canvas.Context.fillText(`ViewPort: ${ this.Canvas.Width }px, ${ this.Canvas.Height }px`, col(3), r3.next().value);
+				this.Canvas.Context.fillText(`Camera: ${ this.Camera.Canvas.Width }px, ${ this.Camera.Canvas.Height }px | ${ this.FuzzyKnights.Render.RenderManager.ViewPort.Camera.IsTracking ? "FOLLOW" : "STATIONARY" }`, col(3), r3.next().value);
+				this.Canvas.Context.fillText(`- Detail: ${ this.Camera.X.toFixed(2) }x, ${ this.Camera.Y.toFixed(2) }y, r=[${ this.Camera.Radius.Width },${ this.Camera.Radius.Height }]`, col(3), r3.next().value);
+
 				this.Canvas.Context.fillText(`Ticks: ${ this.FuzzyKnights.Game.GameManager.GameLoop.Ticks }`, col(3), r3.next().value);
 				this.Canvas.Context.fillText(`- FPS: ${ this.FuzzyKnights.Game.GameManager.GameLoop.TicksPerSecond.toFixed(1) }`, col(3), r3.next().value);
 				this.Canvas.Context.fillText(`Renders: ${ this.FuzzyKnights.Game.GameManager.GameLoop.Renders }`, col(3), r3.next().value);

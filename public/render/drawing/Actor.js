@@ -12,8 +12,6 @@ class Actor extends Camera {
 		
 		this.Entity = entity;
 		this.IsTracking = true;
-
-		// this.Canvas.SetDimensions(width, height);
 	}
 
 	Track() {

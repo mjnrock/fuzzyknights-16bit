@@ -71,13 +71,13 @@ class Entity {
 
 		return [ tx, ty ];
 	}
+
 	Render() {
 		this.Canvas.PreDraw();
-
-		this.Canvas.DrawColoredTile(
+		
+		this.Canvas.DrawTile(
 			this.GetImage(),
 			...this.GetTilePosition(),
-			this.GetTileColor(),
 			...this.GetTileCoordinates()
 		);
 

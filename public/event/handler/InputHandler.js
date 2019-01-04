@@ -67,6 +67,8 @@ class InputHandler {
 			this.FuzzyKnights.Game.Settings.View.DebugMode = !this.FuzzyKnights.Game.Settings.View.DebugMode;
 		} else if(this.FuzzyKnights.Game.Settings.Bindings.HUD.includes(event.key)) {
 			this.FuzzyKnights.Game.Settings.View.HUD = !this.FuzzyKnights.Game.Settings.View.HUD;
+		} else if(this.FuzzyKnights.Game.Settings.Bindings.CameraFollow.includes(event.key)) {
+			this.FuzzyKnights.Render.RenderManager.ViewPort.Camera.IsTracking = !this.FuzzyKnights.Render.RenderManager.ViewPort.Camera.IsTracking;
 		}
 	}
 

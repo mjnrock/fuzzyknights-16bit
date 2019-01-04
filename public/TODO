@@ -1,9 +1,8 @@
 *Currently all Rendering is based on the "Top Left" Tile corner*
 Sprints:
-	☐ @critical Refactor ALL rendering to take place only if it is relevant to the Player
-		☐ @critical From MapManager.ActiveMap Entities, only render those within X tiles from the Player
-		☐ @high Lock the camera to the Player at mid screen
-			☐ @low Make the background black if bleeds over the Tile Map
+	☐ @critical @performace-issue Render the Terrain once on load, then only if it changes.  Slide Player ViewPort over the designated Terrain canvas.
+		☐ @info AFPS on a 150,100 grid hover under 30 and even a 20,10 hovers around 45
+		☐ @info The present jerkiness is from the out-of-sync rendering
 
 Refactors/Optimizers:
 ☐ Create a EntityNodeChange Event and Message and convert the Mutator > Maps:119 > map.UpdateNodeOccupancy(entity); to be controlled by an Event

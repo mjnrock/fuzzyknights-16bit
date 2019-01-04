@@ -1,3 +1,5 @@
+import { UpperClamp, LowerClamp } from "./../../utility/Functions.js";
+
 import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
@@ -6,9 +8,12 @@ class Camera extends Cinematograph {
 		super();
 
 		this.Map = map;
+		this.X = x;
+		this.Y = y;
 		this.Radius = {
 			Width: r,
-			Height: r
+			Height: r,
+			LIMIT: 4
 		};
 
 		this.Canvas.SetDimensions(
@@ -18,21 +23,13 @@ class Camera extends Cinematograph {
 	}
 
 	SetDimensions(w, h) {
-		this.Canvas.SetDimensions(w, h);
-
-		console.log(
-			w,
-			w / Cinematograph.Fudge(2, false),
-			h,
-			h / Cinematograph.Fudge(2, false),
-			Cinematograph.Fudge(1, false),
-			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target
+		this.Canvas.SetDimensions(
+			UpperClamp(w, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2),
+			UpperClamp(h, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2)
 		);
 
-
-		this.Radius.Width = w / Cinematograph.Fudge(2, false) / 2;
-		this.Radius.Height = h / Cinematograph.Fudge(2, false) / 2;
-		console.log(this.Radius);
+		this.Radius.Width = LowerClamp(w / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
+		this.Radius.Height = LowerClamp(h / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
 
 		return this;
 	}
@@ -119,8 +116,11 @@ class Camera extends Cinematograph {
 
 		return nodes;
 	}
+
+	//TODO This is still fairly expensive in terms of FPS
 	GetFeed() {
 		this.Canvas.PreDraw();
+
 		let nodes = this.GetNodes(),
 			tare = {
 				X: this.X,
@@ -135,6 +135,7 @@ class Camera extends Cinematograph {
 		nodes.forEach(node => {
 			this.DrawTerrain(node, tare);
 		});
+
 		nodes.forEach(node => {
 			this.DrawCreatures(node, tare);
 		});

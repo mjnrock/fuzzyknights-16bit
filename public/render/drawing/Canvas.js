@@ -91,7 +91,8 @@ class Canvas {
 			return this;
 		}
 
-		this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
+		this.Context.drawImage(image, u, v, uw, vh, ~~x, ~~y, w, h);
+		// this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
 
 		return this;
 	}
@@ -123,11 +124,6 @@ class Canvas {
 		this.DrawImage(image, sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, sy * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 		if(color !== null && color !== void 0) {
 			this.ColorizeTile(x, y, color);
-		}
-
-		//DEBUG
-		if(Canvas.FuzzyKnights.Game.Settings.View.DebugMode) {
-			this.Context.strokeRect(x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 		}
 
 		return this;

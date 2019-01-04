@@ -117,11 +117,6 @@ class Canvas {
 			this.ColorizeTile(x, y, color);
 		}
 
-		//DEBUG
-		if(Canvas.FuzzyKnights.Game.Settings.View.DebugMode) {
-			this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
-		}
-
 		return this;
 	}
 
