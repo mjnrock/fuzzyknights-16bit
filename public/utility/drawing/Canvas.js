@@ -169,7 +169,7 @@ class Canvas {
 					compRigBod = Canvas.FuzzyKnights.Component.Mutator.RigidBody.GetComponent(player),
 					map = Canvas.FuzzyKnights.Component.Mutator.Maps.GetMap(player),
 					node = map.GetNode(compMaps.ActiveMap.Heading.Position.X, compMaps.ActiveMap.Heading.Position.Y),
-					terrain = node.GetTerrain()[0],
+					[ terrain ] = node.GetTerrain(),
 					compTerInf = Canvas.FuzzyKnights.Component.Mutator.TerrainInfo.GetComponent(terrain),
 					row = (r = 0) => (r + 1) * 16,
 					col = (c = 1, fudge = 0) => (c - 1) * 250 + 10 + fudge,

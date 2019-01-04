@@ -1,50 +1,125 @@
 import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
-	constructor(canvas = null) {
-		super(null, canvas);
-		
-		this.Entity = null;
-		this.Map = null;
-		
-		this.Helper = {
-			Width: (this.Canvas.Width / Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target / 2) - 0.5,
-			Height: (this.Canvas.Height / Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target / 2) - 0.5
-		};
+	//TODO $ar could be seeded with ViewPort aspect ratio from Client
+	constructor(map, x, y, r, ar = 1) {
+		super();
+
+		this.Map = map;
+		this.X = x;
+		this.Y = y;
+		this.Radius = r;
+		this.AspectRatio = ar;
 	}
 
-	TrackPlayer(input) {
-		if(input instanceof Cinematograph.FuzzyKnights.Render.Entity.Entity) {
-			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(input.Entity);
-			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(input.Entity.UUID);
-		} else if(input instanceof Cinematograph.FuzzyKnights.Entity.Entity) {
-			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(input);
-			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(input.UUID);
-		} else {
-			let entity = Cinematograph.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity();
+	GetMap() {
+		return this.Map;
+	}
+	SetMap(value) {
+		this.Map = value;
 
-			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
-			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(entity.UUID);
-		}
+		return this;
+	}
+
+	GetPos() {
+		return [ this.X, this.Y ];
+	}
+	SetPos(x, y) {
+		this.X = x;
+		this.Y = y;
+
+		return this;
+	}
+
+	GetRadius() {
+		return this.Radius;
+	}
+	SetRadius(value) {
+		this.Radius = value;
+
+		return this;
+	}
+
+	GetAspectRatio() {
+		return this.AspectRatio;
+	}
+	SetAspectRatio(value) {
+		this.AspectRatio = value;
+
+		return this;
+	}
+
+	Shoot(x, y, r) {
+		this.SetPos(x, y);
+		this.SetRadius(r);
+
+		return this;
+	}
+
+	DrawCreatures(node, tare) {
+		return this.DrawModels(
+			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(node.GetCreatures()),
+			tare
+		);
+	}
+	DrawTerrain(node, tare) {
+		return this.DrawModels(
+			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(node.GetTerrain()),
+			tare
+		);
+	}
+	DrawModels(models, tare) {
+		models.forEach(model => {
+			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetPosition(model.Entity);
+	
+			this.Canvas.DrawTile(
+				model.Render().GetHTMLCanvas(),
+				pos.X - tare.X,
+				pos.Y - tare.Y
+			);
+		});
 
 		return this;
 	}
 	
+	GetNodes() {
+		let nodes = [],
+			tare = {
+				Xl: this.X - this.Radius,
+				Yl: this.Y - this.Radius,
+				Xr: this.X + this.Radius,
+				Yr: this.Y + this.Radius
+			};
 
-	//TODO Rewrite this with no associate to player, but instead have something else send Player info here
-	//TODO Lock entity in middle of screen and scroll Terrain around Entity
-	//TODO ViewPort needs to receive this for a Player and for the Terrain around the Player
-	Render(time) {
-		super.Render(time);
+		this.Map.Grid.ForEach((pos, node, grid) => {
+			if((pos.X >= tare.Xl && pos.X <= tare.Xr) && (pos.Y >= tare.Yl && pos.Y <= tare.Yr)) {
+				nodes.push(node);
+			}
+		});
 
-		if(this.Entity) {
-			let [ image, x, y, sx, sy ] = this.Entity.Render(time);
+		return nodes;
+	}
+	GetFeed() {
+		this.Canvas.PreDraw();
+		let nodes = this.GetNodes(),
+			tare = {
+				X: this.X,
+				Y: this.Y,
+				R: this.Radius,
+				Xl: this.X - this.Radius,
+				Yl: this.Y - this.Radius,
+				Xr: this.X + this.Radius,
+				Yr: this.Y + this.Radius
+			};
 
-			//	Draw Entity in Middle of Screen
-			this.Canvas.DrawTile(image, this.Helper.Width, this.Helper.Height, sx, sy);
-		}
+		nodes.forEach(node => {
+			this.DrawTerrain(node, tare);
+		});
+		nodes.forEach(node => {
+			this.DrawCreatures(node, tare);
+		});
 
-		return this;
+		return this.Canvas;
 	}
 }
 

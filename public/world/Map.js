@@ -16,7 +16,6 @@ class Map {
 		this.XMax = this.Grid.XMax - 1;
 		this.YMax = this.Grid.YMax - 1;
 
-		this.HasCreatures = false;
 		this.DefaultSpawn = new Position(0, 0);
 		this.UUID = Functions.NewUUID();
 	}
@@ -92,17 +91,6 @@ class Map {
 		return this;
 	}
 
-	CheckCreatures() {
-		this.Grid.ForEach((p, e, t) => {
-			this.HasCreatures = this.HasCreatures || e.IsOccupied();
-		});
-
-		return this;
-	}
-	IsOccupied() {
-		return this.HasCreatures;
-	}
-
 	PlaceEntity(entity, x, y) {
 		this.DeepRemove(entity);
 		let n = this.GetNode(Math.floor(x), Math.floor(y));
@@ -149,7 +137,7 @@ class Map {
 		vel = vel || Map.FuzzyKnights.Component.Mutator.Maps.GetVelocity(entity);
 		map = map || Map.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
 
-		let terrain = map.GetNode(pos.X, pos.Y).GetTerrain()[0],
+		let [ terrain ] = map.GetNode(pos.X, pos.Y).GetTerrain(),
 			nav = Map.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigability(terrain),
 			constraint = Map.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(nav),
 			vector = vel.Vector.GetValues().map(v => v * constraint);

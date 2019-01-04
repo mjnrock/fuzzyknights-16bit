@@ -60,7 +60,9 @@ class FuzzyKnights {
 		};
 
 		//TODO This needs to get hooked into the Render loop
-		this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
+		// this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
+
+		this.FuzzyKnights.Render
 		
 		return this;
 	}
@@ -79,9 +81,9 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		//* These have to be moved into an appropriate Game invocation
 		// this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
 		this.FuzzyKnights.World.MapManager.GetActiveMap().Grid.ForEach((pos, node, grid) => {
-			let entity = node.GetTerrain()[0];
-			this.FuzzyKnights.Component.Mutator.Maps.SetHeading(entity, pos.X, pos.Y, 0);
-			this.FuzzyKnights.Render.RenderManager.Register(entity, true);
+			let [ terrain ] = node.GetTerrain();
+			this.FuzzyKnights.Component.Mutator.Maps.SetHeading(terrain, pos.X, pos.Y, 0);
+			this.FuzzyKnights.Render.RenderManager.Register(terrain, true);
 		});
 		
 		return this;

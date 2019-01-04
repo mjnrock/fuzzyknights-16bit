@@ -19,9 +19,11 @@
 		<title>FuzzyKnights</title>
 	</head>
 	<body>
-		<div style="position: relative;">
+		<div id="viewport" style="position: relative;">
 			<canvas id="terrain" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
 			<canvas id="entity" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+
+			<canvas id="test" width="1280" height="896" style="position: absolute; left: 0; top: 0; z-index: 9999;"></canvas>
 		</div>
 
 		<script type="module">
@@ -31,7 +33,7 @@
 			import FK from "./FuzzyKnights.js";
 			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
 
-			setTimeout(() => FuzzyKnights.Render.RenderManager.Camera.TrackPlayer(), 500);
+			// setTimeout(() => FuzzyKnights.Render.RenderManager.Camera.TrackPlayer(), 500);
 			
 			console.log("[Loaded] FuzzyKnights");
 			console.log(FuzzyKnights);

@@ -8,6 +8,7 @@ class Cinematograph {
 		this.Canvas = new Canvas(canvas);
 
 		if(!canvas) {
+			this.Canvas.Element.id = this.UUID;
 			this.Canvas.SetWidth(500).SetHeight(500);
 		}
 		

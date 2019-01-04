@@ -20,7 +20,8 @@ export default {
 	},
 
 	Bindings: {
-		DebugMode: [ "F3" ],			//	F3
+		DebugMode: [ "F3" ],
+		CameraFollow: [ "l" ],
 		HUD: [ "v" ],
 		Movement: {
 			Left: [ "a", "ArrowLeft" ],

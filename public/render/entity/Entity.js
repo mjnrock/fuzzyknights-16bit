@@ -1,3 +1,5 @@
+import Canvas from "./../drawing/Canvas.js";
+
 class Entity {
 	static ASSETS(filepath = null) {
 		if(filepath !== null) {
@@ -32,6 +34,10 @@ class Entity {
 		this.Filename = filename;
 		this.Image = new Image();
 		this.Image.src = Entity.ASSETS(filename);
+		
+		this.Canvas = new Canvas();
+		this.Canvas.id = this.Entity.UUID;
+		this.Canvas.SetWidth(this.FuzzyKnights.Game.Settings.View.Tile.Width).SetHeight(this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		if(onload !== null && typeof onload === "function") {
 			this.Image.onload = (e) => onload(this, e);
@@ -48,18 +54,34 @@ class Entity {
 		return this.Entity;
 	}
 
-	Render(time) {
-		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity),
-			rot = this.FuzzyKnights.Component.Mutator.Maps.GetRotation(this.Entity) || 0,
-			tx = rot.Yaw / 45 || 0;
+	GetTilePosition() {
+		// let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
 
-		return [
+		return [ 0, 0 ];
+	}
+	GetTileColor() {
+		return null;
+	}
+	GetTileCoordinates() {
+		let rot = this.FuzzyKnights.Component.Mutator.Maps.GetRotation(this.Entity) || 0,
+			tx = rot.Yaw / 45 || 0,
+			ty = 0;
+
+		//TODO Change tiles based on State
+
+		return [ tx, ty ];
+	}
+	Render() {
+		this.Canvas.PreDraw();
+
+		this.Canvas.DrawColoredTile(
 			this.GetImage(),
-			pos.X,
-			pos.Y,
-			tx,		// tx - These need to change based on STATE
-			0		// ty - These need to change based on STATE
-		];
+			...this.GetTilePosition(),
+			this.GetTileColor(),
+			...this.GetTileCoordinates()
+		);
+
+		return this.Canvas;
 	}
 }
 

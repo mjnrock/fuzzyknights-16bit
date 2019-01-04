@@ -1,0 +1,47 @@
+import Camera from "./Camera.js";
+import Cinematograph from "./Cinematograph.js";
+
+class Actor extends Camera {
+	constructor(entity, x, y, r, ar = 1) {
+		super(
+			Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity),
+			x,
+			y,
+			r,
+			ar
+		);
+		
+		this.Entity = entity;
+		this.IsTracking = true;
+	}
+
+	Track() {
+		this.IsTracking = true;
+
+		return this;
+	}
+	UnTrack() {
+		this.IsTracking = false;
+
+		return this;
+	}
+
+	UpdatePosition() {
+		let pos = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
+
+		this.X = pos.X;
+		this.Y = pos.Y;
+
+		return this;
+	}
+	
+	GetFeed() {
+		if(this.IsTracking) {
+			this.UpdatePosition();
+		}
+		
+		return super.GetFeed();
+	}
+}
+
+export default Actor;
