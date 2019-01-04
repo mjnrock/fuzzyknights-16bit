@@ -72,10 +72,10 @@ class Maps extends Mutator {
 
 	Tick(time, entity) {
 		if(this.GetVelocity(entity).HasVelocity()) {
-			let pos = this.FuzzyKnights.World.MapManager.GetActiveMap().CalcHeading(entity, time);
+			let [ x0, y0, x1, y1 ] = this.FuzzyKnights.World.MapManager.GetActiveMap().CalcHeading(entity, time);
 
-			if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
-				this.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity.UUID, ...pos);
+			if(x0 !== x1 || y0 !== y1) {
+				this.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity.UUID, x0, y0, x1, y1);
 			}
 		}
 	}
