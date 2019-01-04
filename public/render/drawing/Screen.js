@@ -1,9 +1,10 @@
 import Cinematograph from "./Cinematograph.js";
+import Camera from "./Camera.js";
 
 class Screen extends Cinematograph {
-	constructor(id, cameras = []) {
-		super(id);
-
+	constructor(cameras = []) {
+		super();
+		
 		this.Cameras = cameras;
 		this.FeedCamera = null;
 	}
@@ -14,7 +15,7 @@ class Screen extends Cinematograph {
 		return this;
 	}
 	GetFeed() {
-		return this.FeedCamera;
+		return this.FeedCamera.GetHTMLCanvas();
 	}
 
 	GetCameras() {
@@ -29,6 +30,21 @@ class Screen extends Cinematograph {
 		return this;
 	}
 
+	// TODO Get Player
+	NewPlayerCamera() {
+		let camera = (new Camera()).TrackPlayer();
+
+		this.AddCamera(camera);
+		this.LiveCamera(this.Cameras.length - 1);
+
+		return this;
+	}
+	NewCamera(entity, x, y) {
+		this.Cameras.push(new Camera(entity, x, y));
+
+		return this;
+	}
+
 	AddCamera(camera) {
 		this.Cameras.push(camera);
 
@@ -36,6 +52,15 @@ class Screen extends Cinematograph {
 	}
 	RemoveCamera(index) {
 		delete this.Cameras[index];
+
+		return this;
+	}
+
+	Render(time) {
+		super.Render(time);
+		
+		this.FeedCamera.Render(time);
+		this.Canvas.DrawImage(this.FeedCamera.GetHTMLCanvas(), 0, 0);
 
 		return this;
 	}

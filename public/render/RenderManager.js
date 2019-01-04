@@ -17,6 +17,13 @@ class RenderManager {
 				}
 			}
 		});
+
+		this.RenderPlayer = null;
+		this.Camera = new this.FuzzyKnights.Render.Drawing.Camera("entity");
+	}
+
+	GetCamera() {
+		return this.Camera;
 	}
 
 	GetTerrainCanvas() {
@@ -24,6 +31,23 @@ class RenderManager {
 	}
 	GetEntityCanvas() {
 		return this.Canvas.Terrain;
+	}
+
+	GetEntity(uuid) {
+		return this.Entities[uuid];
+	}
+	GetTerrain(uuid) {
+		return this.Terrain[uuid];
+	}
+
+	GetRenderPlayer() {
+		return this.RenderPlayer;
+	}
+	SetRenderPlayer(value) {
+		this.RenderPlayer = value;
+		this.Camera.TrackPlayer(value);
+
+		return this;
 	}
 
 	GetSchema(clazz) {
@@ -83,18 +107,15 @@ class RenderManager {
 	}
 
 	Draw(time) {
-		this.Canvas.Entity.PreDraw();
+		// this.Canvas.Entity.PreDraw();
 
-		// let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity();
-		// this.FuzzyKnights.Render.Drawing.ViewPort
-
-		this.ForEachEntity((e) => {
-			//DEBUG (the UUID comparator)
-			this.Canvas.Entity.DrawTile(...e.Render(time));
-		});
-		this.ForEachTerrain((t) => {
-			this.Canvas.Terrain.DrawColoredTile(...t.Render(time));
-		});
+		// this.ForEachEntity((e) => {
+		// 	//DEBUG (the UUID comparator)
+		// 	this.Canvas.Entity.DrawTile(...e.Render(time));
+		// });
+		// this.ForEachTerrain((t) => {
+		// 	this.Canvas.Terrain.DrawColoredTile(...t.Render(time));
+		// });
 
 		if(this.FuzzyKnights.Game.Settings.View.HUD) {
 			this.FuzzyKnights.Render.Drawing.HUD.Draw(time, this.Entities);
@@ -105,6 +126,10 @@ class RenderManager {
 	//TODO Have this class hold some meta data about what it will render
 	Render(time) {
 		this.Draw(time);
+
+		if(this.Camera) {
+			this.Camera.Render(time);
+		}
 	}
 }
 

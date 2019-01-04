@@ -1,29 +1,50 @@
 import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
-	constructor(id, entity, x, y) {
-		super(id);
-
-		this.Entity = entity;
-		this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
-
-		this.X = x;
-		this.Y = y;
+	constructor(canvas = null) {
+		super(null, canvas);
+		
+		this.Entity = null;
+		this.Map = null;
+		
+		this.Helper = {
+			Width: (this.Canvas.Width / Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target / 2) - 0.5,
+			Height: (this.Canvas.Height / Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target / 2) - 0.5
+		};
 	}
 
-	GetPos() {
-		return [ this.X, this.Y ];
-	}
-	SetPos(x, y) {
-		this.X = x;
-		this.Y = y;
+	TrackPlayer(input) {
+		if(input instanceof Cinematograph.FuzzyKnights.Render.Entity.Entity) {
+			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(input.Entity);
+			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(input.Entity.UUID);
+		} else if(input instanceof Cinematograph.FuzzyKnights.Entity.Entity) {
+			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(input);
+			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(input.UUID);
+		} else {
+			let entity = Cinematograph.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity();
+
+			this.Map = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
+			this.Entity = Cinematograph.FuzzyKnights.Render.RenderManager.GetEntity(entity.UUID);
+		}
 
 		return this;
 	}
+	
 
-	Draw(time) {
-		this.Canvas.PreDraw();
-		this.Canvas.DrawTile(this.Entity.Render(time), x, y);
+	//TODO Rewrite this with no associate to player, but instead have something else send Player info here
+	//TODO Lock entity in middle of screen and scroll Terrain around Entity
+	//TODO ViewPort needs to receive this for a Player and for the Terrain around the Player
+	Render(time) {
+		super.Render(time);
+
+		if(this.Entity) {
+			let [ image, x, y, sx, sy ] = this.Entity.Render(time);
+
+			//	Draw Entity in Middle of Screen
+			this.Canvas.DrawTile(image, this.Helper.Width, this.Helper.Height, sx, sy);
+		}
+
+		return this;
 	}
 }
 

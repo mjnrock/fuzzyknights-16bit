@@ -1,7 +1,7 @@
-import Cinematograph from "./Cinematograph.js";
+import { NewUUID } from "./../../utility/Functions.js";
 import Grid from "./../../utility/Grid.js";
 
-class Canvas extends Cinematograph {
+class Canvas {
 	/**
 	 * 
 	 * @param {string|HTMLElement} htmlElement | Pass either the #id of element or the element itself
@@ -26,17 +26,23 @@ class Canvas extends Cinematograph {
 		return tile;
 	}
 
-	constructor(id) {
-		super(id);
-
-		this.Element = document.createElement("canvas");
-		this.Element.id = id;
+	constructor(canvas) {
+		if(canvas) {
+			if(typeof canvas === "string" || canvas instanceof String) {
+				this.Element = document.getElementById(canvas);
+			} else {
+				this.Element = canvas;
+			}
+		} else {
+			this.Element = document.createElement("canvas");
+			this.Element.id = NewUUID();
+		}
 
 		this.Height = this.Element.height;
 		this.Width = this.Element.width;
 		this.Context = this.Element.getContext("2d");
 
-		this.Grid = new Grid(Math.floor(this.Width / this.Tile.Width), Math.floor(this.Height / this.Tile.Height));
+		this.Grid = new Grid(Math.floor(this.Width / Canvas.FuzzyKnights.Game.Settings.View.Tile.Width), Math.floor(this.Height / Canvas.FuzzyKnights.Game.Settings.View.Tile.Height));
 
 		this.ReScale();
 	}
@@ -94,19 +100,19 @@ class Canvas extends Cinematograph {
 	}
 
 	DrawTile(image, x, y, sx = 0, sy = 0) {
-		let tx = x * this.Tile.Width;
-		let ty = y * this.Tile.Height;
+		let tx = x * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width;
+		let ty = y * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
 		
 		this.DrawImage(
 			image,
-			sx * this.Tile.Width,
-			sy * this.Tile.Height,
-			this.Tile.Width,
-			this.Tile.Height,
+			sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			sy * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height,
+			Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			Canvas.FuzzyKnights.Game.Settings.View.Tile.Height,
 			tx - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
 			ty - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
-			this.Tile.Width,
-			this.Tile.Height
+			Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			Canvas.FuzzyKnights.Game.Settings.View.Tile.Height
 		);
 		
 		//DEBUG
@@ -117,8 +123,8 @@ class Canvas extends Cinematograph {
 				this.Context.fillRect(
 					tx - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
 					ty - Canvas.FuzzyKnights.Game.Settings.View.Tile.Target / 2,
-					this.Tile.Width,
-					this.Tile.Height
+					Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+					Canvas.FuzzyKnights.Game.Settings.View.Tile.Height
 				);
 			}
 
@@ -147,10 +153,10 @@ class Canvas extends Cinematograph {
 				let points = Canvas.FuzzyKnights.World.Map.GetNeighborsBox(x, y, 1);
 				points.forEach(n => {
 					this.Context.fillRect(
-						n[0] * this.Tile.Width,
-						n[1] * this.Tile.Height,
-						this.Tile.Width,
-						this.Tile.Height
+						n[0] * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+						n[1] * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height,
+						Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+						Canvas.FuzzyKnights.Game.Settings.View.Tile.Height
 					);
 				});
 			}
@@ -232,17 +238,17 @@ class Canvas extends Cinematograph {
 		return this;
 	}
 	DrawColoredTile(image, x, y, color = null, sx = 0, sy = 0) {
-		x = x * this.Tile.Width;
-		y = y * this.Tile.Height;
+		x = x * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width;
+		y = y * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
 		
-		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
+		this.DrawImage(image, sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, sy * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 		if(color !== null && color !== void 0) {
 			this.ColorizeTile(x, y, color);
 		}
 
 		//DEBUG
 		if(Canvas.FuzzyKnights.Game.Settings.View.DebugMode) {
-			this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
+			this.Context.strokeRect(x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 		}
 
 		return this;
@@ -257,17 +263,17 @@ class Canvas extends Cinematograph {
 	 * @param {number} sy ?0 | (Tile) Sprite Y
 	 */
 	DrawFitToTile(image, tx, ty, sx = 0, sy = 0) {
-		let x = tx * this.Tile.Width,
-			y = ty * this.Tile.Height;
+		let x = tx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			y = ty * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
 		
-		this.DrawImage(image, sx * this.Tile.Width, sy * this.Tile.Height, this.Tile.Width, this.Tile.Height, x, y, this.Tile.Width, this.Tile.Height);
+		this.DrawImage(image, sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, sy * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height, x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		return this;
 	}
 
 	DrawColorizedFitToTile(image, tx, ty, color, sx = 0, sy = 0) {		
-		let x = tx * this.Tile.Width,
-			y = ty * this.Tile.Height;
+		let x = tx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			y = ty * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
 
 		this.DrawFitToTile(image, tx, ty, sx = 0, sy = 0);
 		this.ColorizeTile(x, y, color);
@@ -278,7 +284,7 @@ class Canvas extends Cinematograph {
 	ColorizeTile(x, y, color = "rgb(54, 132, 54)") {
 		this.Context.globalCompositeOperation = "color";
 		this.Context.fillStyle = color;
-		this.Context.fillRect(x, y, this.Tile.Width, this.Tile.Height);
+		this.Context.fillRect(x, y, Canvas.FuzzyKnights.Game.Settings.View.Tile.Width, Canvas.FuzzyKnights.Game.Settings.View.Tile.Height);
 		this.Context.globalCompositeOperation = "source-over";
 	}
 	

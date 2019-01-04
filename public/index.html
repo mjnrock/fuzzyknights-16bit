@@ -30,6 +30,8 @@
 
 			import FK from "./FuzzyKnights.js";
 			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
+
+			setTimeout(() => FuzzyKnights.Render.RenderManager.Camera.TrackPlayer(), 500);
 			
 			console.log("[Loaded] FuzzyKnights");
 			console.log(FuzzyKnights);

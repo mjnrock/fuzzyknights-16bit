@@ -67,7 +67,8 @@ class FuzzyKnights {
 
 	/**
 	 * Read from the imported "registry" and create Entity.Entity-Render.Entity links for client-only properties (e.g. images)
-	 * NOTE: If the paradigm is reworked to dynamically read the image alphas for collision masking, this registry will need to move to Common
+	 * NOTE: If the pimport Camera from "./render/drawing/Camera";
+aradigm is reworked to dynamically read the image alphas for collision masking, this registry will need to move to Common
 	 */
 	RenderRegistry() {
 		let setup = registry(this.FuzzyKnights);
@@ -173,7 +174,9 @@ class FuzzyKnights {
 		//@ Apply FuzzyKnight Hooks
 		this.FuzzyKnights.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Render.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Render.Drawing.Canvas.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Render.Drawing.Cinematograph.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Render.Drawing.ViewPort.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;
