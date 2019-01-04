@@ -2,13 +2,12 @@ import Camera from "./Camera.js";
 import Cinematograph from "./Cinematograph.js";
 
 class Actor extends Camera {
-	constructor(entity, tiles, ar = 1) {
+	constructor(entity, tiles) {
 		super(
 			Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity),
 			3,
 			3,
-			tiles,
-			ar
+			tiles
 		);
 		
 		this.Entity = entity;

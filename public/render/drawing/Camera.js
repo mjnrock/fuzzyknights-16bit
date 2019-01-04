@@ -2,17 +2,39 @@ import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
 	//TODO $ar could be seeded with ViewPort aspect ratio from Client
-	constructor(map, x, y, r, ar = 1) {
+	constructor(map, x, y, r) {
 		super();
 
 		this.Map = map;
-		this.Radius = r;
-		this.AspectRatio = ar;
+		this.Radius = {
+			Width: r,
+			Height: r
+		};
 
 		this.Canvas.SetDimensions(
-			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius * 2,
-			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius * 2
+			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.Width * 2,
+			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.Height * 2
 		);
+	}
+
+	SetDimensions(w, h) {
+		this.Canvas.SetDimensions(w, h);
+
+		console.log(
+			w,
+			w / Cinematograph.Fudge(2, false),
+			h,
+			h / Cinematograph.Fudge(2, false),
+			Cinematograph.Fudge(1, false),
+			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target
+		);
+
+
+		this.Radius.Width = w / Cinematograph.Fudge(2, false) / 2;
+		this.Radius.Height = h / Cinematograph.Fudge(2, false) / 2;
+		console.log(this.Radius);
+
+		return this;
 	}
 
 	GetMap() {
@@ -38,18 +60,13 @@ class Camera extends Cinematograph {
 		return this.Radius;
 	}
 	SetRadius(value) {
-		this.Radius = value;
+		this.Radius.Width = this.Radius.Height = value;
 
 		return this;
 	}
 
 	GetAspectRatio() {
-		return this.AspectRatio;
-	}
-	SetAspectRatio(value) {
-		this.AspectRatio = value;
-
-		return this;
+		return this.Radius.Width / this.Radius.Height;
 	}
 
 	Shoot(x, y, r) {
@@ -88,10 +105,10 @@ class Camera extends Cinematograph {
 	GetNodes() {
 		let nodes = [],
 			tare = {
-				Xl: this.X - this.Radius,
-				Yl: this.Y - this.Radius,
-				Xr: this.X + this.Radius,
-				Yr: this.Y + this.Radius
+				Xl: this.X - this.Radius.Width,
+				Yl: this.Y - this.Radius.Height,
+				Xr: this.X + this.Radius.Width,
+				Yr: this.Y + this.Radius.Height
 			};
 
 		this.Map.Grid.ForEach((pos, node, grid) => {
@@ -109,10 +126,10 @@ class Camera extends Cinematograph {
 				X: this.X,
 				Y: this.Y,
 				R: this.Radius,
-				Xl: this.X - this.Radius,
-				Yl: this.Y - this.Radius,
-				Xr: this.X + this.Radius,
-				Yr: this.Y + this.Radius
+				Xl: this.X - this.Radius.Width,
+				Yl: this.Y - this.Radius.Height,
+				Xr: this.X + this.Radius.Width,
+				Yr: this.Y + this.Radius.Height
 			};
 
 		nodes.forEach(node => {

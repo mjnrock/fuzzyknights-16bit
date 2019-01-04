@@ -3,11 +3,15 @@ class RenderManager {
 		this.FuzzyKnights = fk;
 		this.Models = {};
 		this.Entities = {};
+		
+		this.ViewPort = new this.FuzzyKnights.Render.Drawing.ViewPort(fk);
 
-		this.Camera = new this.FuzzyKnights.Render.Drawing.Actor(
-			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-			3
-		);
+		window.addEventListener("resize", this.OnWindowResize.bind(this));
+	}
+
+	OnWindowResize() {
+		this.ViewPort.Canvas.SetDimensions(window.innerWidth, window.innerHeight);
+		this.ViewPort.Camera.SetDimensions(window.innerWidth, window.innerHeight);
 	}
 
 	GetCamera() {
@@ -19,6 +23,10 @@ class RenderManager {
 	}
 	GetModels(entities) {
 		return entities.map(entity => this.Entities[entity.UUID]);		
+	}
+
+	GetCreatureModels() {
+		return Object.values(this.Entities).filter(v => v.Entity instanceof this.FuzzyKnights.Entity.Creature.Creature);
 	}
 
 	GetSchema(clazz) {
@@ -64,11 +72,9 @@ class RenderManager {
 		return this;
 	}
 	
-	//TODO Change the #test canvas to the ViewPort's canvas and make ViewPort the only view the Player sees
 	Render(time) {
-		if(this.Camera) {
-			document.getElementById("test").getContext("2d").clearRect(0, 0, 10000, 10000);
-			document.getElementById("test").getContext("2d").drawImage(this.Camera.GetFeed().GetHTMLCanvas(), 0, 0);
+		if(this.ViewPort) {
+			this.ViewPort.Render(time);
 		}
 	}
 }

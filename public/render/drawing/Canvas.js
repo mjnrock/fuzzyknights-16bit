@@ -81,6 +81,16 @@ class Canvas {
 	 * @param {number} h | Render Height
 	 */
 	DrawImage(image, u, v, uw, vh, x, y, w, h) {
+		if(arguments.length === 3) {
+			this.Context.drawImage(image, u, v);
+
+			return this;
+		} else if(arguments.length === 5) {
+			this.Context.drawImage(image, u, v, uw, vh);
+
+			return this;
+		}
+
 		this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
 
 		return this;

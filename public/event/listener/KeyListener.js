@@ -5,6 +5,12 @@ class KeyListener {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
 
+		this.Exclusions = [
+			"F5",
+			"F11",
+			"ShiftLefT"
+		];
+
 		this.PreviousPlayerKeyState = null;
 		this.PlayerKeyState = EnumPlayerKeyState.IDLE;
 
@@ -13,7 +19,7 @@ class KeyListener {
 	}
 
 	OnKeyUp(e) {
-		if(e.key !== "F5" && e.key !== "ShiftLeft") {		//! [F5] & [Shift]
+		if(!this.Exclusions.includes(e.key)) {
 			e.preventDefault();
 		}
 
@@ -24,7 +30,7 @@ class KeyListener {
 
 	//*	e.repeat === true allows detection of a continuous press
 	OnKeyDown(e) {
-		if(e.key !== "F5" && e.key !== "ShiftLeft") {		//! [F5] & [Shift]
+		if(!this.Exclusions.includes(e.key)) {
 			e.preventDefault();
 		}
 

@@ -58,11 +58,6 @@ class FuzzyKnights {
 
 			return this;
 		};
-
-		//TODO This needs to get hooked into the Render loop
-		// this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
-
-		this.FuzzyKnights.Render
 		
 		return this;
 	}
