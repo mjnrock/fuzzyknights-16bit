@@ -40,7 +40,7 @@ class ViewPort {
 	}
 
 	
-	
+
 
 	DrawDebugWindow() {
 		//DEBUG
@@ -91,6 +91,7 @@ class ViewPort {
 			// }
 			
 			//? Outline the borders of tiles
+			//* Take this.Camera as the reference here
 			// this.Context.strokeRect(x, y, this.Tile.Width, this.Tile.Height);
 
 			//? Details
