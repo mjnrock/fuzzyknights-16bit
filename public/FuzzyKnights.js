@@ -58,7 +58,7 @@ class FuzzyKnights {
 
 			return this;
 		};
-		
+
 		//TODO This needs to get hooked into the Render loop
 		this.FuzzyKnights.Render.Drawing.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.FuzzyKnights.Render.RenderManager.GetEntityCanvas());
 		
@@ -173,6 +173,7 @@ class FuzzyKnights {
 		//@ Apply FuzzyKnight Hooks
 		this.FuzzyKnights.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Render.Entity.Entity.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Render.Drawing.Cinematograph.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;

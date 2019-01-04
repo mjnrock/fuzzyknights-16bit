@@ -1,6 +1,7 @@
-import Grid from "../Grid.js";
+import Cinematograph from "./Cinematograph.js";
+import Grid from "./../../utility/Grid.js";
 
-class Canvas {
+class Canvas extends Cinematograph {
 	/**
 	 * 
 	 * @param {string|HTMLElement} htmlElement | Pass either the #id of element or the element itself
@@ -25,22 +26,11 @@ class Canvas {
 		return tile;
 	}
 
-	constructor(htmlElement, tileSettings = null) {
-		if(typeof htmlElement === "string" || htmlElement instanceof String) {
-			this.Element = document.getElementById(htmlElement);
-		} else {
-			this.Element = htmlElement;
-		}
+	constructor(id) {
+		super(id);
 
-		if(tileSettings === null || tileSettings === void 0) {
-			this.Tile = {
-				Height: 128,
-				Width: 128,
-				Target: 128
-			};
-		} else {
-			this.Tile = tileSettings;
-		}
+		this.Element = document.createElement("canvas");
+		this.Element.id = id;
 
 		this.Height = this.Element.height;
 		this.Width = this.Element.width;
@@ -49,6 +39,19 @@ class Canvas {
 		this.Grid = new Grid(Math.floor(this.Width / this.Tile.Width), Math.floor(this.Height / this.Tile.Height));
 
 		this.ReScale();
+	}
+
+	SetWidth(value) {
+		this.Element.width = value;
+		this.Width = value;
+
+		return this;
+	}
+	SetHeight(value) {
+		this.Element.height = value;
+		this.Height = value;
+
+		return this;
 	}
 
 	PreDraw() {

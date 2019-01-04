@@ -84,6 +84,10 @@ class RenderManager {
 
 	Draw(time) {
 		this.Canvas.Entity.PreDraw();
+
+		// let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity();
+		// this.FuzzyKnights.Render.Drawing.ViewPort
+
 		this.ForEachEntity((e) => {
 			//DEBUG (the UUID comparator)
 			this.Canvas.Entity.DrawTile(...e.Render(time));
