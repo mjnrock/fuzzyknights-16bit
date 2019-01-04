@@ -37,6 +37,8 @@ class Entity {
 		
 		this.Canvas = new Canvas();
 		this.Canvas.id = this.Entity.UUID;
+		
+		//TODO Change this to actually care about Entity Width/Height once implemented
 		this.Canvas.SetWidth(this.FuzzyKnights.Game.Settings.View.Tile.Width).SetHeight(this.FuzzyKnights.Game.Settings.View.Tile.Height);
 
 		if(onload !== null && typeof onload === "function") {

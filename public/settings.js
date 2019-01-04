@@ -19,6 +19,10 @@ export default {
 		}
 	},
 
+	Config: {
+		TickProximityRange: 5
+	},
+
 	Bindings: {
 		DebugMode: [ "F3" ],
 		CameraFollow: [ "l" ],

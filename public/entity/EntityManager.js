@@ -51,11 +51,7 @@ class EntityManager {
 		return this;
 	}
 
-	Tick(time) {
-		for(let uuid in this.Entities) {
-			this.Entities[uuid].Tick(time);
-		}
-	}
+	Tick(time) {}
 }
 
 export { EntityManager };

@@ -310,19 +310,15 @@ class Map {
 	}
 
 	Tick(time) {
-		this.Grid.ForEach((pos, ele, grid) => {
-			let creats = ele.GetCreatures();
+		let playerPos = Map.FuzzyKnights.Component.Mutator.Maps.GetPosition(Map.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
 
-			if(creats.length > 0) {
-				creats.forEach(ent => {
-					if(Map.FuzzyKnights.Component.Mutator.Maps.GetVelocity(ent).HasVelocity()) {
-						let pos = this.CalcHeading(ent, time);
-			
-						if(pos[0] !== pos[2] || pos[1] !== pos[3]) {
-							Map.FuzzyKnights.Event.Spawn.EntityMoveEvent(ent.UUID, ...pos);
-						}
-					}
-				});
+		this.Grid.ForEach((pos, ele, grid) => {
+			let creats = ele.GetCreatures(),
+				dx = Math.abs(playerPos.X - pos.X),
+				dy = Math.abs(playerPos.Y - pos.Y);
+
+			if(creats.length > 0 && (dx <= Map.FuzzyKnights.Game.Settings.Config.TickProximityRange && dy <= Map.FuzzyKnights.Game.Settings.Config.TickProximityRange)) {
+				creats.forEach(ent => Map.FuzzyKnights.Component.Mutator.Maps.Tick(time, ent));
 			}
 		});
 	}
