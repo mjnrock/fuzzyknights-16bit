@@ -6,10 +6,13 @@ class Camera extends Cinematograph {
 		super();
 
 		this.Map = map;
-		this.X = x;
-		this.Y = y;
 		this.Radius = r;
 		this.AspectRatio = ar;
+
+		this.Canvas.SetDimensions(
+			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius * 2,
+			Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius * 2
+		);
 	}
 
 	GetMap() {
@@ -74,8 +77,8 @@ class Camera extends Cinematograph {
 	
 			this.Canvas.DrawTile(
 				model.Render().GetHTMLCanvas(),
-				pos.X - tare.X,
-				pos.Y - tare.Y
+				(pos.X - tare.Xl) - Cinematograph.Fudge(),
+				(pos.Y - tare.Yl) - Cinematograph.Fudge()
 			);
 		});
 
@@ -92,7 +95,7 @@ class Camera extends Cinematograph {
 			};
 
 		this.Map.Grid.ForEach((pos, node, grid) => {
-			if((pos.X >= tare.Xl && pos.X <= tare.Xr) && (pos.Y >= tare.Yl && pos.Y <= tare.Yr)) {
+			if((pos.X >= tare.Xl - 1 && pos.X <= tare.Xr + 1) && (pos.Y >= tare.Yl - 1 && pos.Y <= tare.Yr + 1)) {
 				nodes.push(node);
 			}
 		});

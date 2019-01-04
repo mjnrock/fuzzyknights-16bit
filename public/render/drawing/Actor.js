@@ -2,17 +2,19 @@ import Camera from "./Camera.js";
 import Cinematograph from "./Cinematograph.js";
 
 class Actor extends Camera {
-	constructor(entity, x, y, r, ar = 1) {
+	constructor(entity, tiles, ar = 1) {
 		super(
 			Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity),
-			x,
-			y,
-			r,
+			3,
+			3,
+			tiles,
 			ar
 		);
 		
 		this.Entity = entity;
 		this.IsTracking = true;
+
+		// this.Canvas.SetDimensions(width, height);
 	}
 
 	Track() {
@@ -34,7 +36,7 @@ class Actor extends Camera {
 
 		return this;
 	}
-	
+
 	GetFeed() {
 		if(this.IsTracking) {
 			this.UpdatePosition();

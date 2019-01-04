@@ -29,6 +29,14 @@ class Cinematograph {
 	Render(time) {
 		this.Canvas.PreDraw();
 	}
+
+	static Fudge(int = 1, normalized = true) {
+		if(normalized) {
+			return int / 2;
+		}
+
+		return (Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * int) / 2;
+	}
 }
 
 export default Cinematograph;

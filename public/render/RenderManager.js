@@ -6,9 +6,7 @@ class RenderManager {
 
 		this.Camera = new this.FuzzyKnights.Render.Drawing.Actor(
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-			0,
-			0,
-			2
+			3
 		);
 	}
 
