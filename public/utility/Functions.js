@@ -18,6 +18,10 @@ export function Clamp(number, min, max) {
     return UpperClamp(LowerClamp(number, min), max);
 }
 
+export function MinClamp(number, min) {
+    return number > min ? min : number;
+}
+
 export function AddInitializationHook(target, hook){
     return class extends target {
         constructor(...args) {

@@ -40,7 +40,6 @@ class ViewPort {
 	DrawDebugWindow() {
 		//DEBUG
 		if(this.FuzzyKnights.Game.Settings.View.DebugMode) {
-
 			let tx = this.Camera.X * this.FuzzyKnights.Game.Settings.View.Tile.Width;
 			let ty = this.Camera.Y * this.FuzzyKnights.Game.Settings.View.Tile.Height;
 
@@ -101,7 +100,7 @@ class ViewPort {
 					140
 				);
 				this.Canvas.Context.fillStyle = "rgba(255, 255, 255, 1.0)";
-				this.Canvas.Context.font = "14px monospace";
+				this.Canvas.Context.font = "10pt monospace";
 
 				let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
 					compMaps = this.FuzzyKnights.Component.Mutator.Maps.GetComponent(player),

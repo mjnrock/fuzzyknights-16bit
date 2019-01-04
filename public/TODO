@@ -3,6 +3,7 @@ Sprints:
 	☐ @critical @performace-issue Render the Terrain once on load, then only if it changes.  Slide Player ViewPort over the designated Terrain canvas.
 		☐ @info AFPS on a 150,100 grid hover under 30 and even a 20,10 hovers around 45
 		☐ @info The present jerkiness is from the out-of-sync rendering
+	☐ @critical Make Input Listeners and Handlers aware of the ViewPort
 
 Refactors/Optimizers:
 ☐ Create a EntityNodeChange Event and Message and convert the Mutator > Maps:119 > map.UpdateNodeOccupancy(entity); to be controlled by an Event

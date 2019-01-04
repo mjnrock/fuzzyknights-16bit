@@ -1,4 +1,4 @@
-import { UpperClamp, LowerClamp } from "./../../utility/Functions.js";
+import { MinClamp, UpperClamp, LowerClamp } from "./../../utility/Functions.js";
 
 import Cinematograph from "./Cinematograph.js";
 
@@ -28,8 +28,8 @@ class Camera extends Cinematograph {
 			UpperClamp(h, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2)
 		);
 
-		this.Radius.Width = LowerClamp(w / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
-		this.Radius.Height = LowerClamp(h / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
+		this.Radius.Width = MinClamp(w / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
+		this.Radius.Height = MinClamp(h / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
 
 		return this;
 	}
