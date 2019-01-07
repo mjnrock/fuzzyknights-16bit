@@ -13,6 +13,28 @@ class Realm {
 		this.UUID = NewUUID();
 	}
 
+	FindZone(uuid, quad = null) {
+		let comparator = (pos, ele, search, gm) => ele.UUID === search;
+
+		if(quad) {
+			return this.Grid[quad].Find(uuid, comparator);
+		}
+
+		let gms = Object.values(this.Grid),
+			value;
+
+		gridMapLoop:
+		for(let q = 0; q < gms.length; q++) {
+			value = this.Grid[q].Find(uuid, comparator);
+
+			if(value) {
+				break gridMapLoop;
+			}
+		}
+
+		return value || false;
+	}
+
 	Get(quad, x, y) {
 		return this.Grid[quad].Get(x, y);
 	}	

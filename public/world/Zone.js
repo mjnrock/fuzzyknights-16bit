@@ -8,6 +8,10 @@ class Zone {
 
 		this.UUID = NewUUID();
 	}
+
+	Tick(time) {
+		//TODO ALl the map .TICK() stuff
+	}
 }
 
 export { Zone };

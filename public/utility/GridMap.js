@@ -84,7 +84,10 @@ class GridMap {
 						Value: this.Get(x, y)
 					};
 				} else if(comparator && typeof comparator === "function") {
-					if(comparator(search, this.Elements, this)) {
+					if(comparator({
+						X: x,
+						Y: y
+					}, this.Get(x, y), search, this)) {
 						return {
 							X: x,
 							Y: y,
