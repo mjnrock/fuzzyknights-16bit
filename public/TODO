@@ -1,0 +1,44 @@
+Component > Worlds:
+	☐ Write the "Worlds" Component
+		☐ Create the "Worlds" Mutator
+		☐ Replace "Maps" Component on ALL Entities
+
+World > Generator:
+	☐ Adjust MapGenerator to make Zones instead
+		☐ Generate a basic Dimensional Realm seed on load
+			☐ Create Dimension, then create Realm
+				☐ Have Realm constructor build Zones from the Zone Generator
+			☐ Add Dimension to WorldManager
+			☐ Add Player to WorldManager
+
+RigidBody / Physics:
+	☐ Make KeyboardInput modify Acceleration instead
+		☐ Have it give a small acceleration every register
+		☐ Impose a TerminalVelocity property in the Settings that the Mutator can use to cap Velocities
+	☐ Assign baseline Mass to all Creatures
+	☐ Have Mutator convert Acceleration into Position
+		☐ Ensure Component has Position, Velocity, and Acceleration properties
+	☐ Impose global Force as friction to slow velocities down
+		☐ Have the Zone hold a Gravity property to use
+	Collisions:
+		☐ Make collisions impose an Acceleration on both Entities with respect to their Momentum
+
+Component > *:
+	☐ Make ALL Components retain a small this.State history with Serialization and MD5 Hash value
+
+Component > History:
+	☐ Create a storage paradigm for each Component to preserve (up to a theoretical infinity of) this.State of each Component
+
+Component > Intelligence:
+	☐ Create basic AI Action paradigm
+	☐ Create A* Pathfinding for Entity to track another
+
+Render:
+	☐ Adjust Renderers to focus on Zones instead
+	Total Rewrite:
+		☐ Implement the new "Observer-Watcher" paradigm
+		☐ Adjust Player directional rotation to always be around Player, compensating for the Camera
+		☐ Adjust Mouse clicks to convert to view-appropriate clicking
+		GUIs:
+			☐ Use HTML and bring the <canvas> element lower in Z-Index
+				☐ Map button and screen clicks to Game actions

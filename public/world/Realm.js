@@ -1,13 +1,13 @@
-import GridMap from "../utility/GridMap.js";
+import ElementMap from "../utility/ElementMap.js";
 import { NewUUID } from "./../utility/Functions.js";
 
 class Realm {
 	constructor(size = 2) {
 		this.Grid = {
-			I: new GridMap(size, size),
-			II: new GridMap(size, size),
-			III: new GridMap(size, size),
-			IV: new GridMap(size, size)
+			I: new ElementMap(size, size),
+			II: new ElementMap(size, size),
+			III: new ElementMap(size, size),
+			IV: new ElementMap(size, size)
 		};
 
 		this.UUID = NewUUID();

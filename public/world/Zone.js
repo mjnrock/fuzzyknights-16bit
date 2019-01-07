@@ -1,19 +1,28 @@
-import GridMap from "./../utility/GridMap.js";
+import ElementMap from "../utility/ElementMap.js";
+import PolyElementMap from "../utility/PolyElementMap.js";
 import { NewUUID } from "./../utility/Functions.js";
 
 class Zone {
 	constructor(width, height) {
-		this.Terrain = new GridMap(width, height);
-		this.Entities = [];
+		this.Terrain = new ElementMap(width, height);
+		this.Entities = new PolyElementMap(width, height);
 
 		this.UUID = NewUUID();
 	}
 
 	//? @protagonist is a Player's Entity
 	Tick(time, protagonist) {
-		// let pos = Zone.FuzzyKnights.Component.Mutator.Worlds.GetPosition(protagonist);
+		let protPos = Zone.FuzzyKnights.Component.Mutator.Worlds.GetPosition(protagonist),
+			dist = 5;
 
-		//TODO ALl the map .TICK() stuff
+		this.Entities.ForEachNeighbor(protPos.X, protPos.Y, dist, (pos, entities, em) => {
+			em.ForEachElement(pos.X, pos.Y, (ePos, entity, eNode, pem) => {
+
+				//*	Add any further constraints here
+
+				entity.Tick(time);
+			});
+		});
 	}
 }
 

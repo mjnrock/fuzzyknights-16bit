@@ -1,4 +1,4 @@
-class GridMap {
+class ElementMap {
 	constructor(width, height, seedFn = null) {
 		this.Width = width;
 		this.Height = height;
@@ -126,6 +126,26 @@ class GridMap {
 		return this;
 	}
 
+	ForEachNeighbor(x, y, r, callback, ...args) {
+		x = ~~x; y = ~~y; r = ~~r;
+
+		let xl = x - r,
+			yl = y - r,
+			xr = x + r,
+			yr = y + r;
+
+		for(let i = xl; i <= xr; i++) {
+			for(let j = yl; j <= yr; j++) {
+				callback({
+					X: +pos[0],
+					Y: +pos[1]
+				}, value, this, ...args);
+			}
+		}
+
+		return this;
+	}
+
 	ToArray() {
 		let arr = [];
 
@@ -137,4 +157,4 @@ class GridMap {
 	}
 }
 
-export default GridMap;
+export default ElementMap;

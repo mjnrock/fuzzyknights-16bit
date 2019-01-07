@@ -63,13 +63,14 @@ class WorldManager {
 		// Read HEAD or TAIL flag on Portal
 	// }
 
-	//! This .TICK() decides how ALL maps will decide if they do/not invoke their own .TICK()
+	//* This .TICK() decides how ALL Zones will decide if they do/not invoke their own .TICK()
 	Tick(time) {
 		this.Players.forEach(player => {
-			//TODO Rewrite to the new Worlds component
 			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player.GetEntity());
 
-			zone.Tick(time, player.GetEntity());
+			if(zone) {
+				zone.Tick(time, player.GetEntity());
+			}
 		});
 	}
 }
