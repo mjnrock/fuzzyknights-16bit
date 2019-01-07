@@ -11,6 +11,8 @@ class Zone {
 
 	//? @protagonist is a Player's Entity
 	Tick(time, protagonist) {
+		// let pos = Zone.FuzzyKnights.Component.Mutator.Worlds.GetPosition(protagonist);
+
 		//TODO ALl the map .TICK() stuff
 	}
 }
