@@ -21,7 +21,9 @@ class Entity {
 	}
 
 	Tick(time) {
-		// console.log("Entity - Tick", this.UUID, time);
+		this.Components.forEach((comp) => {
+			Entity.FuzzyKnights.Component.Mutator[comp.constructor.name].Tick(time, this);
+		});
 	}
 }
 

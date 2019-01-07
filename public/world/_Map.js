@@ -1,7 +1,7 @@
 import Functions from "../utility/Functions.js";
 
 import Grid from "../utility/Grid.js";
-import { Node } from "./Node.js";
+import { Node } from "./_Node.js";
 import Position from "../utility/physics/Position.js";
 
 class Map {
@@ -318,7 +318,7 @@ class Map {
 				dy = Math.abs(playerPos.Y - pos.Y);
 
 			if(creats.length > 0 && (dx <= Map.FuzzyKnights.Game.Settings.Config.TickProximityRange && dy <= Map.FuzzyKnights.Game.Settings.Config.TickProximityRange)) {
-				creats.forEach(ent => Map.FuzzyKnights.Component.Mutator.Maps.Tick(time, ent));
+				creats.forEach(ent => ent.Tick(time));
 			}
 		});
 	}

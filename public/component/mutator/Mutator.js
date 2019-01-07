@@ -13,6 +13,10 @@ class Mutator {
 
 		return comp[0] ? comp[0] : comp;
 	}
+
+	Tick(time, entity) {
+		//	NOOP
+	}
 }
 
 export { Mutator };

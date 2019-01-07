@@ -2,10 +2,10 @@ import Functions from "../utility/Functions.js";
 import Dice from "../utility/Dice.js";
 import Grid from "../utility/Grid.js";
 
-import Terrain from "./../entity/terrain/package.js";
+import Terrain from "../entity/terrain/package.js";
 
-import { Map } from "./Map.js";
-import { Node } from "./Node.js";
+import { Map } from "./_Map.js";
+import { Node } from "./_Node.js";
 
 //TODO CellularAutomata is complete for T/F, but needs a more meaningful generation paradigm
 class CellularAutomata {

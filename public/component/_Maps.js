@@ -1,7 +1,7 @@
 import EnumComponentType from "./enum/ComponentType.js";
-import Velocity from "./../utility/physics/Velocity.js";
-import Vector from "./../utility/physics/Vector.js";
-import Rotation from "./../utility/physics/Rotation.js";
+import Velocity from "../utility/physics/Velocity.js";
+import Vector from "../utility/physics/Vector.js";
+import Rotation from "../utility/physics/Rotation.js";
 
 import { Component } from "./Component.js";
 import { Map } from "./element/Map.js";

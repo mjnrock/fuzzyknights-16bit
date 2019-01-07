@@ -1,7 +1,7 @@
 import Grid from "../utility/Grid.js";
-import { Map } from "./Map.js";
+import { Map } from "./_Map.js";
 
-import { MapGenerator } from "./MapGenerator.js";
+import { MapGenerator } from "./_MapGenerator.js";
 
 class MapManager {
 	constructor(fk) {
