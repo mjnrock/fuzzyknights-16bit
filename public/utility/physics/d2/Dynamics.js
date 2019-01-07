@@ -1,8 +1,10 @@
 import Kinematics from "./Kinematics.js";
+import RigidBody from "./RigidBody";
 
 class Dynamics {
-	constructor(x = 0, y = 0) {
-		this.Kinematics = new Kinematics(x, y);
+	constructor(rigidBody, kinematics) {
+		this.RigidBody = rigidBody || new RigidBody();
+		this.Kinematics = kinematics || new Kinematics();
 	}
 
 	//TODO	Build functions to apply forces to the Kinematics
