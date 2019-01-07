@@ -38,6 +38,31 @@ class WorldManager {
 		return this.GetDimension(dimensionUUID).Get(zoneUUID);
 	}
 
+	ReadPortal(portal) {
+		//TODO Read portal and return info below
+		// return {
+		// 	Head: {
+		// 		Zone: HEAD_ZONE,
+		// 		Position: {
+		// 			X: PORTAL_X,
+		// 			Y: PORTAL_Y
+		// 		}
+		// 	},
+		// 	Tail: {
+		// 		Zone: TAIL_ZONE,
+		// 		Position: {
+		// 			X: PORTAL_X,
+		// 			Y: PORTAL_Y
+		// 		}
+		// 	}
+		// };
+	}
+	//TODO Move the Entity through the portal, Add "ActivationSide: HEAD | TAIL" to send to the opposite
+	// ActivatePortal(portal, entity) {
+		// Affect components to move the Entity from one Zone:Position to another Zone:Position
+		// Read HEAD or TAIL flag on Portal
+	}
+
 	//! This .TICK() decides how ALL maps will decide if they do/not invoke their own .TICK()
 	Tick(time) {
 		this.Players.forEach(player => {
