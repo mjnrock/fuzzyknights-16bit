@@ -1,9 +1,9 @@
-import Point from "./Point.js";
+import Orientation from "./Orientation";
 
 class RigidBody {
-	constructor(m, x = 0, y = 0, { acceleration = null, velocity = null, displacement = null}) {
-		this.Mass = m;
-		this.Point = Point.Generate(x , y);
+	constructor(mass = 1.0, x = 0, y = 0, r = 0, isDegrees = true) {
+		this.Mass = mass;
+		this.Orientation = Orientation.Generate(x, y, r, isDegrees);
 	}
 }
 

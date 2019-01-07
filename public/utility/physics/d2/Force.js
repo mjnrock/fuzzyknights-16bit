@@ -1,6 +1,6 @@
 import Angle from "./Angle.js";
 
-class Displacement {
+class Force {
 	constructor(x = 0, y = 0, r = 0, isDegrees = true) {
 		this.X = x;
 		this.Y = y;
@@ -8,8 +8,8 @@ class Displacement {
 	}
 
 	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {
-		return new Displacement(x, y, r, isDegrees);
+		return new Force(x, y, r, isDegrees);
 	}
 }
 
-export default Displacement;
+export default Force;

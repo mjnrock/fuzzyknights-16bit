@@ -1,7 +1,7 @@
 import Kinematics from "./Kinematics.js";
-import RigidBody from "./RigidBody";
+import RigidBody from "./RigidBody.js";
 
-class Dynamics {
+class Kinetics {
 	constructor(rigidBody, kinematics) {
 		this.RigidBody = rigidBody || new RigidBody();
 		this.Kinematics = kinematics || new Kinematics();
@@ -10,4 +10,4 @@ class Dynamics {
 	//TODO	Build functions to apply forces to the Kinematics
 }
 
-export default Dynamics;
+export default Kinetics;
