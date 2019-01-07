@@ -1,4 +1,5 @@
 import Utility from "./utility/package.js";
+import Module from "./module/package.js";
 
 import Enum from "./enum/package.js";
 import Message from "./message/package.js";
@@ -13,6 +14,7 @@ import Render from "./render/package.js";
 
 export default {
 	Utility,
+	Module,
 
 	Enum,
 	Message,
