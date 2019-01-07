@@ -4,7 +4,7 @@ import Vector from "../utility/physics/Vector.js";
 import Rotation from "../utility/physics/Rotation.js";
 
 import { Component } from "./Component.js";
-import { Map } from "./element/Map.js";
+import { Map } from "./element/_Map.js";
 
 class Maps extends Component {
 	/**
