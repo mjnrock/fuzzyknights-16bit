@@ -61,15 +61,15 @@ class WorldManager {
 	// ActivatePortal(portal, entity) {
 		// Affect components to move the Entity from one Zone:Position to another Zone:Position
 		// Read HEAD or TAIL flag on Portal
-	}
+	// }
 
 	//! This .TICK() decides how ALL maps will decide if they do/not invoke their own .TICK()
 	Tick(time) {
 		this.Players.forEach(player => {
 			//TODO Rewrite to the new Worlds component
-			let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(player.GetEntity());
+			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player.GetEntity());
 
-			map.Tick(time);
+			zone.Tick(time, player.GetEntity());
 		});
 	}
 }

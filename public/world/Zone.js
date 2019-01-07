@@ -9,7 +9,8 @@ class Zone {
 		this.UUID = NewUUID();
 	}
 
-	Tick(time) {
+	//? @protagonist is a Player's Entity
+	Tick(time, protagonist) {
 		//TODO ALl the map .TICK() stuff
 	}
 }
