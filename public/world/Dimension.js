@@ -1,8 +1,9 @@
+import { Realm } from "./Realm.js";
 import { NewUUID } from "./../utility/Functions.js";
 
 class Dimension {
-	constructor(world, maps = []) {
-		this.World = world;
+	constructor(realm = null, maps = []) {
+		this.Realm = realm || new Realm();
 
 		this.Lookup = {};
 		maps.forEach(map => {
@@ -12,11 +13,11 @@ class Dimension {
 		this.UUID = NewUUID();
 	}
 
-	GetWorld() {
-		return this.World;
+	GetRealm() {
+		return this.Realm;
 	}
-	SetWorld(world) {
-		this.World = world;
+	SetRealm(realm) {
+		this.Realm = realm;
 
 		return this;
 	}
