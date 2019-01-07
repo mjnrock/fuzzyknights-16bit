@@ -45,6 +45,12 @@ class Heading {
 	}
 
 	static Generate(x = 0, y = 0, r = 0) {
+		if(x instanceof Position && y instanceof Rotation) {
+			return new Heading(x, y);
+		} else if(x instanceof Position) {
+			return new Heading(x, new Rotation());
+		}
+
 		return new Heading(new Position(x, y), new Rotation(r));
 	}
 }

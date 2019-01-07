@@ -1,7 +1,7 @@
 Component > Worlds:
-	☐ Write the "Worlds" Component
-		☐ Create the "Worlds" Mutator
-		☐ Replace "Maps" Component on ALL Entities
+	✔ Write the "Worlds" Component @done(19-01-07 08:03)
+	✔ Create the "Worlds" Mutator @done(19-01-07 08:03)
+	☐ Replace "Maps" Component on ALL Entities
 
 World > Generator:
 	☐ Adjust MapGenerator to make Zones instead

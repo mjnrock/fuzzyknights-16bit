@@ -1,4 +1,4 @@
-import CircleCollisionMask from "./../../utility/physics/CircleCollisionMask.js";
+import CircleCollisionMask from "./../../utility/_physics/CircleCollisionMask.js";
 
 import EnumCreatureType from "./../../component/enum/CreatureType.js";
 import EnumEntityType from "./../../enum/bitwise/EntityType.js";

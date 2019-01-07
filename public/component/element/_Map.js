@@ -1,5 +1,5 @@
 import { Element } from "./Element.js";
-import Heading from "../../utility/physics/Heading.js";
+import Heading from "../../utility/_physics/Heading.js";
 
 class Map extends Element {
 	/**

@@ -1,8 +1,8 @@
 import EnumComponentType from "./enum/ComponentType.js";
 
 import { Component } from "./Component.js";
-import Acceleration from "./../utility/physics/Acceleration.js";
-import Velocity from "./../utility/physics/Velocity.js";
+import Acceleration from "./../utility/_physics/Acceleration.js";
+import Velocity from "./../utility/_physics/Velocity.js";
 
 class RigidBody extends Component {
 	constructor(mask) {

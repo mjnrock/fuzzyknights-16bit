@@ -9,7 +9,7 @@ import Grid from "./Grid.js";
 import ElementMap from "./ElementMap.js";
 import PolyElementMap from "./PolyElementMap.js";
 
-import Physics from "./physics/package.js";
+import Physics from "./_physics/package.js";
 import Drawing from "./drawing/package.js";
 
 export default {

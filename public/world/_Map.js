@@ -2,7 +2,7 @@ import Functions from "../utility/Functions.js";
 
 import Grid from "../utility/Grid.js";
 import { Node } from "./_Node.js";
-import Position from "../utility/physics/Position.js";
+import Position from "../utility/_physics/Position.js";
 
 class Map {
 	constructor(...args) {

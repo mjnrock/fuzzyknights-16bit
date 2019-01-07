@@ -34,8 +34,18 @@ class WorldManager {
 		return this;
 	}
 
-	GetZone(zoneUUID, dimensionUUID) {
-		return this.GetDimension(dimensionUUID).Get(zoneUUID);
+	GetZone(zoneUUID, dimensionUUID = null) {
+		if(dimensionUUID) {
+			return this.GetDimension(dimensionUUID).Get(zoneUUID);
+		}
+
+		this.Dimensions.forEach(dim => {
+			if(dim.Get(zoneUUID)) {
+				return dim.Get(zoneUUID);
+			}
+		})
+
+		return false;
 	}
 
 	ReadPortal(portal) {
