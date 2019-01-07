@@ -42,7 +42,7 @@ class WorldManager {
 	Tick(time) {
 		this.Players.forEach(player => {
 			//TODO Rewrite to the new Worlds component
-			let map = this.FuzzyKnights.Component.Mutator.Worlds.GetMap(player.GetEntity());
+			let map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(player.GetEntity());
 
 			map.Tick(time);
 		});
