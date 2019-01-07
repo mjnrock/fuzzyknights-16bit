@@ -2,6 +2,8 @@ import { Zone } from "./Zone.js";
 import { Realm } from "./Realm.js";
 import { Dimension } from "./Dimension.js";
 
+import Generator from "./generator/package.js";
+
 import { Node } from "./_Node.js";
 import { Map } from "./_Map.js";
 
@@ -14,6 +16,8 @@ export default {
 	Zone,
 	Realm,
 	Dimension,
+
+	Generator,
 
 
 	Node,
