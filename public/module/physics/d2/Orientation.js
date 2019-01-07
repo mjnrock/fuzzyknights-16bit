@@ -1,6 +1,7 @@
 import Point from "./Point.js";
 import Angle from "./Angle.js";
 
+//? This ignores the Z, Pitch, and Roll from the 3D space
 class Orientation {
 	/**
 	 * @param Point point 
