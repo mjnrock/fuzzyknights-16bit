@@ -1,7 +1,8 @@
 import { Component } from "./Component.js";
 
 import EnumComponentType from "./enum/ComponentType.js";
-import Heading from "./../utility/physics/Heading.js";
+import Orientation from "./../module/physics/d2/Orientation.js";
+import Kinetics from "./../module/physics/d2/Kinetics.js";
 
 class Worlds extends Component {
 	constructor(dimUUID, zoneUUID, x, y) {
@@ -11,7 +12,8 @@ class Worlds extends Component {
 			Dimension: dimUUID,
 			Zone: zoneUUID
 		};
-		this.Heading = Heading.Generate(x, y, 0);
+		this.Heading = Orientation.Generate(x, y, 0);
+		this.Kinetics = new Kinetics();
 	}
 }
 
