@@ -71,9 +71,8 @@ class Zone {
 		let Fx = ClampCeiling(vx - vt, 0) * mass,
 			Fy = ClampCeiling(vy - vt, 0) * mass;
 
-		console.log(1111);
 		// Zone.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, Zone.FuzzyKnights.Physics.D2.Velocity.Generate(dvx, dvy));
-		Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
+		// Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
 		// Zone.FuzzyKnights.Component.Mutator.Physics.GetAcceleration(entity).Merge(Zone.FuzzyKnights.Physics.D2.Acceleration.Generate(dvx, dvy));
 	}
 
@@ -85,7 +84,7 @@ class Zone {
 		this.ApplyPhysics(protagonist, protPos);
 		this.Entities.ForEachNeighbor(protPos.X, protPos.Y, dist, (pos, entities, em) => {
 			em.ForEachElement(pos.X, pos.Y, (ePos, entity, eNode, pem) => {
-				this.ApplyPhysics(entity, protPos);
+				// this.ApplyPhysics(entity, protPos);
 				entity.Tick(time);
 			});
 		});

@@ -148,7 +148,9 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.World.WorldManager.AddDimension(Dimension);
 
 		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
-		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);		
+		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
+		this.FuzzyKnights.World.WorldManager.AddPlayer(Player);
+
 		this.FuzzyKnights.Component.Mutator.Worlds.SetZone(Player.Entity, Zone);
 		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Player.Entity, 0, 0);
 

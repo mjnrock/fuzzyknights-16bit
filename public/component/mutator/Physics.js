@@ -106,12 +106,6 @@ class Physics extends Mutator {
 		if(kinematics.Displacement.HasValues()) {
 			this.FuzzyKnights.Event.Spawn.EntityDisplacementEvent(entity, kinematics.Displacement);
 		}
-
-		if(Math.random() < 0.25) {
-console.log(`	Displacement: ${ kinematics.Displacement.Get().join(", ") },
-	Velocity: ${ kinematics.Velocity.Get().join(", ") },
-	Acceleration: ${ kinematics.Acceleration.Get().join(", ") }`);
-		}
 	}
 }
 

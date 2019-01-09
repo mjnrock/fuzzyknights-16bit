@@ -16,11 +16,11 @@ class PlayerHandler {
 
 		let player = new this.FuzzyKnights.Game.Player();
 		player.SetUUID(msg.Payload.UUID);
-		this.FuzzyKnights.Game.GameManager.Register(player);
+		this.FuzzyKnights.Game.GameManager.SetPlayer(player);
+		this.FuzzyKnights.World.WorldManager.AddPlayer(player);
 	}
 	onPlayerDisconnect(msg) {
-		let player = this.FuzzyKnights.Game.GameManager.GetPlayer(msg.Payload.UUID);
-		this.FuzzyKnights.Game.GameManager.Unregister(player);
+		this.FuzzyKnights.Game.GameManager.RemovePlayer();
 	}
 
 	ProcessMessage(msg) {

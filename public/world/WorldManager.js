@@ -10,8 +10,10 @@ class WorldManager {
 	GetPlayer(uuid) {
 		return this.Players.filter(p => p.UUID === uuid)[0] || false;
 	}
-	AddPlayer(dim) {
-		this.Players.push(dim);
+	AddPlayer(player) {
+		if(!this.GetPlayer(player.UUID)) {
+			this.Players.push(player);
+		}
 
 		return this;
 	}

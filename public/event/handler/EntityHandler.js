@@ -46,11 +46,10 @@ class EntityHandler {
 			neighs.Element.forEach(ent => {
 				let entMask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent);
 
-				console.log(mask);
 				if(mask.CheckCircleCollision(entMask)) {
 					this.FuzzyKnights.Event.Spawn.EntityCollisionEvent(entity, ent);
 				}
-			})
+			});
 		});
 	}
 	onEntityCollision(msg, collidor, collidee) {
