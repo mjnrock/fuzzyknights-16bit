@@ -18,7 +18,7 @@ class InputHandler {
 	OnMouseMove(msg, event) {
 		let x = event.clientX,
 			y = event.clientY,
-			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+			// pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
 
 			//! These will be relevant again once this Handler becomes aware of the ViewPort
 			// xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
@@ -37,7 +37,6 @@ class InputHandler {
 		
 		let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360 || 0;
 
-		// this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 		this.FuzzyKnights.Component.Mutator.Worlds.SetAngle(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 	}
 	OnMouseDown(msg, event) {
@@ -93,15 +92,10 @@ class InputHandler {
 			y += magnitude;
 		}
 
-		// this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
 		this.FuzzyKnights.Component.Mutator.Physics.AddForce(
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
 			this.FuzzyKnights.Module.Physics.D2.Force.Generate(x, y, r)
 		);
-
-
-		//	DEBUG
-		// console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));
 	}
 
 	ProcessMessage(msg) {
