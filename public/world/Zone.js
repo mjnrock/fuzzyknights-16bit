@@ -23,6 +23,13 @@ class Zone {
 		}
 	}
 
+	Get(x, y) {
+		return {
+			Terrain: this.Terrain.Get(x, y),
+			Entities: this.Entities.Get(x, y)
+		}
+	}
+
 	UpdateTerrainMap(terrain, x0, y0, x1, y1) {
 		if(~~x0 !== ~~x1 || ~~y0 !== ~~y1) {
 			this.Terrain.RemoveElement(x0, y0, terrain);

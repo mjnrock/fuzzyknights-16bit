@@ -10,12 +10,6 @@ class ViewPort {
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
 			3
 		);
-		// this.Camera = new this.FuzzyKnights.Render.Drawing.Camera(
-		// 	this.FuzzyKnights.World.MapManager.GetActiveMap(),
-		// 	0,
-		// 	0,
-		// 	3
-		// );
 		
 		// this.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.Canvas);
 		
@@ -30,7 +24,7 @@ class ViewPort {
 			~~((window.innerHeight - this.Camera.Canvas.Height) / 2)
 		);
 		
-		//! this.DrawDebugWindow();
+		this.DrawDebugWindow();
 		
 		// if(this.FuzzyKnights.Game.Settings.View.HUD && this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()) {
 		// 	this.HUD.Draw(time, this.FuzzyKnights.Render.RenderManager.GetCreatureModels());
@@ -108,11 +102,11 @@ class ViewPort {
 				this.DebugCanvas.Context.font = "10pt monospace";
 
 				let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-					compMaps = this.FuzzyKnights.Component.Mutator.Maps.GetComponent(player),
-					compRigBod = this.FuzzyKnights.Component.Mutator.RigidBody.GetComponent(player),
-					map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(player),
-					node = map.GetNode(compMaps.ActiveMap.Heading.Position.X, compMaps.ActiveMap.Heading.Position.Y),
-					[ terrain ] = node.GetTerrain(),
+					compWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(player),
+					compPhysics = this.FuzzyKnights.Component.Mutator.Physics.GetComponent(player),
+					zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player),
+					node = zone.Get(compWorlds.Heading.Point.X, compWorlds.Heading.Point.Y),
+					terrain = node.Terrain,
 					compTerInf = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetComponent(terrain),
 					row = (r = 0) => (r + 1) * 16,
 					col = (c = 1, fudge = 0) => (c - 1) * 250 + 10 + fudge,
@@ -125,35 +119,28 @@ class ViewPort {
 				
 				let r1 = rowg();
 				this.DebugCanvas.Context.fillText(`[ PLAYER ]`, col(1), r1.next().value);
-				this.DebugCanvas.Context.fillText(`Velocity: ${ compMaps.Velocity.Vector.X }ts, ${ compMaps.Velocity.Vector.Y }ts, ${ compMaps.Velocity.Rotation.Yaw }rs`, col(1), r1.next().value);
-				this.DebugCanvas.Context.fillText(
-					`Speed: ${
-						(compMaps.Velocity.Vector.X * this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability)).toFixed(2)
-					}ts, ${
-						(compMaps.Velocity.Vector.Y * this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability)).toFixed(2)
-					}ts`,
-					col(1),
-					r1.next().value
-				);
-				this.DebugCanvas.Context.fillText(`Position: ${ compMaps.ActiveMap.Heading.Position.X.toFixed(2) }x, ${ compMaps.ActiveMap.Heading.Position.Y.toFixed(2) }y`, col(1), r1.next().value);
-				this.DebugCanvas.Context.fillText(`Facing: ${ compMaps.ActiveMap.Heading.Rotation.Yaw }°`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Acceleration: ${ compPhysics.Kinetics.Kinematics.Acceleration.X }ts, ${ compPhysics.Kinetics.Kinematics.Acceleration.Y }ts, ${ compPhysics.Kinetics.Kinematics.Acceleration.Angle.Theta }rs`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Velocity: ${ compPhysics.Kinetics.Kinematics.Velocity.X }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Y }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Angle.Theta }rs`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Displacement: ${ compPhysics.Kinetics.Kinematics.Displacement.X }ts, ${ compPhysics.Kinetics.Kinematics.Displacement.Y }ts, ${ compPhysics.Kinetics.Kinematics.Displacement.Angle.Theta }rs`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Position: ${ compWorlds.Heading.Point.X.toFixed(2) }x, ${ compWorlds.Heading.Point.Y.toFixed(2) }y`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Facing: ${ compWorlds.Heading.Angle.Theta }°`, col(1), r1.next().value);
 				this.DebugCanvas.Context.fillText(
 					`Mask: ${
-						(compMaps.ActiveMap.Heading.Position.X + (compRigBod.CollisionMask.Origin.X / this.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
+						(compWorlds.Heading.Point.X + (compPhysics.CollisionMask.Origin.X / this.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
 					}, ${
-						(compMaps.ActiveMap.Heading.Position.Y + (compRigBod.CollisionMask.Origin.Y / this.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
+						(compWorlds.Heading.Point.Y + (compPhysics.CollisionMask.Origin.Y / this.FuzzyKnights.Game.Settings.View.Tile.Target)).toFixed(2)
 					}, ${
-						compRigBod.CollisionMask.Radius
+						compPhysics.CollisionMask.Radius
 					}`,
 					col(1),
 					r1.next().value
 				);
-				this.DebugCanvas.Context.fillText(`- Type: ${ compRigBod.CollisionMask.constructor.name.replace(/CollisionMask/gi, "") }`, col(1), r1.next().value);
-				this.DebugCanvas.Context.fillText(`- XYR: ${ compRigBod.CollisionMask.Origin.X }px, ${ compRigBod.CollisionMask.Origin.Y }px, ${ compRigBod.CollisionMask.Radius }px`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`- Type: ${ compPhysics.CollisionMask.constructor.name.replace(/CollisionMask/gi, "") }`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`- XYR: ${ compPhysics.CollisionMask.Origin.X }px, ${ compPhysics.CollisionMask.Origin.Y }px, ${ compPhysics.CollisionMask.Radius }px`, col(1), r1.next().value);
 				
 				let r2 = rowg();
 				this.DebugCanvas.Context.fillText(`[ TERRAIN ]`, col(2), r2.next().value);
-				this.DebugCanvas.Context.fillText(`Tile: ${ ~~compMaps.ActiveMap.Heading.Position.X }, ${ ~~compMaps.ActiveMap.Heading.Position.Y }`, col(2), r2.next().value);
+				this.DebugCanvas.Context.fillText(`Tile: ${ ~~compWorlds.Heading.Point.X }, ${ ~~compWorlds.Heading.Point.Y }`, col(2), r2.next().value);
 				this.DebugCanvas.Context.fillText(`Type: ${ this.FuzzyKnights.Component.Enum.TerrainType.Lookup(compTerInf.TerrainType) }`, col(2), r2.next().value);
 				this.DebugCanvas.Context.fillText(`- Meta: ${ compTerInf.Meta }`, col(2), r2.next().value);
 				this.DebugCanvas.Context.fillText(`Nav: ${ this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability).toFixed(2) }`, col(2), r2.next().value);
