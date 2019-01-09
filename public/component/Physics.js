@@ -1,7 +1,7 @@
 import EnumComponentType from "./enum/ComponentType.js";
 
 import { Component } from "./Component.js";
-import Kinetics from "../module/physics/d2/Kinetics.js";
+import Kinetics from "./../physics/d2/Kinetics.js";
 
 class Physics extends Component {
 	constructor(mask, mass = 1.00) {

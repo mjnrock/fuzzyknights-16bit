@@ -23,16 +23,16 @@ class Displacement {
 	//#	Set(Displacement)
 	//#	Set(x, y, Angle)
 	//#	Set(x = null, y = null, r = null, isDegrees = null)
-	Set(x = null, y = null, r = null, isDegrees = null) {
+	Set(x = null, y = null, theta = null, isDegrees = null) {
 		if(x instanceof Displacement) {
-			let accel = x;
-			this.X = accel.X;
-			this.Y = accel.Y;
-			this.Angle.Set(accel.Theta, accel.IsDegrees);
+			let displ = x;
+			this.X = displ.X;
+			this.Y = displ.Y;
+			this.Angle.Set(displ.Angle);
 
 			return this;
-		} else if(typeof x === "number" && typeof y === "number" && r instanceof Displacement) {
-			let angle = r;
+		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Displacement) {
+			let angle = theta;
 			this.X = x;
 			this.Y = y;
 			this.Angle.Set(angle);
@@ -42,7 +42,7 @@ class Displacement {
 
 		this.X = (x === null || x === void 0) ? this.X : x;
 		this.Y = (y === null || y === void 0) ? this.Y : y;
-		this.Angle.Set(accel.Theta, accel.IsDegrees);
+		this.Angle.Set(theta, isDegrees);
 
 		return this;
 	}
@@ -51,10 +51,10 @@ class Displacement {
 	//#	Merge(x = null, y = null, theta = null, isDegrees = null)
 	Merge(x, y, theta, isDegrees = null) {
 		if(x instanceof Displacement) {
-			let accel = x;
-			this.X += accel.X;
-			this.Y += accel.Y;
-			this.Angle.Merge(accel.Theta, accel.IsDegrees);
+			let displ = x;
+			this.X += displ.X;
+			this.Y += displ.Y;
+			this.Angle.Merge(displ.Angle);
 
 			return this;
 		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Angle) {

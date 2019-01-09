@@ -22,9 +22,15 @@ class Kinetics {
 
 		return removed;
 	}
+	ResetForces() {
+		this.Forces = [];
+	}
 
 	ProcessForces(time) {
-		return this.Kinematics.Acceleration.MergeFromForces(this.Mass, ...this.Forces);
+		this.Kinematics.Acceleration.MergeFromForces(this.Mass, ...this.Forces);
+		this.ResetForces();
+
+		return this;
 	}
 
 	static ApplyForce(base, accel) {

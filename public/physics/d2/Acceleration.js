@@ -27,7 +27,7 @@ class Acceleration {
 			let accel = x;
 			this.X = accel.X;
 			this.Y = accel.Y;
-			this.Angle.Set(accel.Theta, accel.IsDegrees);
+			this.Angle.Set(accel.Angle);
 
 			return this;
 		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Acceleration) {
@@ -41,7 +41,7 @@ class Acceleration {
 
 		this.X = (x === null || x === void 0) ? this.X : x;
 		this.Y = (y === null || y === void 0) ? this.Y : y;
-		this.Angle.Set(accel.Theta, accel.IsDegrees);
+		this.Angle.Set(theta, isDegrees);
 
 		return this;
 	}
@@ -53,7 +53,7 @@ class Acceleration {
 			let accel = x;
 			this.X += accel.X;
 			this.Y += accel.Y;
-			this.Angle.Merge(accel.Theta, accel.IsDegrees);
+			this.Angle.Merge(accel.Angle);
 
 			return this;
 		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Acceleration) {

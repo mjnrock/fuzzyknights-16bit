@@ -22,16 +22,16 @@ class Velocity {
 	//#	Set(Velocity)
 	//#	Set(x, y, Angle)
 	//#	Set(x = null, y = null, r = null, isDegrees = null)
-	Set(x = null, y = null, r = null, isDegrees = null) {
+	Set(x = null, y = null, theta = null, isDegrees = null) {
 		if(x instanceof Velocity) {
-			let accel = x;
-			this.X = accel.X;
-			this.Y = accel.Y;
-			this.Angle.Set(accel.Theta, accel.IsDegrees);
+			let veloc = x;
+			this.X = veloc.X;
+			this.Y = veloc.Y;
+			this.Angle.Set(veloc.Angle);
 
 			return this;
-		} else if(typeof x === "number" && typeof y === "number" && r instanceof Angle) {
-			let angle = r;
+		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Angle) {
+			let angle = theta;
 			this.X = x;
 			this.Y = y;
 			this.Angle.Set(angle);
@@ -41,23 +41,23 @@ class Velocity {
 
 		this.X = (x === null || x === void 0) ? this.X : x;
 		this.Y = (y === null || y === void 0) ? this.Y : y;
-		this.Angle.Set(accel.Theta, accel.IsDegrees);
+		this.Angle.Set(theta, isDegrees);
 
 		return this;
 	}
 	//#	Merge(Velocity)
 	//#	Merge(x, y, Angle)
 	//#	Merge(x = null, y = null, r = null, isDegrees = null)
-	Merge(x, y, r, isDegrees = null) {
+	Merge(x, y, theta, isDegrees = null) {
 		if(x instanceof Velocity) {
-			let accel = x;
-			this.X += accel.X;
-			this.Y += accel.Y;
-			this.Angle.Merge(accel.Theta, accel.IsDegrees);
+			let veloc = x;
+			this.X += veloc.X;
+			this.Y += veloc.Y;
+			this.Angle.Merge(veloc.Angle);
 
 			return this;
-		} else if(typeof x === "number" && typeof y === "number" && r instanceof Velocity) {
-			let angle = r;
+		} else if(typeof x === "number" && typeof y === "number" && theta instanceof Velocity) {
+			let angle = theta;
 			this.X += x;
 			this.Y += y;
 			this.Angle.Merge(angle);
@@ -67,7 +67,7 @@ class Velocity {
 		
 		this.X += x;
 		this.Y += y;
-		this.Angle.Merge(r, isDegrees);
+		this.Angle.Merge(theta, isDegrees);
 
 		return this;
 	}

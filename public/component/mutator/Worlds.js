@@ -30,7 +30,7 @@ class Worlds extends Mutator {
 		return this.GetComponent(entity).Heading.Point;
 	}
 	SetPoint(entity, x, y) {
-		this.GetComponent(entity).Heading.Point = this.FuzzyKnights.Module.Physics.D2.Point.Generate(x, y);
+		this.GetComponent(entity).Heading.Point = this.FuzzyKnights.Physics.D2.Point.Generate(x, y);
 
 		return this;
 	}
@@ -39,7 +39,7 @@ class Worlds extends Mutator {
 		return this.GetComponent(entity).Heading.Angle;
 	}
 	SetAngle(entity, r) {
-		this.GetComponent(entity).Heading.Angle = this.FuzzyKnights.Module.Physics.D2.Angle.Generate(r);
+		this.GetComponent(entity).Heading.Angle = this.FuzzyKnights.Physics.D2.Angle.Generate(r);
 
 		return this;
 	}
@@ -48,7 +48,7 @@ class Worlds extends Mutator {
 		return this.GetComponent(entity).Heading;
 	}
 	SetHeading(entity, x, y, r = 0) {
-		return this.GetComponent(entity).Heading = this.FuzzyKnights.Module.Physics.D2.Orientation.Generate(x, y, r);
+		return this.GetComponent(entity).Heading = this.FuzzyKnights.Physics.D2.Orientation.Generate(x, y, r);
 	}
 
 	// theta = Math.atan2(y2 - y, x2 - x)	//* Collision Angle

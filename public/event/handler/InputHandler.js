@@ -94,7 +94,7 @@ class InputHandler {
 
 		this.FuzzyKnights.Component.Mutator.Physics.AddForce(
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-			this.FuzzyKnights.Module.Physics.D2.Force.Generate(x, y, r)
+			this.FuzzyKnights.Physics.D2.Force.Generate(x, y, r)
 		);
 	}
 

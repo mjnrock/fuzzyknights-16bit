@@ -1,8 +1,7 @@
 import { Component } from "./Component.js";
 
 import EnumComponentType from "./enum/ComponentType.js";
-import Orientation from "./../module/physics/d2/Orientation.js";
-import Kinetics from "./../module/physics/d2/Kinetics.js";
+import Orientation from "./../physics/d2/Orientation.js";
 
 class Worlds extends Component {
 	constructor(x, y, zoneUUID, dimUUID) {
