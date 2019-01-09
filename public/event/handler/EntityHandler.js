@@ -18,9 +18,8 @@ class EntityHandler {
 		map.PlaceEntity(entity, pos.X, pos.Y);
 	}
 
-	onEntityStateChange(msg, uuid) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid),
-			flag = msg.Payload.StateType;
+	onEntityStateChange(msg, entity) {
+		let flag = msg.Payload.StateType;
 
 		if(!this.FuzzyKnights.Component.Mutator.States.HasFlag(entity, flag)) {
 			this.FuzzyKnights.Component.Mutator.States.AddFlag(entity, flag);
@@ -29,27 +28,38 @@ class EntityHandler {
 		}
 	}
 
-	onEntityMove(msg, uuid, poso, posn) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid),
-			map = this.FuzzyKnights.Component.Mutator.Maps.GetMap(entity);
-			
-		if(poso.X !== posn.X || poso.Y !== posn.Y) {
-			if(this.FuzzyKnights.World.MapManager.GetActiveMap().AttemptMove(entity, map, posn.X, posn.Y)) {
-				this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(msg.Payload.UUID, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
-			} else {
-				// Invoke EntityCollisionEvent
-				//! Make sure to account for attempting to pass a Collidee when the entity collided with something else that prevented movement (e.g. end of map)
-			}
-		}
-	}
+	onEntityDisplacement(msg, entity, displacement) {
+		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
+			[ x, y ] = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
 
-	onEntityDamage(msg, target, source, damage) {
-		console.log(target, source, damage);
+		zone.Displace(entity, x, y, displacement);
+	}
+	onEntityMove(msg, entity, x0, y0, x1, y1) {
+		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(entity, x1, y1);
+		this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(entity, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+
+		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
+			neighbors = zone.Entities.GetNeighbors(x1, y1, 1),
+			mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(entity);
+
+		neighbors.forEach(neighs => {
+			neighs.forEach(ent => {
+				let entMask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent);
+
+				if(mask.CheckCircleCollision(entMask)) {
+					this.FuzzyKnights.Event.Spawn.EntityCollisionEvent(entity, ent);
+				}
+			})
+		});
 	}
 	onEntityCollision(msg, collidor, collidee) {
 		console.log(`[COLLISION EVENT]: Collidor -> Collidee`, collidor, collidee);
 
 		//TODO Do collision logic
+	}
+
+	onEntityDamage(msg, target, source, damage) {
+		console.log(target, source, damage);
 	}
 
 	ProcessMessage(msg) {
@@ -68,6 +78,8 @@ class EntityHandler {
 			this.onEntityCollision(msg, ...payload);
 		} else if(msg.MessageType === "EntityJoinWorldMessage") {
 			this.onEntityJoinWorld(msg, ...payload);
+		} else if(msg.MessageType === "EntityDisplacementMessage") {
+			this.onEntityDisplacement(msg, ...payload);
 		}
 	}
 	ReceiveMessage(msg, time = null) {

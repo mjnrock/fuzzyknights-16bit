@@ -11,6 +11,7 @@ import { EntityConstructionMessage } from "./EntityConstructionMessage.js";
 import { EntityDestructionMessage } from "./EntityDestructionMessage.js";
 import { EntityCollisionMessage } from "./EntityCollisionMessage.js";
 import { EntityJoinWorldMessage } from "./EntityJoinWorldMessage.js";
+import { EntityDisplacementMessage } from "./EntityDisplacementMessage.js";
 
 import MessageManager from "./MessageManager.js";
 
@@ -31,6 +32,7 @@ export default {
 	EntityDestructionMessage,
 	EntityCollisionMessage,
 	EntityJoinWorldMessage,
+	EntityDisplacementMessage,
 
 	MessageManager
 };

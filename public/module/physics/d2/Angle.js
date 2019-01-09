@@ -1,6 +1,6 @@
 class Angle {
-	constructor(y = 0, isDegrees = true) {
-		this.Theta = y;
+	constructor(theta = 0, isDegrees = true) {
+		this.Theta = theta;
 		this.IsDegrees = isDegrees === null || isDegrees === void 0 ? true : isDegrees;
 	}
 
@@ -96,7 +96,7 @@ class Angle {
 	}
 
 	Copy() {
-		return this.CalcNewAngle(this.Theta, this.IsDegrees);
+		return this.CalcNewAngle(0);
 	}
 	static Generate(theta = 0, isDegrees = true) {
 		return new Angle(theta, isDegrees);

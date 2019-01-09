@@ -1,5 +1,5 @@
 const ComponentType = {
-	RIGID_BODY:			1,
+	PHYSICS:			1,
 	COMPOUND_ENTITY:	2,
 
 	RESOURCES:			10,

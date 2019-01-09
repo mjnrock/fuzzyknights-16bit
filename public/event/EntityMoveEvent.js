@@ -1,9 +1,9 @@
 import { Event } from "./Event.js";
 
 class EntityMoveEvent extends Event {
-	constructor(entityIdentifier, x0, y0, x1, y1) {
+	constructor(entity, x0, y0, x1, y1) {
 		super(
-			entityIdentifier,
+			entity,
 			x0,
 			y0,
 			x1,

@@ -7,17 +7,18 @@ const NavigabilityType = {
 	PATH:			6
 };
 
-NavigabilityType.GetConstraint = function(value) {
-	const Speed = {
-		NONE:			0,
-		WATER:			0.33,
-		SAND:			0.60,
-		GRASS:			1.00,
-		ROCK:			0.50,
-		PATH:			1.25
-	};
+//	These are the Force Physics drivers for friction
+const Attenuators = {
+	NONE:			0,
+	WATER:			3,
+	SAND:			5 / 3,
+	GRASS:			1,
+	ROCK:			2,
+	PATH:			5 / 4
+};
 
-	return Speed[NavigabilityType.Lookup(value)];
+NavigabilityType.GetConstraint = function(value) {
+	return Attenuators[NavigabilityType.Lookup(value)];
 };
 
 NavigabilityType.Lookup = function(value) {

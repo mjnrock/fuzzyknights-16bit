@@ -18,10 +18,10 @@ class Worlds extends Mutator {
 			this.GetComponent(entity).Identifiers.Zone
 		);
 	}	
-	SetMap(entity, map) {		
-		this.GetComponent(entity).Identifiers.Zone = map.UUID;
+	SetZone(entity, zone) {		
+		this.GetComponent(entity).Identifiers.Zone = zone.UUID;
 
-		this.FuzzyKnights.Event.Spawn.EntityJoinWorldEvent(entity, map);
+		this.FuzzyKnights.Event.Spawn.EntityJoinWorldEvent(entity, zone);
 
 		return this;
 	}
@@ -78,4 +78,4 @@ class Worlds extends Mutator {
 	}
 }
 
-export { Worlds as Maps };
+export { Worlds };

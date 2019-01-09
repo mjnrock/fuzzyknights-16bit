@@ -123,7 +123,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 
 		//@ Component Mutators
-		this.FuzzyKnights.Component.Mutator.RigidBody = new this.FuzzyKnights.Component.Mutator.RigidBody(this.FuzzyKnights);
+		this.FuzzyKnights.Component.Mutator.Physics = new this.FuzzyKnights.Component.Mutator.Physics(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Attributes = new this.FuzzyKnights.Component.Mutator.Attributes(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Resources = new this.FuzzyKnights.Component.Mutator.Resources(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Maps = new this.FuzzyKnights.Component.Mutator.Maps(this.FuzzyKnights);
@@ -177,6 +177,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.World.Zone.FuzzyKnights = this.FuzzyKnights;
 
 		//DEBUG
 		this.FuzzyKnights.Utility.Drawing.Canvas.FuzzyKnights = this.FuzzyKnights;

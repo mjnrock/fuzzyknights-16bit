@@ -11,7 +11,7 @@ World > Generator:
 			☐ Add Dimension to WorldManager
 			☐ Add Player to WorldManager
 
-RigidBody / Physics:
+Physics / Physics:
 	☐ Make KeyboardInput modify Acceleration instead
 		☐ Have it give a small acceleration every register
 		☐ Impose a TerminalVelocity property in the Settings that the Mutator can use to cap Velocities

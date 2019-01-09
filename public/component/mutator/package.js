@@ -1,5 +1,5 @@
 import { Mutator } from "./Mutator.js";
-import { RigidBody } from "./RigidBody.js";
+import { Physics } from "./Physics.js";
 import { Resources } from "./Resources.js";
 import { Attributes } from "./Attributes.js";
 import { Maps } from "./_Maps.js";
@@ -9,7 +9,7 @@ import { TerrainInfo } from "./TerrainInfo.js"
 
 export default {
 	Mutator,
-	RigidBody,
+	Physics,
 	Resources,
 	Attributes,
 	Maps,

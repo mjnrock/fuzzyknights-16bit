@@ -19,30 +19,24 @@ class Kinematics {
 		this.Acceleration = Acceleration.Generate(0, 0);
 	}
 
-	Accelerate(acceleration) {
-		return Kinematics.ApplyAcceleration(this.Acceleration, acceleration);
+	Accelerate(...accelerations) {
+		return this.Acceleration.MergeMultiple(accelerations);
 	}
-	Velocitize(velocity) {
-		return Kinematics.ApplyVelocity(this.Velocity, velocity);
+	Velocitize(...velocities) {
+		return this.Acceleration.MergeMultiple(velocities);
 	}
-	Displace(displacement) {
-		return Kinematics.ApplyDisplacement(this.Displacement, displacement);
+	Displace(...displacements) {
+		return this.Acceleration.MergeMultiple(displacements);
 	}
-	
 
-	static ApplyAcceleration(base, accel) {
-		if(base instanceof Acceleration && accel instanceof Acceleration) {
-			return base.Merge(accel);
+	ProcessAcceleration(time) {
+		if(this.Acceleration.HasValues()) {
+			this.Velocity.Merge(this.Acceleration.ConvertToVelocity(time));
 		}
 	}
-	static ApplyVelocity(base, veloc) {
-		if(base instanceof Velocity && veloc instanceof Velocity) {
-			return base.Merge(veloc);
-		}
-	}
-	static ApplyDisplacement(base, displ) {
-		if(base instanceof Displacement && displ instanceof Displacement) {
-			return base.Merge(displ);
+	ProcessVelocity(time) {
+		if(this.Velocity.HasValues()) {
+			this.Displacement.Merge(this.Velocity.ConvertToDisplacement(time));
 		}
 	}
 }
