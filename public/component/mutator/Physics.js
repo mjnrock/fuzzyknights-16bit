@@ -37,11 +37,8 @@ class Physics extends Mutator {
 		return this;
 	}
 
-	CheckCollisionMask(collidor, collidee) {
-		let mOr = this.GetCollisionMask(collidor),
-			mEe = this.GetCollisionMask(collidee);
-
-		
+	AddForce(entity, ...forces) {
+		this.GetKinetics(entity).AddForce(...forces);
 	}
 
 	Tick(time, entity) {

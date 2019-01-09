@@ -130,6 +130,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.Component.Mutator.States = new this.FuzzyKnights.Component.Mutator.States(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.CreatureInfo = new this.FuzzyKnights.Component.Mutator.CreatureInfo(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.TerrainInfo = new this.FuzzyKnights.Component.Mutator.TerrainInfo(this.FuzzyKnights);
+		this.FuzzyKnights.Component.Mutator.Worlds = new this.FuzzyKnights.Component.Mutator.Worlds(this.FuzzyKnights);
 
 		this.FuzzyKnights.Network.ConnectionClient = new this.FuzzyKnights.Network.ConnectionClient(this.FuzzyKnights);
 
@@ -146,20 +147,17 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		// 	[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
 		// 	[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
 		// );
-		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
-
-		let Enemy = new this.FuzzyKnights.Entity.Creature.Beaver();
-
 		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
 		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);
-		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
 
+		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
+		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
 		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Player.Entity, Map);
 		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Player.Entity, 0, 0);
 
-		console.log(Enemy);
-		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Enemy, Map);
-		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2.3, 2.3);
+		// let Enemy = new this.FuzzyKnights.Entity.Creature.Beaver();
+		// this.FuzzyKnights.Component.Mutator.Maps.SetMap(Enemy, Map);
+		// this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2.3, 2.3);
 
 		return this;
 	}

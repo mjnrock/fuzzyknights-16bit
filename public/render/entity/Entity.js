@@ -57,16 +57,16 @@ class Entity {
 	}
 
 	GetTilePosition() {
-		// let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
+		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(this.Entity);
 
-		return [ 0, 0 ];
+		return [ ~~pos.X, ~~pos.Y ];
 	}
 	GetTileColor() {
 		return null;
 	}
 	GetTileCoordinates() {
-		let rot = this.FuzzyKnights.Component.Mutator.Maps.GetRotation(this.Entity) || 0,
-			tx = rot.Yaw / 45 || 0,
+		let rot = this.FuzzyKnights.Component.Mutator.Worlds.GetAngle(this.Entity) || 0,
+			tx = rot.Theta / 45 || 0,
 			ty = 0;
 
 		//TODO Change tiles based on State

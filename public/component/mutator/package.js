@@ -6,6 +6,7 @@ import { Maps } from "./_Maps.js";
 import { States } from "./States.js";
 import { CreatureInfo } from "./CreatureInfo.js"
 import { TerrainInfo } from "./TerrainInfo.js"
+import { Worlds } from "./Worlds.js"
 
 export default {
 	Mutator,
@@ -15,5 +16,6 @@ export default {
 	Maps,
 	States,
 	CreatureInfo,
-	TerrainInfo
+	TerrainInfo,
+	Worlds
 };

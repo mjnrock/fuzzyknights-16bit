@@ -57,24 +57,10 @@ class Worlds extends Mutator {
 			pointEe = this.GetPoint(collidee);
 
 		return Math.atan2(pointEe.Y - pointOr.Y, pointEe.X - pointOr.X);
-	}
-
-	//TODO F=mass*(v2 - v1)/time	//* Collision Forces
-	//TODO Fx=F*Math.cos(theta)
-	//TODO Fy=F*Math.sin(theta)
-	//TODO Force.Generate(Fx, Fy)
-	//TODO EntityCollisionEvent adds +Force.Generate(Fx, Fy) to Collidee and -Force.Generate(Fx, Fy) to Collidor
-
-	//TODO Ax=Fx/mass	//* Acceleration when Forced
-	
+	}	
 
 	Tick(time, entity) {
-		//TODO Process all Forces
-		//TODO Process all Acceleration
-		//TODO Process all Velocity
-		//TODO Process all Displacements
-		//TODO Apply any Displacements to Entity
-		//TODO Reduce all Accelerations by GLOBAL amount for Gravity/Friction (Tend negative and positive magnitudes toward 0 via Universal Friction)
+		// console.log(JSON.stringify(this.GetHeading(entity)));
 	}
 }
 

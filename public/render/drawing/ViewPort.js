@@ -30,7 +30,7 @@ class ViewPort {
 			~~((window.innerHeight - this.Camera.Canvas.Height) / 2)
 		);
 		
-		this.DrawDebugWindow();
+		//! this.DrawDebugWindow();
 		
 		// if(this.FuzzyKnights.Game.Settings.View.HUD && this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()) {
 		// 	this.HUD.Draw(time, this.FuzzyKnights.Render.RenderManager.GetCreatureModels());

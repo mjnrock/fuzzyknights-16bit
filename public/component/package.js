@@ -9,6 +9,7 @@ import { Attributes } from "./Attributes.js";
 import { Maps } from "./_Maps.js";
 import { States } from "./States.js";
 import { CreatureInfo } from "./CreatureInfo.js";
+import { Worlds } from "./Worlds.js";
 
 import Mutator from "./mutator/package.js";
 
@@ -23,6 +24,7 @@ export default {
 	Resources,
 	Attributes,
 	Maps,
+	Worlds,
 	States,
 	CreatureInfo,
 

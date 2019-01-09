@@ -16,7 +16,8 @@ class Entity {
 				Components.Enum.MapType.TILE,
 				0.5,
 				0.5
-			)
+			),
+			new Components.Worlds()
 		);
 	}
 

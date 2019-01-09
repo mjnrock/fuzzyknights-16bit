@@ -37,7 +37,8 @@ class InputHandler {
 		
 		let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360 || 0;
 
-		this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+		// this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+		this.FuzzyKnights.Component.Mutator.Worlds.SetAngle(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 	}
 	OnMouseDown(msg, event) {
 		let tx = Math.floor(event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
@@ -74,25 +75,30 @@ class InputHandler {
 
 	onInputPlayerKeyState(msg, state) {
 		// console.log(...arguments);
-		let vel = this.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+		let magnitude = 1.00,
 			x = 0,
 			y = 0,
 			r = 0;
 
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-			x += -vel;
+			x += -magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-			x += vel;
+			x += magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-			y += -vel;
+			y += -magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-			y += vel;
+			y += magnitude;
 		}
 
-		this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
+		// this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
+		this.FuzzyKnights.Component.Mutator.Physics.AddForce(
+			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
+			this.FuzzyKnights.Module.Physics.D2.Force.Generate(x, y, r)
+		);
+
 
 		//	DEBUG
 		// console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));

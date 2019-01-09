@@ -3,11 +3,10 @@ import { MinClamp, UpperClamp, LowerClamp } from "./../../utility/Functions.js";
 import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
-	//TODO $ar could be seeded with ViewPort aspect ratio from Client
-	constructor(map, x, y, r) {
+	constructor(zone, x, y, r) {
 		super();
 
-		this.Map = map;
+		this.Zone = zone;
 		this.X = x;
 		this.Y = y;
 		this.Radius = {
@@ -34,11 +33,11 @@ class Camera extends Cinematograph {
 		return this;
 	}
 
-	GetMap() {
-		return this.Map;
+	GetZone() {
+		return this.Zone;
 	}
-	SetMap(value) {
-		this.Map = value;
+	SetZone(value) {
+		this.Zone = value;
 
 		return this;
 	}
@@ -87,7 +86,7 @@ class Camera extends Cinematograph {
 	}
 	DrawModels(models, tare) {
 		models.forEach(model => {
-			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetPosition(model.Entity);
+			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetPoint(model.Entity);
 	
 			this.Canvas.DrawTile(
 				model.Render().GetHTMLCanvas(),
@@ -108,7 +107,7 @@ class Camera extends Cinematograph {
 				Yr: this.Y + this.Radius.Height
 			};
 
-		this.Map.Grid.ForEach((pos, node, grid) => {
+		this.Zone.Grid.ForEach((pos, node, grid) => {
 			if((pos.X >= tare.Xl - 1 && pos.X <= tare.Xr + 1) && (pos.Y >= tare.Yl - 1 && pos.Y <= tare.Yr + 1)) {
 				nodes.push(node);
 			}
