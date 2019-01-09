@@ -38,9 +38,10 @@ class KeyListener {
 		this.PreviousPlayerKeyState = this.PlayerKeyState;
 		this.FlagController(e.key, true);
 		
-		if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
-			this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
-		}
+		// if(this.PreviousPlayerKeyState !== this.PlayerKeyState) {
+		// 	this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
+		// }
+		this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 	}
 
 	FlagController(eventKey, isAdd = true) {

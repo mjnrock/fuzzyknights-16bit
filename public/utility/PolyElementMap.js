@@ -38,14 +38,16 @@ class PolyElementMap extends ElementMap {
 	RemoveElement(x, y, input) {
 		let node = this.Get(x, y);
 		
-		if(typeof input === "number") {
-			node.splice(input, 1);
-		} else if(typeof input === "string" || input instanceof String) {
-			node = node.filter(ele => ele.UUID !== input);
-		} else if(typeof input === "function") {
-			node = input(x, y, node);
+		if(node) {
+			if(typeof input === "number") {
+				node.splice(input, 1);
+			} else if(typeof input === "string" || input instanceof String) {
+				node = node.filter(ele => ele.UUID !== input);
+			} else if(typeof input === "function") {
+				node = input(x, y, node);
+			}
+			this.Set(x, y, node);
 		}
-		this.Set(x, y, node);
 
 		return this;
 	}

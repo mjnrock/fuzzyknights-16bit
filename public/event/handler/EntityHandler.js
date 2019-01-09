@@ -10,12 +10,12 @@ class EntityHandler {
 	}
 	onEntityConstruction(msg, json) {}
 
-	onEntityJoinWorld(msg, entity, map) {
+	onEntityJoinWorld(msg, entity, zone) {
 		this.FuzzyKnights.Entity.EntityManager.Register(entity);
 		this.FuzzyKnights.Render.RenderManager.Register(entity);
 
-		let pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(entity);
-		map.PlaceEntity(entity, pos.X, pos.Y);
+		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
+		zone.Move(entity, -1, -1, 5, 5);//pos.X, pos.Y);
 	}
 
 	onEntityStateChange(msg, entity) {
@@ -43,9 +43,10 @@ class EntityHandler {
 			mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(entity);
 
 		neighbors.forEach(neighs => {
-			neighs.forEach(ent => {
+			neighs.Element.forEach(ent => {
 				let entMask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent);
 
+				console.log(mask);
 				if(mask.CheckCircleCollision(entMask)) {
 					this.FuzzyKnights.Event.Spawn.EntityCollisionEvent(entity, ent);
 				}

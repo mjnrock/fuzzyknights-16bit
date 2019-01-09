@@ -1,3 +1,4 @@
+import { Zone } from "./Zone.js";
 class WorldManager {
 	constructor(fk) {
 		this.FuzzyKnights = fk;
@@ -39,13 +40,16 @@ class WorldManager {
 			return this.GetDimension(dimensionUUID).Get(zoneUUID);
 		}
 
+		let zone = false;
 		this.Dimensions.forEach(dim => {
-			if(dim.Get(zoneUUID)) {
-				return dim.Get(zoneUUID);
+			let zoneTest = dim.Get(zoneUUID);
+
+			if(zoneTest instanceof Zone) {
+				zone = zoneTest;
 			}
 		})
 
-		return false;
+		return zone;
 	}
 
 	ReadPortal(portal) {

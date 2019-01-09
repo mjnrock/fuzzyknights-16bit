@@ -14,7 +14,7 @@ class Worlds extends Mutator {
 	}
 
 	GetZone(entity) {
-		return this.FuzzyKnights.WorldManager.GetZone(
+		return this.FuzzyKnights.World.WorldManager.GetZone(
 			this.GetComponent(entity).Identifiers.Zone
 		);
 	}	

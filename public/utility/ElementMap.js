@@ -10,6 +10,7 @@ class ElementMap {
 
 		if(typeof seedFn === "function") {
 			seedFn(this);
+			this.SeedFunction = seedFn;
 		} else {
 			this.Init();	
 		}
@@ -56,13 +57,15 @@ class ElementMap {
 
 		for(let i = xl; i <= xr; i++) {
 			for(let j = yl; j <= yr; j++) {
-				neighbors.push({
-					Position: {
-						X: i,
-						Y: j
-					},
-					Element: this.Get(i, j)
-				});
+				if(i >= 0 && j >= 0) {
+					neighbors.push({
+						Position: {
+							X: i,
+							Y: j
+						},
+						Element: this.Get(i, j)
+					});
+				}
 			}
 		}
 
@@ -126,6 +129,30 @@ class ElementMap {
 		return this;
 	}
 
+	WindowedForEach(x, y, w, h, callback, ...args) {
+		x = ~~x; y = ~~y;
+
+		let xl = x,
+			yl = y,
+			xr = x + w,
+			yr = y + h;
+
+		for(let i = xl; i <= xr; i++) {
+			for(let j = yl; j <= yr; j++) {
+				let value = this.Get(i, j);
+
+				if(value) {
+					callback({
+						X: i,
+						Y: j,
+					}, value, this, ...args);
+				}
+			}
+		}
+
+		return this;
+	}
+
 	ForEachNeighbor(x, y, r, callback, ...args) {
 		x = ~~x; y = ~~y; r = ~~r;
 
@@ -136,10 +163,14 @@ class ElementMap {
 
 		for(let i = xl; i <= xr; i++) {
 			for(let j = yl; j <= yr; j++) {
-				callback({
-					X: +pos[0],
-					Y: +pos[1]
-				}, value, this, ...args);
+				let value = this.Get(i, j);
+
+				if(value) {
+					callback({
+						X: i,
+						Y: j,
+					}, value, this, ...args);
+				}
 			}
 		}
 
@@ -154,6 +185,10 @@ class ElementMap {
 		});
 
 		return arr;
+	}
+
+	CopyTemplate() {
+		return new ElementMap(this.Width, this.Height, this.SeedFunction || null);
 	}
 }
 

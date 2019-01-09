@@ -8,14 +8,14 @@ export function NewUUID() {
 export function Round(number, precision, radix = 10) {
     return Math.round(number * Math.round(radix, precision)) / Math.round(radix, precision);
 }
-export function UpperClamp(number, max) {
+export function ClampCeiling(number, max) {
     return number > max ? max : number;
 }
-export function LowerClamp(number, min) {
+export function ClampFloor(number, min) {
     return number < min ? min : number;
 }
 export function Clamp(number, min, max) {
-    return UpperClamp(LowerClamp(number, min), max);
+    return ClampCeiling(ClampFloor(number, min), max);
 }
 
 export function MinClamp(number, min) {
@@ -34,8 +34,8 @@ export function AddInitializationHook(target, hook){
 export default {
 	NewUUID,
 	Round,
-	UpperClamp,
-	LowerClamp,
+	ClampCeiling,
+	ClampFloor,
 	Clamp,
 	AddInitializationHook
 };

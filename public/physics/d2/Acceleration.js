@@ -86,6 +86,13 @@ class Acceleration {
 		
 		return this;
 	}
+	MergeFromImpulses(time, mass, ...forces) {
+		forces.forEach(force => {
+			this.Merge(Acceleration.FromImpulse(time, force, mass));
+		});
+		
+		return this;
+	}
 
 	//#	Merge(Acceleration)
 	//#	Merge(x, y, Angle)
@@ -127,6 +134,9 @@ class Acceleration {
 
 	static FromForce(force, mass) {
 		return new Acceleration(force.X / mass, force.Y / mass);
+	}
+	static FromImpulse(time, force, mass) {
+		return new Acceleration(time * force.X / mass, time * force.Y / mass);
 	}
 
 	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {

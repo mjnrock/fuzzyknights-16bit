@@ -2,12 +2,12 @@ import { Realm } from "./Realm.js";
 import { NewUUID } from "./../utility/Functions.js";
 
 class Dimension {
-	constructor(realm = null, maps = []) {
+	constructor(realm = null, zones = []) {
 		this.Realm = realm || new Realm();
 
 		this.Lookup = {};
-		maps.forEach(map => {
-			this.Add(map);
+		zones.forEach(zone => {
+			this.Add(zone);
 		});
 
 		this.UUID = NewUUID();
@@ -25,8 +25,8 @@ class Dimension {
 	Get(uuid) {
 		return this.Lookup[uuid];
 	}
-	Add(map) {
-		this.Lookup[map.UUID] = map;
+	Add(zone) {
+		this.Lookup[zone.UUID] = zone;
 
 		return this;
 	}
@@ -35,6 +35,10 @@ class Dimension {
 		delete this.Lookup[uuid];
 
 		return this;
+	}
+
+	static Generate(realm = null, zones = []) {
+		return new Dimension(realm, zones);
 	}
 }
 

@@ -88,6 +88,10 @@ class Realm {
 
 		return this;
 	}
+
+	static Generate(size = 2) {
+		return new Realm(size);
+	}
 }
 
 export { Realm };

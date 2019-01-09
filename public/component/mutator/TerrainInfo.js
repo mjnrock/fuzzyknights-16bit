@@ -32,6 +32,10 @@ class TerrainInfo extends Mutator {
 		return this;
 	}
 
+	GetNavigabilityConstraint(entity) {
+		return this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(this.GetNavigability(entity));
+	}
+
 	GetMeta(entity) {
 		return this.GetComponent(entity).Meta;
 	}

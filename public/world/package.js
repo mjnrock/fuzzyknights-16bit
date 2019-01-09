@@ -1,30 +1,21 @@
+import Generator from "./generator/package.js";
+
 import { Zone } from "./Zone.js";
 import { Realm } from "./Realm.js";
 import { Dimension } from "./Dimension.js";
 
-import Generator from "./generator/package.js";
+import { WorldManager } from "./WorldManager.js";
 
-import { Node } from "./_Node.js";
-import { Map } from "./_Map.js";
-
-import { MapManager } from "./_MapManager.js";
-import { MapGenerator } from "./_MapGenerator.js";
-
-import { WorldManager } from "./_WorldManager.js";
+import { ZoneGenerator } from "./ZoneGenerator.js";
 
 export default {
+	Generator,
+	
 	Zone,
 	Realm,
 	Dimension,
 
-	Generator,
-
-
-	Node,
-	Map,
-
-	MapManager,
-	MapGenerator,
+	ZoneGenerator,
 
 	WorldManager
 };

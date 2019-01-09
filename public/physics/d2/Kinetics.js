@@ -1,5 +1,5 @@
 import Kinematics from "./Kinematics.js";
-import Acceleration from "./../../../utility/_physics/Acceleration.js";
+import Acceleration from "./Acceleration.js";
 
 class Kinetics {
 	constructor(mass = 1.0, kinematics = null, forces = null) {
@@ -26,8 +26,8 @@ class Kinetics {
 		this.Forces = [];
 	}
 
-	ProcessForces(time) {
-		this.Kinematics.Acceleration.MergeFromForces(this.Mass, ...this.Forces);
+	ProcessImpulses(time) {
+		this.Kinematics.Acceleration.MergeFromImpulses(time, this.Mass, ...this.Forces);
 		this.ResetForces();
 
 		return this;

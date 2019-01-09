@@ -1,10 +1,10 @@
 import { Event } from "./Event.js";
 
 class EntityJoinWorldEvent extends Event {
-	constructor(entity, map) {
+	constructor(entity, zone) {
 		super(
 			entity,
-			map
+			zone
 		);
 		
 		super.Invoke(Event.FuzzyKnights.Message.EntityJoinWorldMessage);
