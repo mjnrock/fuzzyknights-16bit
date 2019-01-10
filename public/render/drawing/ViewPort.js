@@ -26,8 +26,8 @@ class ViewPort {
 		this.Canvas.PreDraw();
 		this.Canvas.DrawImage(
 			this.Camera.GetFeed().GetHTMLCanvas(),
-			~~((window.innerWidth - this.Camera.Canvas.Width) / 2),
-			~~((window.innerHeight - this.Camera.Canvas.Height) / 2)
+			((window.innerWidth - this.Camera.Canvas.Width) / 2),
+			((window.innerHeight - this.Camera.Canvas.Height) / 2)
 		);
 		
 		this.DrawDebugWindow();
