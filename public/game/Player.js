@@ -49,32 +49,53 @@ class Player {
 	Tick(time) {
 		if(this.KeyState !== 0) {
 			//? Force Based
-			let magnitude = 3,
+			// let magnitude = 3,
+			// 	x = 0,
+			// 	y = 0,
+			// 	r = 0;
+
+			// if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
+			// 	x += -magnitude;
+			// }
+			// if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
+			// 	x += magnitude;
+			// }
+			// if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
+			// 	y += -magnitude;
+			// }
+			// if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
+			// 	y += magnitude;
+			// }
+
+			// Player.FuzzyKnights.Component.Mutator.Physics.AddForce(
+			// 	this.Entity,
+			// 	Player.FuzzyKnights.Physics.D2.Force.Generate(x, y, r)
+			// );
+
+			//? Velocity Based
+			let vel = Player.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(this.Entity),
 				x = 0,
 				y = 0,
 				r = 0;
 
 			if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-				x += -magnitude;
+				x += -vel;
 			}
 			if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-				x += magnitude;
+				x += vel;
 			}
 			if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-				y += -magnitude;
+				y += -vel;
 			}
 			if(Player.FuzzyKnights.Utility.Bitwise.Has(this.KeyState, Player.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-				y += magnitude;
+				y += vel;
 			}
 
-			Player.FuzzyKnights.Component.Mutator.Physics.AddForce(
-				this.GetEntity(),
-				Player.FuzzyKnights.Physics.D2.Force.Generate(x, y, r)
-			);
+			Player.FuzzyKnights.Component.Mutator.Physics.SetVelocity(this.Entity, Player.FuzzyKnights.Physics.D2.Velocity.Generate(x, y));
+
+
+			// console.log(JSON.stringify(Player.FuzzyKnights.Component.Mutator.Physics.GetKinetics(this.Entity).Get()));
 		}
-
-		// console.log(JSON.stringify(Player.FuzzyKnights.Component.Mutator.Physics.GetKinetics(this.Entity).Get()));
-
 
 		
 

@@ -35,7 +35,7 @@ class EntityHandler {
 				pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
 
 			// zone.Move(entity, pos.X, pos.Y, velocity.X, velocity.Y, true);
-			zone.Move(entity, pos.X, pos.Y, velocity.X.Get() * time, velocity.Y.Get() * time, true);
+			zone.Move(entity, pos.X, pos.Y, velocity.X * time, velocity.Y * time, true);
 		}
 	}
 	//TODO Something is causing the boundaries to consume the Player and prevent it from moving

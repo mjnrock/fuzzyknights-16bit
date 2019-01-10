@@ -76,7 +76,7 @@ class Zone {
 			let veloc = Zone.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity),
 				vt = Zone.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
 
-			// console.log(veloc.X.Get(), veloc.Y.Get(), vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
+			// console.log(veloc.X, veloc.Y, vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
 			// veloc.X.Subtract(vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
 			// veloc.Y.Subtract(vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
 

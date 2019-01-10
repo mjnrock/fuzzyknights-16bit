@@ -130,7 +130,7 @@ class ViewPort {
 				let r1 = rowg();
 				this.DebugCanvas.Context.fillText(`[ PLAYER ]`, col(1, `[ PLAYER ]`), r1.next().value);
 				this.DebugCanvas.Context.fillText(`Acceleration: ${ compPhysics.Kinetics.Kinematics.Acceleration.X }ts, ${ compPhysics.Kinetics.Kinematics.Acceleration.Y }ts, ${ compPhysics.Kinetics.Kinematics.Acceleration.Angle.Theta }rs`, col(1), r1.next().value);
-				this.DebugCanvas.Context.fillText(`Velocity: ${ compPhysics.Kinetics.Kinematics.Velocity.X.Get() }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Y.Get() }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Angle.Theta }rs`, col(1), r1.next().value);
+				this.DebugCanvas.Context.fillText(`Velocity: ${ compPhysics.Kinetics.Kinematics.Velocity.X }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Y }ts, ${ compPhysics.Kinetics.Kinematics.Velocity.Angle.Theta }rs`, col(1), r1.next().value);
 				this.DebugCanvas.Context.fillText(`Position: ${ compWorlds.Heading.Point.X.toFixed(2) }x, ${ compWorlds.Heading.Point.Y.toFixed(2) }y`, col(1), r1.next().value);
 				this.DebugCanvas.Context.fillText(`Facing: ${ compWorlds.Heading.Angle.Theta }°`, col(1), r1.next().value);
 				this.DebugCanvas.Context.fillText(
