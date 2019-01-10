@@ -10,14 +10,22 @@ class Zone {
 			let zone = width;
 			this.Terrain = zone.Terrain;
 			this.Entities = zone.Entities;
+			this.Width = zone.Terrain.Width;
+			this.Height = zone.Terrain.Height;
+
 			this.UUID = zone.UUID || NewUUID();
 		} else if(width instanceof ElementMap) {
 			let eleMap = width;
 			this.Terrain = eleMap;
 			this.Entities = new PolyElementMap(eleMap.Width, eleMap.Height);
+			this.Width = eleMap.Width;
+			this.Height = eleMap.Height;
 
 			this.UUID = NewUUID();
 		} else {
+			this.Width = width;
+			this.Height = height;
+
 			this.Terrain = new ElementMap(width, height);
 			this.Entities = new PolyElementMap(width, height);
 
@@ -46,12 +54,11 @@ class Zone {
 	}
 
 	PlaceEntity(entity, x, y) {
-		if(entity instanceof Entity.Terrain.Terrain) {
-			this.UpdateTerrainMap(entity, -1, -1, x, y);
-		} else {
-			this.UpdateEntityMap(entity, -1, -1, x, y);
+		if(this.Terrain.IsWithinBounds(x1, y1)) {
+			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, -1, -1, x, y);
+
+			return true;
 		}
-		Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, -1, -1, x, y);
 
 		return false;
 	}
@@ -63,12 +70,7 @@ class Zone {
 		}
 		
 		if(x0 !== x1 && y0 !== y1) {
-			if(entity instanceof Entity.Terrain.Terrain) {
-				this.UpdateTerrainMap(entity, x0, y0, x1, y1);
-			} else {
-				this.UpdateEntityMap(entity, x0, y0, x1, y1);
-			}
-			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, x0, y0, x1, y1);
+			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, x0, y0, x1, y1);
 
 			return true;
 		}

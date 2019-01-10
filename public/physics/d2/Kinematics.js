@@ -9,6 +9,11 @@ class Kinematics {
 		this.Acceleration = Acceleration.Generate();
 	}
 
+	ResetKinematics() {
+		this.Displacement = Displacement.Generate(0, 0);
+		this.Velocity = Velocity.Generate(0, 0);
+		this.Acceleration = Acceleration.Generate(0, 0);
+	}
 	ResetDisplacement() {
 		this.Displacement = Displacement.Generate(0, 0);
 	}

@@ -24,6 +24,10 @@ class ElementMap {
 		}
 	}
 
+	IsWithinBounds(x, y) {
+		return x >= 0 && x <= this.XMax && y >= 0 && y <= this.YMax;
+	}
+
 	AddX(nos = 1) {
 		this.Width += nos;
 		this.XMax += nos;

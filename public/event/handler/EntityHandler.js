@@ -37,18 +37,32 @@ class EntityHandler {
 			zone.Move(entity, pos.X, pos.Y, velocity.X * time, velocity.Y * time, true);
 		}
 	}
-	onEntityMove(msg, entity, pos0, pos1) {
+	onEntityMove(msg, zone, entity, pos0, pos1) {
 		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity) && this.FuzzyKnights.Component.Mutator.Physics.HasComponent(entity)) {
 			let x0 = pos0.X,
 				y0 = pos0.Y,
 				x1 = pos1.X,
 				y1 = pos1.Y;
 
+				
+			if(!zone.Terrain.IsWithinBounds(x1, y1)) {
+				//TODO	Bounce the ball back
+				this.FuzzyKnights.Component.Mutator.Physics.GetKinematics(entity).ResetKinematics();
+				this.FuzzyKnights.Component.Mutator.Physics.GetKinetics(entity).ResetForces();
+			}				
+
+			x1 = this.FuzzyKnights.Utility.Functions.Clamp(x1, 0, zone.Width);
+			y1 = this.FuzzyKnights.Utility.Functions.Clamp(y1, 0, zone.Height);
+
+			if(entity instanceof this.FuzzyKnights.Entity.Terrain.Terrain) {
+				zone.UpdateTerrainMap(entity, x0, y0, x1, y1);
+			} else {
+				zone.UpdateEntityMap(entity, x0, y0, x1, y1);
+			}
 			this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(entity, x1, y1);
 			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(entity, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
 
-			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
-				neighbors = zone.Entities.GetNeighbors(x1, y1, 1),
+			let neighbors = zone.Entities.GetNeighbors(x1, y1, 1),
 				mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(entity);
 
 			neighbors.forEach(neighs => {
