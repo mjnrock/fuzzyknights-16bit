@@ -107,17 +107,19 @@ class Camera extends Cinematograph {
 		let tare = {
 			X: this.X,
 			Y: this.Y,
-			R: this.Radius,
+			R: this.Radius.Width,
 			Xl: this.X - this.Radius.Width,
 			Yl: this.Y - this.Radius.Height,
 			Xr: this.X + this.Radius.Width,
 			Yr: this.Y + this.Radius.Height
 		};
 
-		this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, terrain, em) => {
+		this.Zone.Terrain.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, terrain, em) => {
+		// this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2 + 1, this.Radius.Height * 2 + 1, (pos, terrain, em) => {
 			this.DrawTerrain(terrain, tare);
 		});
-		this.Zone.Entities.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, entities, em) => {
+		this.Zone.Entities.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, entities, em) => {
+		// this.Zone.Entities.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, entities, em) => {
 			this.DrawEntities(entities, tare);
 		});
 
