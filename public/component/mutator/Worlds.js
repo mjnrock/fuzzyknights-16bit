@@ -20,6 +20,19 @@ class Worlds extends Mutator {
 
 		return this;
 	}
+	
+	GetNode(entity) {
+		let zone = this.GetZone(entity),
+			pos = this.GetPoint(entity);
+
+		return zone.Get(pos.X, pos.Y);
+	}
+	GetTerrain(entity) {
+		return this.GetNode(entity).Terrain;
+	}
+	GetEntities(entity) {
+		return this.GetNode(entity).Entities;
+	}
 
 	GetPoint(entity) {
 		return this.GetComponent(entity).Heading.Point;
@@ -57,7 +70,11 @@ class Worlds extends Mutator {
 		return Math.atan2(pointEe.Y - pointOr.Y, pointEe.X - pointOr.X);
 	}	
 
-	Tick(time, entity) {}
+	Tick(time, entity) {
+		
+		this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity);
+		// this.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, this.FuzzyKnights.Physics.D2.Force.Generate());
+	}
 }
 
 export { Worlds };

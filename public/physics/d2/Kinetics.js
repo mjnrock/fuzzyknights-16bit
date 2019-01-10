@@ -8,6 +8,16 @@ class Kinetics {
 		this.Forces = forces || [];
 	}
 
+	Get() {
+		console.log(this.Forces);
+		return {
+			Mass: this.Mass,
+			Forces: this.Forces.map(f => f.Get()),
+			Acceleration: this.Kinematics.Acceleration.Get(),
+			Velocity: this.Kinematics.Velocity.Get()
+		};
+	}
+
 	AddForce(...forces) {
 		this.Forces.push(...forces);
 
@@ -24,6 +34,15 @@ class Kinetics {
 	}
 	ResetForces() {
 		this.Forces = [];
+		
+		return this;
+	}
+
+	ResetKinetics() {
+		this.ResetForces();
+		this.Kinematics.ResetKinematics();
+		
+		return this;
 	}
 
 	ProcessImpulse(time) {

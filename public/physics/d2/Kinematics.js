@@ -4,7 +4,7 @@ import Acceleration from "./Acceleration.js";
 
 class Kinematics {
 	constructor() {
-		this.Displacement = Displacement.Generate();
+		// this.Displacement = Displacement.Generate();
 		this.Velocity = Velocity.Generate();
 		this.Acceleration = Acceleration.Generate();
 	}

@@ -6,10 +6,12 @@ class ClampedScalar extends Scalar {
 	 * @param {number} value 
 	 * @param {obj} [ min?, max? ]
 	 */
-	constructor(value, { min = null, max = null } = {}) {
+	constructor(value, { min = null, max = null, fixed = 2 } = {}) {
 		super(value);
-		this.Min = min || null;
-		this.Max = max || null;
+		this.Min = min;
+		this.Max = max;
+
+		this.Fixed = fixed;
 
 		this.Set(value);
 	}
@@ -22,6 +24,10 @@ class ClampedScalar extends Scalar {
 		}
 		if(this.Min && this.Value < this.Min) {
 			this.Value = this.Min;
+		}
+
+		if(this.Fixed) {
+			this.Value = +this.Value.toFixed(this.Fixed);
 		}
 
 		return this;

@@ -73,15 +73,15 @@ class Zone {
 		let terrain = this.Terrain.Get(pos.X, pos.Y);
 
 		if(terrain) {
-			let mass = Zone.FuzzyKnights.Component.Mutator.Physics.GetMass(entity),
-				[ vx, vy ] = Zone.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity).Get(),
+			let veloc = Zone.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity),
 				vt = Zone.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
 
-			let Fx = ClampCeiling(vx - vt, 0) * mass,
-				Fy = ClampCeiling(vy - vt, 0) * mass;
+			// console.log(veloc.X.Get(), veloc.Y.Get(), vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
+			// veloc.X.Subtract(vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
+			// veloc.Y.Subtract(vt * Zone.FuzzyKnights.Game.GameManager.GameLoop.LastTimeStep / 10000);
 
 			// Zone.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, Zone.FuzzyKnights.Physics.D2.Velocity.Generate(dvx, dvy));
-			Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
+			// Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
 			// Zone.FuzzyKnights.Component.Mutator.Physics.GetAcceleration(entity).Merge(Zone.FuzzyKnights.Physics.D2.Acceleration.Generate(dvx, dvy));
 		}
 	}

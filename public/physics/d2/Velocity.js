@@ -3,7 +3,7 @@ import ClampedScalar from "./../../utility/ClampedScalar.js";
 import Angle from "./Angle.js";
 import Displacement from "./Displacement.js";
 
-const VELOCITY_LIMITS = { min: -1, max: 1 };
+const VELOCITY_LIMITS = { min: -2, max: 2 };
 
 class Velocity {
 	constructor(x = 0, y = 0, r = 0, isDegrees = true) {

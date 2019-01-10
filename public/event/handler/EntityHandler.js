@@ -46,8 +46,6 @@ class EntityHandler {
 				x1 = pos1.X,
 				y1 = pos1.Y;
 
-			console.log(x0, y0, x1, y1);
-
 				
 			if(!zone.Terrain.IsWithinBounds(x1, y1)) {
 				//TODO	Bounce the ball back

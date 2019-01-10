@@ -9,6 +9,14 @@ class Force {
 
 		this.UUID = NewUUID();
 	}
+	
+	Get() {
+		return [
+			this.X,
+			this.Y,
+			...this.Angle.Get()
+		];
+	}
 
 	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {
 		return new Force(x, y, r, isDegrees);

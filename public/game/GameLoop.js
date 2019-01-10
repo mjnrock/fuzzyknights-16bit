@@ -7,6 +7,7 @@ class GameLoop {
 		this.Ticks = 0;
 		this.Renders = 0;
 		this.LastTime = 0;
+		this.LastTimeStep = 0;
 		this.LastRenderTime = 0;
 
 		this.RenderTime = 0;
@@ -87,6 +88,7 @@ class GameLoop {
 
 		let ms = time - this.LastTime;
 		this.LastTime = time;
+		this.LastTimeStep = ms;
 
 		this.TickHook(ms / 1000);
 

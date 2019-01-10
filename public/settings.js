@@ -28,6 +28,7 @@ export default {
 		CameraFollow: [ "l" ],
 		HUD: [ "v" ],
 		Movement: {
+			Stop: [ "Shift" ],
 			Left: [ "a", "ArrowLeft" ],
 			Right: [ "d", "ArrowRight" ],
 			Up: [ "w", "ArrowUp" ],

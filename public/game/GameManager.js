@@ -39,6 +39,8 @@ class GameManager {
 
 	Tick(time) {
 		this.TickManagers.forEach(t => t.Tick(time));
+		
+		this.Player.Tick(time);
 	}
 
 	Render(time) {

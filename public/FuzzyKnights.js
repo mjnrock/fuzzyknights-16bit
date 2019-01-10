@@ -172,6 +172,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.World.Zone.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Game.Player.FuzzyKnights = this.FuzzyKnights;
 
 		//DEBUG
 		this.FuzzyKnights.World.ZoneGenerator.FuzzyKnights = this.FuzzyKnights;

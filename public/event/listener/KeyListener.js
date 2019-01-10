@@ -42,6 +42,7 @@ class KeyListener {
 		// 	this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
 		// }
 		this.FuzzyKnights.Event.Spawn.InputPlayerKeyStateEvent(this.PlayerKeyState);
+		// this.FuzzyKnights.Event.Spawn.InputKeyboardEvent(e);
 	}
 
 	FlagController(eventKey, isAdd = true) {

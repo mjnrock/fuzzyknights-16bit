@@ -95,12 +95,10 @@ class Physics extends Mutator {
 
 		kinetics.ProcessImpulse(time);			// Process Impulse, Convert Forces to Accelerations
 		kinematics.ProcessAcceleration(time);	// Process Accelerations, Convert Accelerations to Velocities
-		kinematics.ProcessVelocity(time);		// Process Velocities, Convert Velocities to Displacements
 		
 		if(kinematics.Velocity.HasValues()) {
 			this.FuzzyKnights.Event.Spawn.EntityVelocityEvent(entity, kinematics.Velocity, time);
 			
-			kinematics.ResetDisplacement();
 			kinematics.ResetAcceleration();
 		}
 	}
