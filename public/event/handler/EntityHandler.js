@@ -39,7 +39,6 @@ class EntityHandler {
 	}
 	onEntityMove(msg, entity, pos0, pos1) {
 		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity) && this.FuzzyKnights.Component.Mutator.Physics.HasComponent(entity)) {
-			console.log(entity);
 			let x0 = pos0.X,
 				y0 = pos0.Y,
 				x1 = pos1.X,

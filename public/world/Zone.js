@@ -2,6 +2,8 @@ import ElementMap from "../utility/ElementMap.js";
 import PolyElementMap from "../utility/PolyElementMap.js";
 import { NewUUID, ClampCeiling } from "./../utility/Functions.js";
 
+import Entity from "./../entity/package.js";
+
 class Zone {
 	constructor(width, height) {
 		if(width instanceof Zone) {
@@ -32,8 +34,8 @@ class Zone {
 
 	UpdateTerrainMap(terrain, x0, y0, x1, y1) {
 		if(~~x0 !== ~~x1 || ~~y0 !== ~~y1) {
-			this.Terrain.RemoveElement(x0, y0, terrain.UUID);
-			this.Terrain.AddElement(x1, y1, terrain);
+			this.Terrain.Remove(x0, y0);
+			this.Terrain.Set(x1, y1, terrain);
 		}
 	}
 	UpdateEntityMap(entity, x0, y0, x1, y1) {
@@ -44,7 +46,11 @@ class Zone {
 	}
 
 	PlaceEntity(entity, x, y) {
-		this.UpdateEntityMap(entity, -1, -1, x, y);
+		if(entity instanceof Entity.Terrain.Terrain) {
+			this.UpdateTerrainMap(entity, -1, -1, x, y);
+		} else {
+			this.UpdateEntityMap(entity, -1, -1, x, y);
+		}
 		Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, -1, -1, x, y);
 
 		return false;
@@ -57,7 +63,11 @@ class Zone {
 		}
 		
 		if(x0 !== x1 && y0 !== y1) {
-			this.UpdateEntityMap(entity, x0, y0, x1, y1);
+			if(entity instanceof Entity.Terrain.Terrain) {
+				this.UpdateTerrainMap(entity, x0, y0, x1, y1);
+			} else {
+				this.UpdateEntityMap(entity, x0, y0, x1, y1);
+			}
 			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, x0, y0, x1, y1);
 
 			return true;

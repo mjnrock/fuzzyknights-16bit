@@ -58,13 +58,15 @@ class ElementMap {
 		for(let i = xl; i <= xr; i++) {
 			for(let j = yl; j <= yr; j++) {
 				if(i >= 0 && j >= 0) {
-					neighbors.push({
-						Position: {
-							X: i,
-							Y: j
-						},
-						Element: this.Get(i, j)
-					});
+					if(this.Get(i, j)) {
+						neighbors.push({
+							Position: {
+								X: i,
+								Y: j
+							},
+							Element: this.Get(i, j)
+						});
+					}
 				}
 			}
 		}
