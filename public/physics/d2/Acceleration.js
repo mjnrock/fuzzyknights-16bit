@@ -136,7 +136,8 @@ class Acceleration {
 		return new Acceleration(force.X / mass, force.Y / mass);
 	}
 	static FromImpulse(time, force, mass) {
-		return new Acceleration(time * force.X / mass, time * force.Y / mass);
+		return new Acceleration(force.X / mass, force.Y / mass);
+		// return new Acceleration(time * force.X / mass, time * force.Y / mass);
 	}
 
 	static Generate(x = 0, y = 0, r = 0, isDegrees = true) {

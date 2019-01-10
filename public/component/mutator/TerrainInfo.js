@@ -1,5 +1,5 @@
 import EnumComponentType from "../enum/ComponentType.js";
-import EnumTerrainType from "../enum/TerrainType.js";
+import EnumNavigabilityType from "../enum/NavigabilityType.js";
 
 import { Mutator } from "./Mutator.js";
 
@@ -27,7 +27,7 @@ class TerrainInfo extends Mutator {
 	}
 
 	GetNavigabilityConstraint(entity) {
-		return this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(this.GetNavigability(entity));
+		return EnumNavigabilityType.GetConstraint(this.GetNavigability(entity));
 	}
 
 	GetMeta(entity) {

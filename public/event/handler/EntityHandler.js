@@ -34,9 +34,11 @@ class EntityHandler {
 			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
 				pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
 
+			// zone.Move(entity, pos.X, pos.Y, velocity.X, velocity.Y, true);
 			zone.Move(entity, pos.X, pos.Y, velocity.X * time, velocity.Y * time, true);
 		}
 	}
+	//TODO Something is causing the boundaries to consume the Player and prevent it from moving
 	onEntityMove(msg, zone, entity, pos0, pos1) {
 		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity) && this.FuzzyKnights.Component.Mutator.Physics.HasComponent(entity)) {
 			let x0 = pos0.X,
@@ -44,12 +46,16 @@ class EntityHandler {
 				x1 = pos1.X,
 				y1 = pos1.Y;
 
+			console.log(x0, y0, x1, y1);
+
 				
 			if(!zone.Terrain.IsWithinBounds(x1, y1)) {
 				//TODO	Bounce the ball back
 				this.FuzzyKnights.Component.Mutator.Physics.GetKinematics(entity).ResetKinematics();
 				this.FuzzyKnights.Component.Mutator.Physics.GetKinetics(entity).ResetForces();
-			}				
+			} else {
+				//TODO Read Terrain NavigabilityConstraint and apply it to movement
+			}
 
 			x1 = this.FuzzyKnights.Utility.Functions.Clamp(x1, 0, zone.Width);
 			y1 = this.FuzzyKnights.Utility.Functions.Clamp(y1, 0, zone.Height);

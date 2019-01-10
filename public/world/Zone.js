@@ -54,13 +54,9 @@ class Zone {
 	}
 
 	PlaceEntity(entity, x, y) {
-		if(this.Terrain.IsWithinBounds(x1, y1)) {
-			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, -1, -1, x, y);
+		Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, -1, -1, x, y);
 
-			return true;
-		}
-
-		return false;
+		return this;
 	}
 
 	Move(entity, x0, y0, x1, y1, isDeltaMove = false) {
@@ -68,38 +64,26 @@ class Zone {
 			x1 = x0 + x1;
 			y1 = y0 + y1;
 		}
-		
-		if(x0 !== x1 && y0 !== y1) {
-			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, x0, y0, x1, y1);
+		Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(this, entity, x0, y0, x1, y1);
 
-			return true;
-		}
-
-		return false;
-	}
-	Displace(entity, x0, y0, displacement) {
-		let dx = displacement.X,
-			dy = displacement.Y,
-			x1 = x0 + dx,
-			y1 = y0 + dy;
-
-		console.log(x0, y0, displacement.X, displacement.Y, dx, dy, x1, y1);
-
-		return this.Move(entity, x0, y0, x1, y1);
+		return this;
 	}
 
 	ApplyPhysics(entity, pos) {
-		let terrain = this.Terrain.Get(pos.X, pos.Y),
-			mass = Zone.FuzzyKnights.Component.Mutator.Physics.GetMass(entity),
-			[ vx, vy ] = Zone.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity).Get(),
-			vt = Zone.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
+		let terrain = this.Terrain.Get(pos.X, pos.Y);
 
-		let Fx = ClampCeiling(vx - vt, 0) * mass,
-			Fy = ClampCeiling(vy - vt, 0) * mass;
+		if(terrain) {
+			let mass = Zone.FuzzyKnights.Component.Mutator.Physics.GetMass(entity),
+				[ vx, vy ] = Zone.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity).Get(),
+				vt = Zone.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
 
-		// Zone.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, Zone.FuzzyKnights.Physics.D2.Velocity.Generate(dvx, dvy));
-		// Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
-		// Zone.FuzzyKnights.Component.Mutator.Physics.GetAcceleration(entity).Merge(Zone.FuzzyKnights.Physics.D2.Acceleration.Generate(dvx, dvy));
+			let Fx = ClampCeiling(vx - vt, 0) * mass,
+				Fy = ClampCeiling(vy - vt, 0) * mass;
+
+			// Zone.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, Zone.FuzzyKnights.Physics.D2.Velocity.Generate(dvx, dvy));
+			Zone.FuzzyKnights.Component.Mutator.Physics.AddForce(entity, Zone.FuzzyKnights.Physics.D2.Force.Generate(-Fx, -Fy));
+			// Zone.FuzzyKnights.Component.Mutator.Physics.GetAcceleration(entity).Merge(Zone.FuzzyKnights.Physics.D2.Acceleration.Generate(dvx, dvy));
+		}
 	}
 
 	//? @protagonist is a Player's Entity
