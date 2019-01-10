@@ -89,6 +89,8 @@ class Physics extends Mutator {
 		this.GetKinetics(entity).AddForce(...forces);
 	}
 
+	//TODO Don't encapulsate this so much, so that these can be edited better
+	//TODO Aggregate the values first in temp variables then apply them, so they can be altered
 	Tick(time, entity) {
 		let kinetics = this.GetKinetics(entity),
 			kinematics = kinetics.Kinematics;
