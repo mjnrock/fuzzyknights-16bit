@@ -10,6 +10,12 @@ class ViewPort {
 			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
 			3
 		);
+		// this.Camera = new this.FuzzyKnights.Render.Drawing.Camera(
+		// 	this.FuzzyKnights.Component.Mutator.Worlds.GetZone(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+		// 	2,
+		// 	2,
+		// 	2			
+		// );
 		
 		// this.HUD = new this.FuzzyKnights.Render.Drawing.HUD(this.FuzzyKnights, this.Canvas);
 		

@@ -57,9 +57,7 @@ class Entity {
 	}
 
 	GetTilePosition() {
-		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(this.Entity);
-
-		return [ ~~pos.X, ~~pos.Y ];
+		return [ 0, 0 ];
 	}
 	GetTileColor() {
 		return null;

@@ -6,11 +6,7 @@ import { Mutator } from "./Mutator.js";
 
 class States extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		return super.GetComponent(entity, EnumComponentType.STATES);
+		super(fk, EnumComponentType.STATES);
 	}
 	
 	GetNormal(entity) {

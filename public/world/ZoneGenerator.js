@@ -146,8 +146,14 @@ class RandomAverage {
 		let eleMap = this.ConvertToTerrain([
 			...terrainRanges
 		]);
-		console.log(eleMap);
-		return new Zone(eleMap);
+		
+		let zone = new Zone(eleMap);
+		zone.Terrain.ForEach((pos, terrain, em) => {
+			ZoneGenerator.FuzzyKnights.Component.Mutator.Worlds.SetHeading(terrain, pos.X, pos.Y, 0);
+			ZoneGenerator.FuzzyKnights.Component.Mutator.Worlds.SetZone(terrain, zone);
+		});
+
+		return zone;
 	}
 
 	GetNeighbors(x, y) {

@@ -5,15 +5,7 @@ import { Mutator } from "./Mutator.js";
 
 class Attributes extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		//? Decorator cleanup for expirations
-		let comp = super.GetComponent(entity, EnumComponentType.ATTRIBUTES);
-		comp.RemoveExpiredModifiers();
-
-		return comp;
+		super(fk, EnumComponentType.ATTRIBUTES);
 	}
 	
 	GetMight(entity) {

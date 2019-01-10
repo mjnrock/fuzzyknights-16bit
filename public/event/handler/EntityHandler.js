@@ -3,20 +3,17 @@ class EntityHandler {
 		this.FuzzyKnights = fk;
 	}
 
-	onEntityDestruction(msg, uuid) {
-		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
-		// this.FuzzyKnights.Entity.EntityManager.Unregister(entity);
-		this.FuzzyKnights.Render.RenderManager.Unregister(entity);
-	}
-	onEntityConstruction(msg, json) {}
+	//TODO Do meaningful bootstrapping here
+	onEntityConstruction(msg) {}
+	onEntityDestruction(msg) {}
 
 	onEntityJoinWorld(msg, entity, zone) {
-		// this.FuzzyKnights.Entity.EntityManager.Register(entity);
 		this.FuzzyKnights.Render.RenderManager.Register(entity);
 
 		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
 		zone.Move(entity, -1, -1, pos.X, pos.Y);
 	}
+	onEntityLeaveWorld(msg, entity, zone) {}
 
 	onEntityStateChange(msg, entity) {
 		let flag = msg.Payload.StateType;
@@ -34,23 +31,30 @@ class EntityHandler {
 
 		zone.Displace(entity, x, y, displacement);
 	}
-	onEntityMove(msg, entity, x0, y0, x1, y1) {
-		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(entity, x1, y1);
-		this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(entity, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
+	onEntityMove(msg, entity, pos0, pos1) {
+		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity) && this.FuzzyKnights.Component.Mutator.Physics.HasComponent(entity)) {
+			let x0 = pos0.X,
+				y0 = pos0.Y,
+				x1 = pos1.X,
+				y1 = pos1.Y;
 
-		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
-			neighbors = zone.Entities.GetNeighbors(x1, y1, 1),
-			mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(entity);
+			this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(entity, x1, y1);
+			this.FuzzyKnights.Event.Spawn.EntityStateChangeEvent(entity, this.FuzzyKnights.Component.Enum.ActionStateType.MOVEMENT);
 
-		neighbors.forEach(neighs => {
-			neighs.Element.forEach(ent => {
-				let entMask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent);
+			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
+				neighbors = zone.Entities.GetNeighbors(x1, y1, 1),
+				mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(entity);
 
-				if(mask.CheckCircleCollision(entMask)) {
-					this.FuzzyKnights.Event.Spawn.EntityCollisionEvent(entity, ent);
-				}
+			neighbors.forEach(neighs => {
+				neighs.Element.forEach(ent => {
+					let entMask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent);
+
+					if(mask.CheckCircleCollision(entMask)) {
+						this.FuzzyKnights.Event.Spawn.EntityCollisionEvent(entity, ent);
+					}
+				});
 			});
-		});
+		}
 	}
 	onEntityCollision(msg, collidor, collidee) {
 		console.log(`[COLLISION EVENT]: Collidor -> Collidee`, collidor, collidee);

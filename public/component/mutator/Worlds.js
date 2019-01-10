@@ -4,13 +4,7 @@ import { Mutator } from "./Mutator.js";
 
 class Worlds extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		let comp = super.GetComponent(entity, EnumComponentType.WORLDS);
-
-		return comp;
+		super(fk, EnumComponentType.WORLDS);
 	}
 
 	GetZone(entity) {
@@ -30,6 +24,7 @@ class Worlds extends Mutator {
 		return this.GetComponent(entity).Heading.Point;
 	}
 	SetPoint(entity, x, y) {
+		console.trace(x, y);
 		this.GetComponent(entity).Heading.Point = this.FuzzyKnights.Physics.D2.Point.Generate(x, y);
 
 		return this;

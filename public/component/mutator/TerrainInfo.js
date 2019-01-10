@@ -5,13 +5,7 @@ import { Mutator } from "./Mutator.js";
 
 class TerrainInfo extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		let comp = super.GetComponent(entity, EnumComponentType.TERRAIN_INFO);
-
-		return comp;
+		super(fk, EnumComponentType.TERRAIN_INFO);
 	}
 
 	GetTerrainType(entity) {

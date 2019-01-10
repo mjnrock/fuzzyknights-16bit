@@ -1,4 +1,4 @@
-import { MinClamp, ClampCeiling, ClampFloor } from "./../../utility/Functions.js";
+import { MinClamp, ClampCeiling } from "./../../utility/Functions.js";
 
 import Cinematograph from "./Cinematograph.js";
 
@@ -90,16 +90,27 @@ class Camera extends Cinematograph {
 			tare
 		);
 	}
+	DrawTerrain2(terrain, pos) {
+		let model = Cinematograph.FuzzyKnights.Render.RenderManager.GetModel(terrain.UUID);
+
+		this.Canvas.DrawTile(
+			model.Render().GetHTMLCanvas(),
+			pos.X,
+			pos.Y
+		);
+
+		return this;
+	}
 	DrawModels(models, tare) {
 		models.forEach(model => {
 			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetPoint(model.Entity);
-			// console.log(pos, tare);			
-			// console.log(models, (pos.X - tare.Xl) - Cinematograph.Fudge(), (pos.Y - tare.Yl) - Cinematograph.Fudge());
-	
+
 			this.Canvas.DrawTile(
 				model.Render().GetHTMLCanvas(),
-				(pos.X - tare.Xl) - Cinematograph.Fudge(),
-				(pos.Y - tare.Yl) - Cinematograph.Fudge()
+				((pos.X - tare.Xl) - Cinematograph.Fudge()),
+				((pos.Y - tare.Yl) - Cinematograph.Fudge())
+				// ~~((pos.X - tare.Xl) - Cinematograph.Fudge()),
+				// ~~((pos.Y - tare.Yl) - Cinematograph.Fudge())
 			);
 		});
 
@@ -122,6 +133,7 @@ class Camera extends Cinematograph {
 
 		this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, terrain, em) => {
 			this.DrawTerrain(terrain, tare);
+			// this.DrawTerrain2(terrain, pos);
 		});
 		this.Zone.Entities.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, entities, em) => {
 			this.DrawEntities(entities, tare);

@@ -32,7 +32,7 @@ class Zone {
 
 	UpdateTerrainMap(terrain, x0, y0, x1, y1) {
 		if(~~x0 !== ~~x1 || ~~y0 !== ~~y1) {
-			this.Terrain.RemoveElement(x0, y0, terrain);
+			this.Terrain.RemoveElement(x0, y0, terrain.UUID);
 			this.Terrain.AddElement(x1, y1, terrain);
 		}
 	}
@@ -41,6 +41,17 @@ class Zone {
 			this.Entities.RemoveElement(x0, y0, entity.UUID);
 			this.Entities.AddElement(x1, y1, entity);
 		}
+	}
+
+	PlaceEntity(entity, x, y) {
+		if(x0 !== x1 && y0 !== y1) {
+			this.UpdateEntityMap(entity, x0, y0, x1, y1);
+			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, x0, y0, x1, y1);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	Move(entity, x0, y0, x1, y1) {
@@ -81,7 +92,7 @@ class Zone {
 		let protPos = Zone.FuzzyKnights.Component.Mutator.Worlds.GetPoint(protagonist),
 			dist = 5;
 
-		this.ApplyPhysics(protagonist, protPos);
+		// this.ApplyPhysics(protagonist, protPos);
 		this.Entities.ForEachNeighbor(protPos.X, protPos.Y, dist, (pos, entities, em) => {
 			em.ForEachElement(pos.X, pos.Y, (ePos, entity, eNode, pem) => {
 				// this.ApplyPhysics(entity, protPos);

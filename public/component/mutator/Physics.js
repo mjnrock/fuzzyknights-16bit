@@ -4,13 +4,7 @@ import { Mutator } from "./Mutator.js";
 
 class Physics extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		let comp = super.GetComponent(entity, EnumComponentType.PHYSICS);
-
-		return comp;
+		super(fk, EnumComponentType.PHYSICS);
 	}
 
 	GetMass(entity) {
