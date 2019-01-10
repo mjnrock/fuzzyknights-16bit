@@ -9,7 +9,7 @@ class Velocity {
 	}
 
 	HasValues() {
-		return this.X !== 0 && this.Y !== 0 && this.Angle.Theta !== 0;
+		return this.X !== 0 || this.Y !== 0 || this.Angle.Theta !== 0;
 	}
 
 	Get() {

@@ -75,7 +75,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 		//* These have to be moved into an appropriate Game invocation
 		// this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
-		
+
 		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
 		zone.Terrain.ForEach((pos, terrain, em) => {
 			this.FuzzyKnights.Render.RenderManager.Register(terrain, true);
@@ -133,8 +133,6 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
 		let Zone = this.FuzzyKnights.World.ZoneGenerator.RandomAverage(5, 5).GetZone(
-		// 	[ 0, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
-		// );
 			[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
 			[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
 			[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]

@@ -24,7 +24,6 @@ class Worlds extends Mutator {
 		return this.GetComponent(entity).Heading.Point;
 	}
 	SetPoint(entity, x, y) {
-		console.trace(x, y);
 		this.GetComponent(entity).Heading.Point = this.FuzzyKnights.Physics.D2.Point.Generate(x, y);
 
 		return this;
@@ -54,9 +53,7 @@ class Worlds extends Mutator {
 		return Math.atan2(pointEe.Y - pointOr.Y, pointEe.X - pointOr.X);
 	}	
 
-	Tick(time, entity) {
-		// console.log(JSON.stringify(this.GetHeading(entity)));
-	}
+	Tick(time, entity) {}
 }
 
 export { Worlds };

@@ -112,8 +112,6 @@ class ViewPort {
 					compPhysics = this.FuzzyKnights.Component.Mutator.Physics.GetComponent(player),
 					zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player),
 					node = zone.Get(compWorlds.Heading.Point.X, compWorlds.Heading.Point.Y),
-					terrain = node.Terrain,
-					compTerInf = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetComponent(terrain),
 					row = (r = 0) => (r + 1) * 16,
 					col = (c = 1, fudge = 0) => {
 						if(typeof fudge === "string" || fudge instanceof String) {
@@ -150,14 +148,18 @@ class ViewPort {
 				this.DebugCanvas.Context.fillText(`- Type: ${ compPhysics.CollisionMask.constructor.name.replace(/CollisionMask/gi, "") }`, col(1), r1.next().value);
 				this.DebugCanvas.Context.fillText(`- XYR: ${ compPhysics.CollisionMask.Origin.X }px, ${ compPhysics.CollisionMask.Origin.Y }px, ${ compPhysics.CollisionMask.Radius }px`, col(1), r1.next().value);
 				
-				let r2 = rowg();
-				this.DebugCanvas.Context.fillText(`[ TERRAIN ]`, col(2, `[ TERRAIN ]`), r2.next().value);
-				this.DebugCanvas.Context.fillText(`Tile: ${ ~~compWorlds.Heading.Point.X }, ${ ~~compWorlds.Heading.Point.Y }`, col(2), r2.next().value);
-				this.DebugCanvas.Context.fillText(`Type: ${ this.FuzzyKnights.Component.Enum.TerrainType.Lookup(compTerInf.TerrainType) }`, col(2), r2.next().value);
-				this.DebugCanvas.Context.fillText(`- Meta: ${ compTerInf.Meta }`, col(2), r2.next().value);
-				this.DebugCanvas.Context.fillText(`Nav: ${ this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability).toFixed(2) }`, col(2), r2.next().value);
-				this.DebugCanvas.Context.fillText(`- Type: ${ this.FuzzyKnights.Component.Enum.NavigabilityType.Lookup(compTerInf.Navigability) }`, col(2), r2.next().value);
-				
+				let terrain = node.Terrain;				
+				if(terrain && this.FuzzyKnights.Component.Mutator.TerrainInfo.HasComponent(terrain)) {
+					let compTerInf = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetComponent(terrain);
+					let r2 = rowg();
+					this.DebugCanvas.Context.fillText(`[ TERRAIN ]`, col(2, `[ TERRAIN ]`), r2.next().value);
+					this.DebugCanvas.Context.fillText(`Tile: ${ ~~compWorlds.Heading.Point.X }, ${ ~~compWorlds.Heading.Point.Y }`, col(2), r2.next().value);
+					this.DebugCanvas.Context.fillText(`Type: ${ this.FuzzyKnights.Component.Enum.TerrainType.Lookup(compTerInf.TerrainType) }`, col(2), r2.next().value);
+					this.DebugCanvas.Context.fillText(`- Meta: ${ compTerInf.Meta }`, col(2), r2.next().value);
+					this.DebugCanvas.Context.fillText(`Nav: ${ this.FuzzyKnights.Component.Enum.NavigabilityType.GetConstraint(compTerInf.Navigability).toFixed(2) }`, col(2), r2.next().value);
+					this.DebugCanvas.Context.fillText(`- Type: ${ this.FuzzyKnights.Component.Enum.NavigabilityType.Lookup(compTerInf.Navigability) }`, col(2), r2.next().value);
+				}
+
 				let r3 = rowg();
 				this.DebugCanvas.Context.fillText(`[ GAME ]`, col(3, `[ GAME ]`), r3.next().value);
 				this.DebugCanvas.Context.fillText(`ViewPort: ${ this.DebugCanvas.Width }px, ${ this.DebugCanvas.Height }px`, col(3), r3.next().value);

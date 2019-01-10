@@ -26,7 +26,7 @@ class Kinetics {
 		this.Forces = [];
 	}
 
-	ProcessImpulses(time) {
+	ProcessImpulse(time) {
 		this.Kinematics.Acceleration.MergeFromImpulses(time, this.Mass, ...this.Forces);
 		this.ResetForces();
 

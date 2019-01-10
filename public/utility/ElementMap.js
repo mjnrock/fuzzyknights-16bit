@@ -38,10 +38,10 @@ class ElementMap {
 	}
 
 	Get(x, y) {
-		return this.Elements[`${ x },${ y }`];
+		return this.Elements[`${ ~~x },${ ~~y }`];
 	}
 	Set(x, y, value) {
-		this.Elements[`${ x },${ y }`] = value;
+		this.Elements[`${ ~~x },${ ~~y }`] = value;
 
 		return this;
 	}
@@ -105,12 +105,12 @@ class ElementMap {
 	}
 	
 	Remove(x, y) {
-		this.Elements[y][x] = null;
+		this.Elements[`${ ~~x },${ ~~y }`] = null;
 
 		return this;
 	}
 	IsEmpty(x, y) {
-		return this.Elements[y][x] === null || this.Elements[y][x] === void 0;
+		return this.Elements[`${ ~~x },${ ~~y }`] === null || this.Elements[`${ ~~x },${ ~~y }`] === void 0;
 	}
 
 	Size() {

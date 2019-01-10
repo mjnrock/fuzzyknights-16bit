@@ -1,6 +1,6 @@
 export default {
 	View: {
-		DebugMode: false,
+		DebugMode: true,
 		HUD: true,
 		Tile: {
 			Width: 128,

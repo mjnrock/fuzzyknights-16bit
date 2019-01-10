@@ -1,17 +1,18 @@
 import EnumHandlerType from "../enum/HandlerType.js";
 import { Message } from "./Message.js";
 
-class EntityDisplacementMessage extends Message {
-	constructor(entity, displacement, isServerOrigin = false) {
+class EntityVelocityMessage extends Message {
+	constructor(entity, velocity, time, isServerOrigin = false) {
 		super(
 			EnumHandlerType.ENTITY,
 			{
 				Entity: entity,
-				Displacement: displacement
+				Velocity: velocity,
+				Time: time
 			},
 			isServerOrigin
 		);
 	}
 }
 
-export { EntityDisplacementMessage };
+export { EntityVelocityMessage };

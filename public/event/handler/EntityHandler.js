@@ -8,31 +8,38 @@ class EntityHandler {
 	onEntityDestruction(msg) {}
 
 	onEntityJoinWorld(msg, entity, zone) {
-		this.FuzzyKnights.Render.RenderManager.Register(entity);
+		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity)) {
+			this.FuzzyKnights.Render.RenderManager.Register(entity);
 
-		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
-		zone.Move(entity, -1, -1, pos.X, pos.Y);
+			let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
+			zone.Move(entity, -1, -1, pos.X, pos.Y);
+		}
 	}
 	onEntityLeaveWorld(msg, entity, zone) {}
 
 	onEntityStateChange(msg, entity) {
-		let flag = msg.Payload.StateType;
+		if(this.FuzzyKnights.Component.Mutator.States.HasComponent(entity)) {
+			let flag = msg.Payload.StateType;
 
-		if(!this.FuzzyKnights.Component.Mutator.States.HasFlag(entity, flag)) {
-			this.FuzzyKnights.Component.Mutator.States.AddFlag(entity, flag);
-		} else {
-			this.FuzzyKnights.Component.Mutator.States.RemoveFlag(entity, flag);
+			if(!this.FuzzyKnights.Component.Mutator.States.HasFlag(entity, flag)) {
+				this.FuzzyKnights.Component.Mutator.States.AddFlag(entity, flag);
+			} else {
+				this.FuzzyKnights.Component.Mutator.States.RemoveFlag(entity, flag);
+			}
 		}
 	}
 
-	onEntityDisplacement(msg, entity, displacement) {
-		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
-			[ x, y ] = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
+	onEntityVelocity(msg, entity, velocity, time) {
+		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity)) {
+			let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
+				pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
 
-		zone.Displace(entity, x, y, displacement);
+			zone.Move(entity, pos.X, pos.Y, velocity.X * time, velocity.Y * time, true);
+		}
 	}
 	onEntityMove(msg, entity, pos0, pos1) {
 		if(this.FuzzyKnights.Component.Mutator.Worlds.HasComponent(entity) && this.FuzzyKnights.Component.Mutator.Physics.HasComponent(entity)) {
+			console.log(entity);
 			let x0 = pos0.X,
 				y0 = pos0.Y,
 				x1 = pos1.X,
@@ -82,8 +89,8 @@ class EntityHandler {
 			this.onEntityCollision(msg, ...payload);
 		} else if(msg.MessageType === "EntityJoinWorldMessage") {
 			this.onEntityJoinWorld(msg, ...payload);
-		} else if(msg.MessageType === "EntityDisplacementMessage") {
-			this.onEntityDisplacement(msg, ...payload);
+		} else if(msg.MessageType === "EntityVelocityMessage") {
+			this.onEntityVelocity(msg, ...payload);
 		}
 	}
 	ReceiveMessage(msg, time = null) {

@@ -90,16 +90,16 @@ class Physics extends Mutator {
 	}
 
 	Tick(time, entity) {
-		// let kinetics = this.GetKinetics(entity),
-		// 	kinematics = kinetics.Kinematics;
+		let kinetics = this.GetKinetics(entity),
+			kinematics = kinetics.Kinematics;
 
-		// kinetics.ProcessImpulses(time);			// Convert Forces to Accelerations
-		// kinematics.ProcessAcceleration(time);	// Convert Accelerations to Velocities
-		// kinematics.ProcessVelocity(time);		// Convert Velocities to Displacements
+		kinetics.ProcessImpulse(time);			// Process Impulse, Convert Forces to Accelerations
+		kinematics.ProcessAcceleration(time);	// Process Accelerations, Convert Accelerations to Velocities
+		kinematics.ProcessVelocity(time);		// Process Velocities, Convert Velocities to Displacements
 		
-		// if(kinematics.Displacement.HasValues()) {
-		// 	this.FuzzyKnights.Event.Spawn.EntityDisplacementEvent(entity, kinematics.Displacement);
-		// }
+		if(kinematics.Velocity.HasValues()) {
+			this.FuzzyKnights.Event.Spawn.EntityVelocityEvent(entity, kinematics.Velocity, time);
+		}
 	}
 }
 

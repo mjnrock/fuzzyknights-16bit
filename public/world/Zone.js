@@ -44,17 +44,18 @@ class Zone {
 	}
 
 	PlaceEntity(entity, x, y) {
-		if(x0 !== x1 && y0 !== y1) {
-			this.UpdateEntityMap(entity, x0, y0, x1, y1);
-			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, x0, y0, x1, y1);
-
-			return true;
-		}
+		this.UpdateEntityMap(entity, -1, -1, x, y);
+		Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, -1, -1, x, y);
 
 		return false;
 	}
 
-	Move(entity, x0, y0, x1, y1) {
+	Move(entity, x0, y0, x1, y1, isDeltaMove = false) {
+		if(isDeltaMove) {
+			x1 = x0 + x1;
+			y1 = y0 + y1;
+		}
+		
 		if(x0 !== x1 && y0 !== y1) {
 			this.UpdateEntityMap(entity, x0, y0, x1, y1);
 			Zone.FuzzyKnights.Event.Spawn.EntityMoveEvent(entity, x0, y0, x1, y1);
@@ -69,6 +70,8 @@ class Zone {
 			dy = displacement.Y,
 			x1 = x0 + dx,
 			y1 = y0 + dy;
+
+		console.log(x0, y0, displacement.X, displacement.Y, dx, dy, x1, y1);
 
 		return this.Move(entity, x0, y0, x1, y1);
 	}
