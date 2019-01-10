@@ -73,7 +73,7 @@ class Player {
 			);
 		}
 
-		console.log(JSON.stringify(Player.FuzzyKnights.Component.Mutator.Physics.GetKinetics(this.Entity).Get()));
+		// console.log(JSON.stringify(Player.FuzzyKnights.Component.Mutator.Physics.GetKinetics(this.Entity).Get()));
 
 
 		
