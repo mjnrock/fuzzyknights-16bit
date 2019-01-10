@@ -5,17 +5,17 @@ class EntityHandler {
 
 	onEntityDestruction(msg, uuid) {
 		let entity = this.FuzzyKnights.Entity.EntityManager.GetEntity(uuid);
-		this.FuzzyKnights.Entity.EntityManager.Unregister(entity);
+		// this.FuzzyKnights.Entity.EntityManager.Unregister(entity);
 		this.FuzzyKnights.Render.RenderManager.Unregister(entity);
 	}
 	onEntityConstruction(msg, json) {}
 
 	onEntityJoinWorld(msg, entity, zone) {
-		this.FuzzyKnights.Entity.EntityManager.Register(entity);
+		// this.FuzzyKnights.Entity.EntityManager.Register(entity);
 		this.FuzzyKnights.Render.RenderManager.Register(entity);
 
 		let pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(entity);
-		zone.Move(entity, -1, -1, 5, 5);//pos.X, pos.Y);
+		zone.Move(entity, -1, -1, pos.X, pos.Y);
 	}
 
 	onEntityStateChange(msg, entity) {

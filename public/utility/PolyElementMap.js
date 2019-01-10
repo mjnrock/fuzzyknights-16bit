@@ -1,8 +1,18 @@
 import ElementMap from "./ElementMap.js";
 
 class PolyElementMap extends ElementMap {
-	constructor(width, height, seedFn = (em) => em.Init([])) {
+	constructor(width, height, seedFn) {
 		super(width, height, seedFn);
+
+		this.Init();
+	}
+
+	Init() {
+		for(let i = 0; i < this.Width; i++) {
+			for(let j = 0; j < this.Height; j++) {
+				this.Set(i, j, []);
+			}
+		}
 	}
 
 	//#	GetElement(x, y, UUID)
@@ -26,8 +36,11 @@ class PolyElementMap extends ElementMap {
 
 	AddElement(x, y, element) {
 		let node = this.Get(x, y);
-		node.push(element);
-		this.Set(x, y, node);
+
+		if(node) {
+			node.push(element);
+			this.Set(x, y, node);
+		}
 
 		return this;
 	}

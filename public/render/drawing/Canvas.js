@@ -82,17 +82,16 @@ class Canvas {
 	 */
 	DrawImage(image, u, v, uw, vh, x, y, w, h) {
 		if(arguments.length === 3) {
-			this.Context.drawImage(image, u, v);
+			this.Context.drawImage(image, ~~u, ~~v);
 
 			return this;
 		} else if(arguments.length === 5) {
-			this.Context.drawImage(image, u, v, uw, vh);
+			this.Context.drawImage(image, ~~u, ~~v, ~~uw, ~~vh);
 
 			return this;
 		}
 
-		this.Context.drawImage(image, u, v, uw, vh, ~~x, ~~y, w, h);
-		// this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
+		this.Context.drawImage(image, ~~u, ~~v, ~~uw, ~~vh, ~~x, ~~y, ~~w, ~~h);
 
 		return this;
 	}
@@ -100,7 +99,7 @@ class Canvas {
 	DrawTile(image, x, y, sx = 0, sy = 0) {
 		let tx = x * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width;
 		let ty = y * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
-		
+
 		this.DrawImage(
 			image,
 			sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,

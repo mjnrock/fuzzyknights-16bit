@@ -130,7 +130,7 @@ class ElementMap {
 	}
 
 	WindowedForEach(x, y, w, h, callback, ...args) {
-		x = ~~x; y = ~~y;
+		x = ~~x; y = ~~y; w = ~~w; h = ~~h;
 
 		let xl = x,
 			yl = y,

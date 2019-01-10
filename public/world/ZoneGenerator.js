@@ -108,7 +108,7 @@ class RandomAverage {
 			return null;
 		}
 
-		let terrainGrid = new ElementMap(this.Cells.XMax, this.Cells.YMax);
+		let terrainGrid = new ElementMap(this.Cells.Width, this.Cells.Height);
 
 		if(array.length === 1) {
 			this.Cells.ForEach((pos, ele, t) => {				

@@ -98,9 +98,6 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		//@ MessageManager
 		this.FuzzyKnights.Message.MessageManager = new this.FuzzyKnights.Message.MessageManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Message.MessageManager);
-		//@ EntityManager
-		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Entity.EntityManager);
 		//@ WorldManager
 		this.FuzzyKnights.World.WorldManager = new this.FuzzyKnights.World.WorldManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.World.WorldManager);
@@ -135,13 +132,13 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
-		let Zone = this.FuzzyKnights.World.ZoneGenerator.RandomAverage(35, 20).GetZone(
-			[ 0, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
-		);
-		// 	[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
-		// 	[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
-		// 	[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+		let Zone = this.FuzzyKnights.World.ZoneGenerator.RandomAverage(3, 3).GetZone(
+		// 	[ 0, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
 		// );
+			[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
+			[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
+			[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+		);
 		let Dimension = this.FuzzyKnights.World.Dimension.Generate(null, [
 			Zone
 		]);
@@ -152,7 +149,7 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.World.WorldManager.AddPlayer(Player);
 
 		this.FuzzyKnights.Component.Mutator.Worlds.SetZone(Player.Entity, Zone);
-		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Player.Entity, 0, 0);
+		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Player.Entity, 2, 2);
 
 		// let Enemy = new this.FuzzyKnights.Entity.Creature.Beaver();
 		// this.FuzzyKnights.Component.Mutator.Worlds.SetZone(Enemy, Zone);

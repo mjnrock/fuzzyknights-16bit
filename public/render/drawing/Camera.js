@@ -78,6 +78,12 @@ class Camera extends Cinematograph {
 	// 		tare
 	// 	);
 	// }
+	DrawEntities(entities, tare) {
+		return this.DrawModels(
+			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(entities),
+			tare
+		);
+	}
 	DrawTerrain(terrain, tare) {
 		return this.DrawModels(
 			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels([ terrain ]),
@@ -87,6 +93,8 @@ class Camera extends Cinematograph {
 	DrawModels(models, tare) {
 		models.forEach(model => {
 			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetPoint(model.Entity);
+			// console.log(pos, tare);			
+			// console.log(models, (pos.X - tare.Xl) - Cinematograph.Fudge(), (pos.Y - tare.Yl) - Cinematograph.Fudge());
 	
 			this.Canvas.DrawTile(
 				model.Render().GetHTMLCanvas(),
@@ -114,6 +122,9 @@ class Camera extends Cinematograph {
 
 		this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, terrain, em) => {
 			this.DrawTerrain(terrain, tare);
+		});
+		this.Zone.Entities.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, entities, em) => {
+			this.DrawEntities(entities, tare);
 		});
 
 		return this.Canvas;
