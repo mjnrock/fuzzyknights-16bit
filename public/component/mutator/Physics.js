@@ -99,6 +99,9 @@ class Physics extends Mutator {
 		
 		if(kinematics.Velocity.HasValues()) {
 			this.FuzzyKnights.Event.Spawn.EntityVelocityEvent(entity, kinematics.Velocity, time);
+			
+			kinematics.ResetDisplacement();
+			kinematics.ResetAcceleration();
 		}
 	}
 }

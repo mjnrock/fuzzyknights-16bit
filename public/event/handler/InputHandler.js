@@ -74,49 +74,49 @@ class InputHandler {
 
 	onInputPlayerKeyState(msg, state) {
 		//? Force Based
-		// let magnitude = 1.00,
-		// 	x = 0,
-		// 	y = 0,
-		// 	r = 0;
-
-		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-		// 	x += -magnitude;
-		// }
-		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-		// 	x += magnitude;
-		// }
-		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-		// 	y += -magnitude;
-		// }
-		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-		// 	y += magnitude;
-		// }
-
-		// this.FuzzyKnights.Component.Mutator.Physics.AddForce(
-		// 	this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-		// 	this.FuzzyKnights.Physics.D2.Force.Generate(x, y, r)
-		// );
-
-		let entity = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-			vel = this.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(entity),
+		let magnitude = 10.00,
 			x = 0,
 			y = 0,
 			r = 0;
 
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-			x += -vel;
+			x += -magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-			x += vel;
+			x += magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-			y += -vel;
+			y += -magnitude;
 		}
 		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-			y += vel;
+			y += magnitude;
 		}
 
-		this.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, this.FuzzyKnights.Physics.D2.Velocity.Generate(x, y));
+		this.FuzzyKnights.Component.Mutator.Physics.AddForce(
+			this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
+			this.FuzzyKnights.Physics.D2.Force.Generate(x, y, r)
+		);
+
+		// let entity = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
+		// 	vel = this.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(entity),
+		// 	x = 0,
+		// 	y = 0,
+		// 	r = 0;
+
+		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
+		// 	x += -vel;
+		// }
+		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
+		// 	x += vel;
+		// }
+		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
+		// 	y += -vel;
+		// }
+		// if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
+		// 	y += vel;
+		// }
+
+		// this.FuzzyKnights.Component.Mutator.Physics.SetVelocity(entity, this.FuzzyKnights.Physics.D2.Velocity.Generate(x, y));
 
 	}
 

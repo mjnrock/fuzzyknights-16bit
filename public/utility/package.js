@@ -9,6 +9,8 @@ import Grid from "./Grid.js";
 import ElementMap from "./ElementMap.js";
 import PolyElementMap from "./PolyElementMap.js"
 import Drawing from "./drawing/package.js";
+import Scalar from "./Scalar.js";
+import ClampedScalar from "./ClampedScalar.js";
 
 export default {
 	Functions,
@@ -21,6 +23,8 @@ export default {
 	Grid,
 	ElementMap,
 	PolyElementMap,
+	Scalar,
+	ClampedScalar,
 
 	Drawing
 };
