@@ -100,11 +100,8 @@ class Camera extends Cinematograph {
 		return this;
 	}
 
-	//TODO This is still fairly expensive in terms of FPS
-	GetFeed() {
-		this.Canvas.PreDraw();
-
-		let tare = {
+	GetTare() {
+		return {
 			X: this.X,
 			Y: this.Y,
 			R: this.Radius.Width,
@@ -113,6 +110,13 @@ class Camera extends Cinematograph {
 			Xr: this.X + this.Radius.Width,
 			Yr: this.Y + this.Radius.Height
 		};
+	}
+
+	//TODO This is still fairly expensive in terms of FPS
+	GetFeed() {
+		this.Canvas.PreDraw();
+
+		let tare = this.GetTare();
 
 		this.Zone.Terrain.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, terrain, em) => {
 		// this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2 + 1, this.Radius.Height * 2 + 1, (pos, terrain, em) => {

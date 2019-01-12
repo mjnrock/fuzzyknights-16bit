@@ -46,6 +46,13 @@ class ViewPort {
 		//DEBUG
 		this.DebugCanvas.PreDraw();
 		if(this.FuzzyKnights.Game.Settings.View.DebugMode) {
+			let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
+				compWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(player),
+				compPhysics = this.FuzzyKnights.Component.Mutator.Physics.GetComponent(player),
+				zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player),
+				[ posX, posY ] = [ compWorlds.Heading.Point.X, compWorlds.Heading.Point.Y ],
+				node = zone.Get(compWorlds.Heading.Point.X, compWorlds.Heading.Point.Y);
+
 			// ? Highlight the Tile of the Player
 			// {
 			// 	this.DebugCanvas.Context.fillStyle = "rgba(0, 0, 0, 0.15)";
@@ -58,24 +65,35 @@ class ViewPort {
 			// }
 
 			// ? Entity Collision Mask
-			// {
-			// 	let node = this.FuzzyKnights.World.MapManager.GetActiveMap().GetNode(tx, ty, false)
-			// 	node.GetCreatures().forEach(ent => {
-			// 		let origin = this.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(ent).Origin;
+			{
+				node.Entities.forEach(ent => {
+					let tare = this.Camera.GetTare();
 
-			// 		this.DebugCanvas.Context.beginPath();
-			// 		this.DebugCanvas.Context.arc(
-			// 			tx + origin.X,
-			// 			ty + origin.Y,
-			// 			this.FuzzyKnights.Component.Mutator.RigidBody.GetCollisionMask(ent).Radius,
-			// 			0,
-			// 			2 * Math.PI
-			// 		);
-			// 		this.DebugCanvas.Context.lineWidth = 2;
-			// 		this.DebugCanvas.Context.strokeStyle = "rgba(200, 35, 35, 1.0)";
-			// 		this.DebugCanvas.Context.stroke();
-			// 	});
-			// }
+					zone.Entities.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, entities, em) => {
+						for(let i in entities) {
+							let ent = entities[i];
+
+							if(ent) {
+								let mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent),
+									ecWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(ent),
+									[ tx, ty ] = [ ecWorlds.Heading.Point.X, ecWorlds.Heading.Point.Y ];
+
+								this.DebugCanvas.Context.beginPath();
+								this.DebugCanvas.Context.arc(
+									(tx - tare.Xl + mask.Origin.X) * 128 + (128 + 16 + 2),
+									(ty - tare.Yl + mask.Origin.Y) * 128 + (4),
+									mask.Radius,
+									0,
+									2 * Math.PI
+								);
+								this.DebugCanvas.Context.lineWidth = 2;
+								this.DebugCanvas.Context.strokeStyle = "rgba(200, 35, 35, 1.0)";
+								this.DebugCanvas.Context.stroke();
+							}
+						}
+					});
+				});
+			}
 
 			//? Show a radius around a creature
 			// {
@@ -107,12 +125,7 @@ class ViewPort {
 				this.DebugCanvas.Context.fillStyle = "rgba(255, 255, 255, 1.0)";
 				this.DebugCanvas.Context.font = "10pt monospace";
 
-				let player = this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(),
-					compWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(player),
-					compPhysics = this.FuzzyKnights.Component.Mutator.Physics.GetComponent(player),
-					zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(player),
-					node = zone.Get(compWorlds.Heading.Point.X, compWorlds.Heading.Point.Y),
-					row = (r = 0) => (r + 1) * 16,
+				let row = (r = 0) => (r + 1) * 16,
 					col = (c = 1, fudge = 0) => {
 						if(typeof fudge === "string" || fudge instanceof String) {
 							fudge = ~~(this.DebugCanvas.Context.measureText(fudge).width / 2);

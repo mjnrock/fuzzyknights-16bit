@@ -9,20 +9,21 @@ class CircleCollisionMask extends CollisionMask {
 
 	GetValues() {
 		return [
-			...super.GetValues(),
+			this.Origin.X,
+			this.Origin.Y,
 			this.Radius
 		];
 	}
 
-	//# CheckCircleCollision(CircleCollisionMask)
-	//# CheckCircleCollision(x, y, r)
-	CheckCircleCollision(x, y, r) {
-		if(x instanceof CircleCollisionMask) {
-			let cEe = x;
-			return this.CheckIntersection(...this.GetValues(), ...cEe.GetValues());
-		}
-
-		return this.CheckIntersection(...this.GetValues(), x, y, r);
+	CheckCircleCollision(xOr, yOr, xEe, yEe, maskEe) {
+		return this.CheckIntersection(
+			xOr + this.Origin.X,
+			yOr + this.Origin.Y,
+			this.Radius / CollisionMask.FuzzyKnights.Game.Settings.View.Tile.Target,
+			xEe + maskEe.Origin.X,
+			yEe + maskEe.Origin.Y,
+			maskEe.Radius / CollisionMask.FuzzyKnights.Game.Settings.View.Tile.Target
+		);
 	}
 
 	CheckIntersection(x0, y0, r0, x1, y1, r1) {

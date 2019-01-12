@@ -11,7 +11,7 @@ class Creature extends Entity {
 
 		this.Components.push(
 			new Components.Physics(
-				new CircleCollisionMask(0, 4, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
+				new CircleCollisionMask(0, 0, Entity.FuzzyKnights.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
 			),
 			new Components.Attributes(),
 			new Components.Resources([
