@@ -65,35 +65,35 @@ class ViewPort {
 			// }
 
 			// ? Entity Collision Mask
-			{
-				node.Entities.forEach(ent => {
-					let tare = this.Camera.GetTare();
+			// {
+			// 	node.Entities.forEach(ent => {
+			// 		let tare = this.Camera.GetTare();
 
-					zone.Entities.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, entities, em) => {
-						for(let i in entities) {
-							let ent = entities[i];
+			// 		zone.Entities.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, entities, em) => {
+			// 			for(let i in entities) {
+			// 				let ent = entities[i];
 
-							if(ent) {
-								let mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent),
-									ecWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(ent),
-									[ tx, ty ] = [ ecWorlds.Heading.Point.X, ecWorlds.Heading.Point.Y ];
+			// 				if(ent) {
+			// 					let mask = this.FuzzyKnights.Component.Mutator.Physics.GetCollisionMask(ent),
+			// 						ecWorlds = this.FuzzyKnights.Component.Mutator.Worlds.GetComponent(ent),
+			// 						[ tx, ty ] = [ ecWorlds.Heading.Point.X, ecWorlds.Heading.Point.Y ];
 
-								this.DebugCanvas.Context.beginPath();
-								this.DebugCanvas.Context.arc(
-									(tx - tare.Xl + mask.Origin.X) * 128 + (128 + 16 + 2),
-									(ty - tare.Yl + mask.Origin.Y) * 128 + (4),
-									mask.Radius,
-									0,
-									2 * Math.PI
-								);
-								this.DebugCanvas.Context.lineWidth = 2;
-								this.DebugCanvas.Context.strokeStyle = "rgba(200, 35, 35, 1.0)";
-								this.DebugCanvas.Context.stroke();
-							}
-						}
-					});
-				});
-			}
+			// 					this.DebugCanvas.Context.beginPath();
+			// 					this.DebugCanvas.Context.arc(
+			// 						(tx - tare.Xl + mask.Origin.X) * 128 + (128 + 16 + 2),
+			// 						(ty - tare.Yl + mask.Origin.Y) * 128 + (4),
+			// 						mask.Radius,
+			// 						0,
+			// 						2 * Math.PI
+			// 					);
+			// 					this.DebugCanvas.Context.lineWidth = 2;
+			// 					this.DebugCanvas.Context.strokeStyle = "rgba(200, 35, 35, 1.0)";
+			// 					this.DebugCanvas.Context.stroke();
+			// 				}
+			// 			}
+			// 		});
+			// 	});
+			// }
 
 			//? Show a radius around a creature
 			// {
