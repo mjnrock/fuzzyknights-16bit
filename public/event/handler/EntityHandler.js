@@ -132,8 +132,7 @@ class EntityHandler {
 	onEntityCollision(msg, collidor, collidee) {
 		console.log(`[COLLISION EVENT]: Collidor -> Collidee`, collidor, collidee);
 
-		//TODO Do collision logic
-
+		//TODO Do real collision logic, instead of this fake shit because legit fuck physics lol
 		this.FuzzyKnights.Component.Mutator.Physics.GetKinematics(collidor).ResetAcceleration();
 		this.FuzzyKnights.Component.Mutator.Physics.GetKinetics(collidor).ResetForces();
 		this.FuzzyKnights.Component.Mutator.Physics.GetKinematics(collidee).ResetAcceleration();
