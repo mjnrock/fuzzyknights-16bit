@@ -44,15 +44,61 @@ class EntityHandler {
 			let x0 = pos0.X,
 				y0 = pos0.Y,
 				x1 = pos1.X,
-				y1 = pos1.Y;
+				y1 = pos1.Y,
+				dx = x0 - x1,
+				dy = y0 - y1,
+				v = this.FuzzyKnights.Component.Mutator.Physics.GetVelocity(entity),
+				[ vx, vy ] = v.Get();
 
 				
 			if(!zone.Terrain.IsWithinBounds(x1, y1)) {
-				//TODO	Bounce the ball back
+
 				this.FuzzyKnights.Component.Mutator.Physics.GetKinematics(entity).ResetKinematics();
 				this.FuzzyKnights.Component.Mutator.Physics.GetKinetics(entity).ResetForces();
+
+				if(Math.abs(dx) < Math.abs(dy)) {
+					vy = -vy;
+				} else if(Math.abs(dx) > Math.abs(dy)) {
+					vx = -vx;
+				} else {
+					vx = -vx;
+					vy = -vy;
+				}
+
+				this.FuzzyKnights.Component.Mutator.Physics.SetVelocity(
+					entity,
+					this.FuzzyKnights.Physics.D2.Velocity.Generate(vx, vy)
+				);
 			} else {
 				//TODO Read Terrain NavigabilityConstraint and apply it to movement
+				let terrain = zone.Terrain.Get(x0, y0);
+
+				if(terrain instanceof this.FuzzyKnights.Entity.Terrain.Terrain) {
+					let fric = this.FuzzyKnights.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
+
+					if(Math.abs(vx) > 0.1) {
+						this.FuzzyKnights.Component.Mutator.Physics.AddForce(
+							entity,
+							this.FuzzyKnights.Physics.D2.Force.Generate(vx < 0 ? 1 : -1 * Math.max(Math.abs(vx), Math.abs(fric)), 0)
+						);
+					} else {
+						vx = 0;
+					}
+
+					if(Math.abs(vy) > 0.1) {
+						this.FuzzyKnights.Component.Mutator.Physics.AddForce(
+							entity,
+							this.FuzzyKnights.Physics.D2.Force.Generate(0, vy < 0 ? 1 : -1 * Math.max(Math.abs(vy), Math.abs(fric)))
+						);
+					} else {
+						vy = 0;
+					}
+					
+					this.FuzzyKnights.Component.Mutator.Physics.SetVelocity(
+						entity,
+						this.FuzzyKnights.Physics.D2.Velocity.Generate(vx, vy)
+					);
+				}
 			}
 
 			x1 = this.FuzzyKnights.Utility.Functions.Clamp(x1, 0, zone.Width);
