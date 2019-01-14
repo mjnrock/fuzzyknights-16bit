@@ -4,7 +4,7 @@ import Cinematograph from "./Cinematograph.js";
 class Actor extends Camera {
 	constructor(entity, tiles) {
 		super(
-			Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetMap(entity),
+			Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetZone(entity),
 			3,
 			3,
 			tiles
@@ -26,7 +26,7 @@ class Actor extends Camera {
 	}
 
 	UpdatePosition() {
-		let pos = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.Entity);
+		let pos = Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetPoint(this.Entity);
 
 		this.X = pos.X;
 		this.Y = pos.Y;

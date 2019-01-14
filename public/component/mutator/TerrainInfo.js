@@ -1,17 +1,11 @@
 import EnumComponentType from "../enum/ComponentType.js";
-import EnumTerrainType from "../enum/TerrainType.js";
+import EnumNavigabilityType from "../enum/NavigabilityType.js";
 
 import { Mutator } from "./Mutator.js";
 
 class TerrainInfo extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		let comp = super.GetComponent(entity, EnumComponentType.TERRAIN_INFO);
-
-		return comp;
+		super(fk, EnumComponentType.TERRAIN_INFO);
 	}
 
 	GetTerrainType(entity) {
@@ -30,6 +24,10 @@ class TerrainInfo extends Mutator {
 		this.GetComponent(entity).Navigability = nav;
 
 		return this;
+	}
+
+	GetNavigabilityConstraint(entity) {
+		return EnumNavigabilityType.GetConstraint(this.GetNavigability(entity));
 	}
 
 	GetMeta(entity) {

@@ -1,9 +1,9 @@
 import { Event } from "./Event.js";
 
 class EntityStateChangeEvent extends Event {
-	constructor(entityIdentifier, type) {
+	constructor(entity, type) {
 		super(
-			entityIdentifier,
+			entity,
 			type
 		);
 		

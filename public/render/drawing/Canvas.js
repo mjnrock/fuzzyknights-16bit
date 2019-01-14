@@ -92,15 +92,18 @@ class Canvas {
 		}
 
 		this.Context.drawImage(image, u, v, uw, vh, ~~x, ~~y, w, h);
-		// this.Context.drawImage(image, u, v, uw, vh, x, y, w, h);
 
 		return this;
 	}
 
 	DrawTile(image, x, y, sx = 0, sy = 0) {
-		let tx = x * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width;
-		let ty = y * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
-		
+		let tx = x * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,
+			ty = y * Canvas.FuzzyKnights.Game.Settings.View.Tile.Height;
+
+		// if(Math.random() < 0.05) {
+		// 	console.log(x, y, sx, sy, tx, ty);
+		// }
+
 		this.DrawImage(
 			image,
 			sx * Canvas.FuzzyKnights.Game.Settings.View.Tile.Width,

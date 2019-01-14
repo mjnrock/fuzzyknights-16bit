@@ -18,7 +18,7 @@ class InputHandler {
 	OnMouseMove(msg, event) {
 		let x = event.clientX,
 			y = event.clientY,
-			pos = this.FuzzyKnights.Component.Mutator.Maps.GetPosition(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
+			// pos = this.FuzzyKnights.Component.Mutator.Worlds.GetPoint(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
 
 			//! These will be relevant again once this Handler becomes aware of the ViewPort
 			// xo = pos.X + 0.5,	// + (TILE WIDTH / 2)	// Position is Left,Top otherwise
@@ -37,7 +37,7 @@ class InputHandler {
 		
 		let deg = (Math.floor((d + (sArc / 2)) / sArc) * sArc) % 360 || 0;
 
-		this.FuzzyKnights.Component.Mutator.Maps.SetRotation(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
+		this.FuzzyKnights.Component.Mutator.Worlds.SetAngle(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), deg);
 	}
 	OnMouseDown(msg, event) {
 		let tx = Math.floor(event.clientX / this.FuzzyKnights.Game.Settings.View.Tile.Width),
@@ -69,33 +69,13 @@ class InputHandler {
 			this.FuzzyKnights.Game.Settings.View.HUD = !this.FuzzyKnights.Game.Settings.View.HUD;
 		} else if(this.FuzzyKnights.Game.Settings.Bindings.CameraFollow.includes(event.key)) {
 			this.FuzzyKnights.Render.RenderManager.ViewPort.Camera.IsTracking = !this.FuzzyKnights.Render.RenderManager.ViewPort.Camera.IsTracking;
+		} else if(this.FuzzyKnights.Game.Settings.Bindings.Movement.Stop.includes(event.key)) {
+			this.FuzzyKnights.Component.Mutator.Physics.GetKinetics(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()).ResetKinetics();
 		}
 	}
 
 	onInputPlayerKeyState(msg, state) {
-		// console.log(...arguments);
-		let vel = this.FuzzyKnights.Component.Mutator.CreatureInfo.GetSpeed(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity()),
-			x = 0,
-			y = 0,
-			r = 0;
-
-		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.LEFT)) {
-			x += -vel;
-		}
-		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-			x += vel;
-		}
-		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.UP)) {
-			y += -vel;
-		}
-		if(this.FuzzyKnights.Utility.Bitwise.Has(state, this.FuzzyKnights.Enum.Bitwise.PlayerKeyState.DOWN)) {
-			y += vel;
-		}
-
-		this.FuzzyKnights.Component.Mutator.Maps.SetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity(), x, y, r);
-
-		//	DEBUG
-		// console.log(JSON.stringify(this.FuzzyKnights.Component.Mutator.Maps.GetVelocity(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity())));
+		this.FuzzyKnights.Game.GameManager.GetPlayer().SetKeyState(state);
 	}
 
 	ProcessMessage(msg) {

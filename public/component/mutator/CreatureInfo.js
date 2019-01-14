@@ -5,13 +5,7 @@ import { Mutator } from "./Mutator.js";
 
 class CreatureInfo extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		let comp = super.GetComponent(entity, EnumComponentType.CREATURE_INFO);
-
-		return comp;
+		super(fk, EnumComponentType.CREATURE_INFO);
 	}
 
 	GetCreatureType(entity) {

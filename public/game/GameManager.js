@@ -6,7 +6,7 @@ class GameManager {
 		this.TickManagers = [];
 		this.RenderManagers = [];
 
-		this.Player = player;
+		this.SetPlayer(player);
 		
 		this.GameLoop.SetTickHook((time) => this.Tick(time));
 		this.GameLoop.SetRenderHook((time) => this.Render(time));
@@ -31,9 +31,16 @@ class GameManager {
 
 		return this;
 	}
+	RemovePlayer() {
+		this.Player = null;
+
+		return this;
+	}
 
 	Tick(time) {
 		this.TickManagers.forEach(t => t.Tick(time));
+		
+		this.Player.Tick(time);
 	}
 
 	Render(time) {

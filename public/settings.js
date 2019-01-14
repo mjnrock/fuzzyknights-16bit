@@ -1,6 +1,6 @@
 export default {
 	View: {
-		DebugMode: false,
+		DebugMode: true,
 		HUD: true,
 		Tile: {
 			Width: 128,
@@ -28,6 +28,7 @@ export default {
 		CameraFollow: [ "l" ],
 		HUD: [ "v" ],
 		Movement: {
+			Stop: [ "Shift" ],
 			Left: [ "a", "ArrowLeft" ],
 			Right: [ "d", "ArrowRight" ],
 			Up: [ "w", "ArrowUp" ],

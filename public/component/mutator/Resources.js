@@ -5,11 +5,7 @@ import { Mutator } from "./Mutator.js";
 
 class Resources extends Mutator {
 	constructor(fk) {
-		super(fk);
-	}
-
-	GetComponent(entity) {
-		return super.GetComponent(entity, EnumComponentType.RESOURCES);
+		super(fk, EnumComponentType.RESOURCES);
 	}
 	
 	GetHealth(entity) {

@@ -1,11 +1,8 @@
 import Functions from "../utility/Functions.js";
 import Dice from "../utility/Dice.js";
-import Grid from "../utility/Grid.js";
 
-import Terrain from "./../entity/terrain/package.js";
-
-import { Map } from "./Map.js";
-import { Node } from "./Node.js";
+import { Zone } from "./Zone.js";
+import ElementMap from "./../utility/ElementMap.js";
 
 //TODO CellularAutomata is complete for T/F, but needs a more meaningful generation paradigm
 class CellularAutomata {
@@ -77,27 +74,63 @@ class RandomAverage {
 		this.CellMin = 255;
 		this.CellMax = 0;
 
-		this.Cells = new Grid(xmax, ymax, "number");
+		this.Cells = new ElementMap(xmax, ymax);
 	}
 
 	Run() {
-		this.Cells.ForEach((p, e, g, a) => {
-			g.Set(p.X, p.Y, Dice.Random(0, 255));
+		this.Cells.ForEach((pos, ele, em, args) => {
+			em.Set(pos.X, pos.Y, Dice.Random(0, 255));
 		});
 
-		this.Cells.ForEach(function (p, e, g, a) {
-			let avg = Functions.Round(a[0].GetNeighbors(p.X, p.Y), 0);
-			a[0].CellAverage += avg;
+		this.Cells.ForEach((pos, ele, em, args) => {
+			// let avg = Functions.Round(a[0].GetNeighbors(p.X, p.Y), 0);
+			let avg = Functions.Round(this.GetNeighbors(pos.X, pos.Y), 0);
+			this.CellAverage += avg;
 
-			a[0].CellMin = avg < a[0].CellMin ? avg : a[0].CellMin;
-			a[0].CellMax = avg > a[0].CellMax ? avg : a[0].CellMax;
+			this.CellMin = avg < this.CellMin ? avg : this.CellMin;
+			this.CellMax = avg > this.CellMax ? avg : this.CellMax;
 
-			g.Set(p.X, p.Y, avg);
-		}, [this]);
+			em.Set(pos.X, pos.Y, avg);
+		});
 
 		this.CellAverage = Functions.Round(this.CellAverage / this.Cells.Size(), 0);
 
 		return this;
+	}
+
+	/**
+	 * 
+	 * @param array | [ [ min, max, Terrain ], ... ]
+	 */
+	//TODO Build a default case here (e.g. Void or Water)
+	ConvertToTerrain(array = []) {
+		if(array.length === 0) {			
+			return null;
+		}
+
+		let terrainGrid = new ElementMap(this.Cells.Width, this.Cells.Height);
+
+		if(array.length === 1) {
+			this.Cells.ForEach((pos, ele, t) => {				
+				if(ele >= array[0][0] && ele < array[0][1]) {
+					terrainGrid.Set(pos.X, pos.Y, new array[0][2]());
+				}				
+			});
+
+			return terrainGrid;
+		}
+
+		for(let i in array) {
+			let arr = array[i];
+
+			this.Cells.ForEach((pos, ele, t) => {
+				if(ele >= arr[0] && ele < arr[1]) {
+					terrainGrid.Set(pos.X, pos.Y, new arr[2]());
+				}				
+			});
+		}
+
+		return terrainGrid;
 	}
 
 	GetGrid(run = true) {
@@ -107,13 +140,20 @@ class RandomAverage {
 
 		return this.Cells;
 	}
-	GetMap(...terrainRanges) {
+	GetZone(...terrainRanges) {
 		this.Run();
 		
-		let grid = this.ConvertToTerrain([
+		let eleMap = this.ConvertToTerrain([
 			...terrainRanges
 		]);
-		return new Map(grid);
+		
+		let zone = new Zone(eleMap);
+		zone.Terrain.ForEach((pos, terrain, em) => {
+			ZoneGenerator.FuzzyKnights.Component.Mutator.Worlds.SetHeading(terrain, pos.X, pos.Y, 0);
+			ZoneGenerator.FuzzyKnights.Component.Mutator.Worlds.SetZone(terrain, zone);
+		});
+
+		return zone;
 	}
 
 	GetNeighbors(x, y) {
@@ -134,44 +174,9 @@ class RandomAverage {
 
 		return value / count;
 	}
-
-	/**
-	 * 
-	 * @param array | [ [ min, max, Terrain ], ... ]
-	 */
-	//TODO Build a default case here (e.g. Void or Water)
-	ConvertToTerrain(array = []) {
-		if(array.length === 0) {			
-			return null;
-		}
-
-		let terrainGrid = new Grid(this.Cells.XMax, this.Cells.YMax, Node, (x, y) => [ x, y ]);
-
-		if(array.length === 1) {
-			this.Cells.ForEach((pos, ele, t) => {				
-				if(ele >= array[0][0] && ele < array[0][1]) {
-					terrainGrid.Get(pos.X, pos.Y).AddEntity(new array[0][2]());
-				}				
-			});
-
-			return terrainGrid;
-		}
-
-		for(let i in array) {
-			let arr = array[i];
-
-			this.Cells.ForEach((pos, ele, t) => {
-				if(ele >= arr[0] && ele < arr[1]) {
-					terrainGrid.Get(pos.X, pos.Y).AddEntity(new arr[2]());
-				}				
-			});
-		}
-
-		return terrainGrid;
-	}
 }
 
-const MapGenerator = {
+const ZoneGenerator = {
 	RandomAverage() {
 		return new RandomAverage(...arguments);
 	},
@@ -180,4 +185,4 @@ const MapGenerator = {
 	}
 };
 
-export { MapGenerator };
+export { ZoneGenerator };

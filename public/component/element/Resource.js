@@ -1,4 +1,4 @@
-import { LowerClamp, Clamp } from "./../../utility/Functions.js";
+import { ClampFloor, Clamp } from "./../../utility/Functions.js";
 
 import { Element } from "./Element.js";
 
@@ -44,7 +44,7 @@ class Resource extends Element {
 		return this.Max;
 	}
 	SetMax(max) {
-		this.Max = LowerClamp(max, 0);
+		this.Max = ClampFloor(max, 0);
 
 		return this;
 	}

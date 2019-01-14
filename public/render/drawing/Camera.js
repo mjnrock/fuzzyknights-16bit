@@ -1,13 +1,12 @@
-import { MinClamp, UpperClamp, LowerClamp } from "./../../utility/Functions.js";
+import { MinClamp, ClampCeiling } from "./../../utility/Functions.js";
 
 import Cinematograph from "./Cinematograph.js";
 
 class Camera extends Cinematograph {
-	//TODO $ar could be seeded with ViewPort aspect ratio from Client
-	constructor(map, x, y, r) {
+	constructor(zone, x, y, r) {
 		super();
 
-		this.Map = map;
+		this.Zone = zone;
 		this.X = x;
 		this.Y = y;
 		this.Radius = {
@@ -24,8 +23,8 @@ class Camera extends Cinematograph {
 
 	SetDimensions(w, h) {
 		this.Canvas.SetDimensions(
-			UpperClamp(w, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2),
-			UpperClamp(h, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2)
+			ClampCeiling(w, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2),
+			ClampCeiling(h, Cinematograph.FuzzyKnights.Game.Settings.View.Tile.Target * this.Radius.LIMIT * 2)
 		);
 
 		this.Radius.Width = MinClamp(w / Cinematograph.Fudge(2, false) / 2, this.Radius.LIMIT);
@@ -34,11 +33,11 @@ class Camera extends Cinematograph {
 		return this;
 	}
 
-	GetMap() {
-		return this.Map;
+	GetZone() {
+		return this.Zone;
 	}
-	SetMap(value) {
-		this.Map = value;
+	SetZone(value) {
+		this.Zone = value;
 
 		return this;
 	}
@@ -73,71 +72,59 @@ class Camera extends Cinematograph {
 		return this;
 	}
 
-	DrawCreatures(node, tare) {
+	DrawEntities(entities, tare) {
 		return this.DrawModels(
-			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(node.GetCreatures()),
+			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(entities),
 			tare
 		);
 	}
-	DrawTerrain(node, tare) {
+	DrawTerrain(terrain, tare) {
 		return this.DrawModels(
-			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels(node.GetTerrain()),
+			Cinematograph.FuzzyKnights.Render.RenderManager.GetModels([ terrain ]),
 			tare
 		);
 	}
 	DrawModels(models, tare) {
 		models.forEach(model => {
-			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Maps.GetPosition(model.Entity);
-	
+			let pos = Cinematograph.FuzzyKnights.Component.Mutator.Worlds.GetPoint(model.Entity);
+
 			this.Canvas.DrawTile(
 				model.Render().GetHTMLCanvas(),
-				(pos.X - tare.Xl) - Cinematograph.Fudge(),
-				(pos.Y - tare.Yl) - Cinematograph.Fudge()
+				((pos.X - tare.Xl) - Cinematograph.Fudge()),
+				((pos.Y - tare.Yl) - Cinematograph.Fudge())
+				// ~~((pos.X - tare.Xl) - Cinematograph.Fudge()),
+				// ~~((pos.Y - tare.Yl) - Cinematograph.Fudge())
 			);
 		});
 
 		return this;
 	}
-	
-	GetNodes() {
-		let nodes = [],
-			tare = {
-				Xl: this.X - this.Radius.Width,
-				Yl: this.Y - this.Radius.Height,
-				Xr: this.X + this.Radius.Width,
-				Yr: this.Y + this.Radius.Height
-			};
 
-		this.Map.Grid.ForEach((pos, node, grid) => {
-			if((pos.X >= tare.Xl - 1 && pos.X <= tare.Xr + 1) && (pos.Y >= tare.Yl - 1 && pos.Y <= tare.Yr + 1)) {
-				nodes.push(node);
-			}
-		});
-
-		return nodes;
+	GetTare() {
+		return {
+			X: this.X,
+			Y: this.Y,
+			R: this.Radius.Width,
+			Xl: this.X - this.Radius.Width,
+			Yl: this.Y - this.Radius.Height,
+			Xr: this.X + this.Radius.Width,
+			Yr: this.Y + this.Radius.Height
+		};
 	}
 
 	//TODO This is still fairly expensive in terms of FPS
 	GetFeed() {
 		this.Canvas.PreDraw();
 
-		let nodes = this.GetNodes(),
-			tare = {
-				X: this.X,
-				Y: this.Y,
-				R: this.Radius,
-				Xl: this.X - this.Radius.Width,
-				Yl: this.Y - this.Radius.Height,
-				Xr: this.X + this.Radius.Width,
-				Yr: this.Y + this.Radius.Height
-			};
+		let tare = this.GetTare();
 
-		nodes.forEach(node => {
-			this.DrawTerrain(node, tare);
+		this.Zone.Terrain.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, terrain, em) => {
+		// this.Zone.Terrain.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2 + 1, this.Radius.Height * 2 + 1, (pos, terrain, em) => {
+			this.DrawTerrain(terrain, tare);
 		});
-
-		nodes.forEach(node => {
-			this.DrawCreatures(node, tare);
+		this.Zone.Entities.ForEachNeighbor(tare.X, tare.Y, tare.R + 1, (pos, entities, em) => {
+		// this.Zone.Entities.WindowedForEach(tare.Xl, tare.Yl, this.Radius.Width * 2, this.Radius.Height * 2, (pos, entities, em) => {
+			this.DrawEntities(entities, tare);
 		});
 
 		return this.Canvas;

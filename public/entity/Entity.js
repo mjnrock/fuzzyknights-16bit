@@ -12,16 +12,14 @@ class Entity {
 			new Components.States([
 				[ Components.Enum.StateType.NORMAL, 0 ]
 			]),
-			new Components.Maps(
-				Components.Enum.MapType.TILE,
-				0.5,
-				0.5
-			)
+			new Components.Worlds()
 		);
 	}
 
 	Tick(time) {
-		// console.log("Entity - Tick", this.UUID, time);
+		this.Components.forEach((comp) => {
+			Entity.FuzzyKnights.Component.Mutator[comp.constructor.name].Tick(time, this);
+		});
 	}
 }
 

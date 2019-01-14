@@ -75,9 +75,9 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 		//* These have to be moved into an appropriate Game invocation
 		// this.FuzzyKnights.Render.RenderManager.Register(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
-		this.FuzzyKnights.World.MapManager.GetActiveMap().Grid.ForEach((pos, node, grid) => {
-			let [ terrain ] = node.GetTerrain();
-			this.FuzzyKnights.Component.Mutator.Maps.SetHeading(terrain, pos.X, pos.Y, 0);
+
+		let zone = this.FuzzyKnights.Component.Mutator.Worlds.GetZone(this.FuzzyKnights.Game.GameManager.GetPlayer().GetEntity());
+		zone.Terrain.ForEach((pos, terrain, em) => {
 			this.FuzzyKnights.Render.RenderManager.Register(terrain, true);
 		});
 		
@@ -98,12 +98,6 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		//@ MessageManager
 		this.FuzzyKnights.Message.MessageManager = new this.FuzzyKnights.Message.MessageManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Message.MessageManager);
-		//@ EntityManager
-		this.FuzzyKnights.Entity.EntityManager = new this.FuzzyKnights.Entity.EntityManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.Entity.EntityManager);
-		//@ MapManager
-		this.FuzzyKnights.World.MapManager = new this.FuzzyKnights.World.MapManager(this.FuzzyKnights);
-		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.World.MapManager);
 		//@ WorldManager
 		this.FuzzyKnights.World.WorldManager = new this.FuzzyKnights.World.WorldManager(this.FuzzyKnights);
 		this.FuzzyKnights.Game.GameManager.AddTickManager(this.FuzzyKnights.World.WorldManager);
@@ -123,13 +117,13 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 
 		//@ Component Mutators
-		this.FuzzyKnights.Component.Mutator.RigidBody = new this.FuzzyKnights.Component.Mutator.RigidBody(this.FuzzyKnights);
+		this.FuzzyKnights.Component.Mutator.Physics = new this.FuzzyKnights.Component.Mutator.Physics(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Attributes = new this.FuzzyKnights.Component.Mutator.Attributes(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.Resources = new this.FuzzyKnights.Component.Mutator.Resources(this.FuzzyKnights);
-		this.FuzzyKnights.Component.Mutator.Maps = new this.FuzzyKnights.Component.Mutator.Maps(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.States = new this.FuzzyKnights.Component.Mutator.States(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.CreatureInfo = new this.FuzzyKnights.Component.Mutator.CreatureInfo(this.FuzzyKnights);
 		this.FuzzyKnights.Component.Mutator.TerrainInfo = new this.FuzzyKnights.Component.Mutator.TerrainInfo(this.FuzzyKnights);
+		this.FuzzyKnights.Component.Mutator.Worlds = new this.FuzzyKnights.Component.Mutator.Worlds(this.FuzzyKnights);
 
 		this.FuzzyKnights.Network.ConnectionClient = new this.FuzzyKnights.Network.ConnectionClient(this.FuzzyKnights);
 
@@ -138,28 +132,31 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 
 	//	As of now, used strictly to have something to test on the screen
 	BuildEnvironment() {
-		let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(35, 20).GetMap(
+		let Zone = this.FuzzyKnights.World.ZoneGenerator.RandomAverage(20, 20).GetZone(
 			[ 0, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
+
+			// [ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
+			// [ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
+			// [ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
 		);
-		// let Map = this.FuzzyKnights.World.MapGenerator.RandomAverage(10, 7).GetMap(
-		// 	[ 0, 100, this.FuzzyKnights.Entity.Terrain.Water ],
-		// 	[ 100, 125, this.FuzzyKnights.Entity.Terrain.Sand ],
-		// 	[ 125, 255, this.FuzzyKnights.Entity.Terrain.Grass ]
-		// );
+		let Dimension = this.FuzzyKnights.World.Dimension.Generate(null, [
+			Zone
+		]);
+		this.FuzzyKnights.World.WorldManager.AddDimension(Dimension);
+
 		let Player = new this.FuzzyKnights.Game.Player("Mr. Fuzzums", new this.FuzzyKnights.Entity.Creature.Raccoon());
+		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
+		this.FuzzyKnights.World.WorldManager.AddPlayer(Player);
+
+		this.FuzzyKnights.Component.Mutator.Worlds.SetZone(Player.Entity, Zone);
+		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Player.Entity, 2, 2);
 
 		let Enemy = new this.FuzzyKnights.Entity.Creature.Beaver();
+		this.FuzzyKnights.Component.Mutator.Worlds.SetZone(Enemy, Zone);
+		this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Enemy, 3, 3);
 
-		this.FuzzyKnights.World.MapManager.SetMap(0, 0, Map);
-		this.FuzzyKnights.World.MapManager.SetActiveMap(Map.UUID);
-		this.FuzzyKnights.Game.GameManager.SetPlayer(Player);
-
-		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Player.Entity, Map);
-		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Player.Entity, 0, 0);
-
-		console.log(Enemy);
-		this.FuzzyKnights.Component.Mutator.Maps.SetMap(Enemy, Map);
-		this.FuzzyKnights.Component.Mutator.Maps.SetPosition(Enemy, 2.3, 2.3);
+		//! This doesn't presently render (when it has decimals)
+		// this.FuzzyKnights.Component.Mutator.Worlds.SetPoint(Enemy, 3.1, 3.1);
 
 		return this;
 	}
@@ -176,9 +173,12 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 		this.FuzzyKnights.Render.Drawing.ViewPort.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Event.Event.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Message.Message.FuzzyKnights = this.FuzzyKnights;
-		this.FuzzyKnights.World.Map.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.World.Zone.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Game.Player.FuzzyKnights = this.FuzzyKnights;
+		this.FuzzyKnights.Physics.D2.CollisionMask.FuzzyKnights = this.FuzzyKnights;
 
 		//DEBUG
+		this.FuzzyKnights.World.ZoneGenerator.FuzzyKnights = this.FuzzyKnights;
 		this.FuzzyKnights.Utility.Drawing.Canvas.FuzzyKnights = this.FuzzyKnights;
 
 		return this;

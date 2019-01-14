@@ -1,9 +1,9 @@
-import EnumComponentType from "../enum/ComponentType.js";
-import EnumMapType from "../enum/MapType.js";
-import EnumNavigabilityType from "../enum/NavigabilityType.js";
+import EnumComponentType from "./../enum/ComponentType.js";
+import EnumMapType from "./../enum/_MapType.js";
+import EnumNavigabilityType from "./../enum/NavigabilityType.js";
 
 import { Mutator } from "./Mutator.js";
-import { Map } from "../element/Map.js";
+import { Map } from "./../element/_Map.js";
 
 class Maps extends Mutator {
 	constructor(fk) {

@@ -8,6 +8,7 @@ import { EntityConstructionEvent } from "./EntityConstructionEvent.js";
 import { EntityDestructionEvent } from "./EntityDestructionEvent.js";
 import { EntityCollisionEvent } from "./EntityCollisionEvent.js";
 import { EntityJoinWorldEvent } from "./EntityJoinWorldEvent.js";
+import { EntityVelocityEvent } from "./EntityVelocityEvent.js";
 import { InputMouseEvent } from "./InputMouseEvent.js";
 import { InputKeyboardEvent } from "./InputKeyboardEvent.js";
 import { InputPlayerKeyStateEvent } from "./InputPlayerKeyStateEvent.js";
@@ -26,6 +27,7 @@ export default {
 	EntityDestructionEvent,
 	EntityCollisionEvent,
 	EntityJoinWorldEvent,
+	EntityVelocityEvent,
 	InputMouseEvent,
 	InputKeyboardEvent,
 	InputPlayerKeyStateEvent,
@@ -43,6 +45,7 @@ export default {
 		EntityStateChangeEvent: (...args) => new EntityStateChangeEvent(...args),
 		EntityConstructionEvent: (...args) => new EntityConstructionEvent(...args),
 		EntityCollisionEvent: (...args) => new EntityCollisionEvent(...args),
+		EntityVelocityEvent: (...args) => new EntityVelocityEvent(...args),
 		InputMouseEvent: (...args) => new InputMouseEvent(...args),
 		InputKeyboardEvent: (...args) => new InputKeyboardEvent(...args),
 		InputPlayerKeyStateEvent: (...args) => new InputPlayerKeyStateEvent(...args)
