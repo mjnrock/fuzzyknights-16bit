@@ -30,14 +30,14 @@
 		<script type="module">
 			console.log("[Loading...] FuzzyKnights");
 
-			import FK from "./FuzzyKnights.js";
+			import FK from "./fkge/FuzzyKnights.js";
 			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
 
-			// setTimeout(() => FuzzyKnights.Render.RenderManager.Camera.TrackPlayer(), 500);
+			// setTimeout(() => FuzzyKnights.Client.Render.RenderManager.Camera.TrackPlayer(), 500);
 			
 			console.log("[Loaded] FuzzyKnights");
 			console.log(FuzzyKnights);
-			console.log(FuzzyKnights.Game.GameManager.Player);
+			console.log(FuzzyKnights.Common.Game.GameManager.Player);
 
 		</script>
 	</body>
