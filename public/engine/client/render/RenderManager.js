@@ -14,7 +14,7 @@ class RenderManager {
 		this.ViewPort.Canvas.SetDimensions(window.innerWidth, window.innerHeight);
 		this.ViewPort.Camera.SetDimensions(window.innerWidth, window.innerHeight);
 		
-		this.ViewPort.DebugCanvas.SetDimensions(window.innerWidth, window.innerHeight);
+		this.ViewPort.DebugView.Canvas.SetDimensions(window.innerWidth, window.innerHeight);
 	}
 
 	GetCamera() {

@@ -10,6 +10,8 @@ import ViewPort from "./ViewPort.js";
 
 import HUD from "./HUD.js";
 
+import DebugView from "./DebugView.js";
+
 export default {
 	Cinematograph,
 	Canvas,
@@ -21,5 +23,7 @@ export default {
 	Director,
 	ViewPort,
 
-	HUD
+	HUD,
+
+	DebugView
 };
