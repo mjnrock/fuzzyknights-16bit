@@ -1,6 +1,6 @@
 const chai = require("chai");
 
-import Bitwise from "../../public/utility/Bitwise";
+import Bitwise from "../../public/common/utility/Bitwise";
 
 describe("Bitwise", () => {
 	it("Add - Type Check", () => {
