@@ -50,6 +50,12 @@ class EntityHandler {
 				v = this.FuzzyKnights.Common.Component.Mutator.Physics.GetVelocity(entity),
 				[ vx, vy ] = v.Get();
 
+			if(Math.abs(vx) <= 0.1) {
+				vx = 0;
+			}
+			if(Math.abs(vy) <= 0.1) {
+				vy = 0;
+			}
 				
 			if(!zone.Terrain.IsWithinBounds(x1, y1)) {
 				this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinematics(entity).ResetKinematics();
