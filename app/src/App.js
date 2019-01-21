@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+
+import FKGE from "./engine/FKGE.js";
+import FuzzyKnightsCore from "./modules/fuzzy-knights-core/Main.js";
+const FuzzyKnights = (new FKGE(window, [ FuzzyKnightsCore ])).GetFuzzyKnights();
+
+console.log("[Loaded] FuzzyKnights");
+console.log(FuzzyKnights);
+console.log(FuzzyKnights.Common.Game.GameManager.Player);
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">			
+				<div id="canvas-container" style={{ position: "relative" }}>
+					<canvas id="viewport" className="bg-dark-gray" width="1280" height="896" style={{ position: "absolute", left: 0, top: 0, zIndex: 100 }}></canvas>
+					<canvas id="debug" width="1280" height="896" style={{ position: "absolute", left: 0, top: 0, zIndex: 9999 }}></canvas>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default App;
