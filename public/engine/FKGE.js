@@ -1,11 +1,17 @@
 import FKFiles from "./package.js";
+import ModLoader from "./../modules/lib/ModLoader.js";
+
 import registry from "./../config/registry.js"
 import settings from "./../config/settings.js"
 
-class FuzzyKnights {
-	constructor(fk = {}) {
-		this.FuzzyKnights = FKFiles;
+const FuzzyKnights = FKFiles;
+class FKGE {
+	constructor(fk = {}, mods = []) {
+		this.FuzzyKnights = FuzzyKnights;
+		this.Mods = mods;
 		this.Window = window;
+
+		ModLoader.Install(this);
 
 		this.Init().PostInit().BuildEnvironment();
 		this.RenderInit().RenderRegistry();
@@ -65,7 +71,8 @@ class FuzzyKnights {
 	/**
 	 * Read from the imported "registry" and create Entity.Entity-Render.Entity links for client-only properties (e.g. images)
 	 * NOTE: If the pimport Camera from "./render/drawing/Camera";
-aradigm is reworked to dynamically read the image alphas for collision masking, this registry will need to move to Common
+aradigm is reworkeimport ModLoader from "./ModLoader";
+d to dynamically read the image alphas for collision masking, this registry will need to move to Common
 	 */
 	RenderRegistry() {
 		let setup = registry(this.FuzzyKnights);
@@ -194,4 +201,4 @@ aradigm is reworked to dynamically read the image alphas for collision masking, 
 	}
 }
 
-export default FuzzyKnights;
+export default FKGE;

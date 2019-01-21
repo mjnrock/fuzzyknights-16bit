@@ -96,10 +96,9 @@ class Velocity {
 
 			return Velocity.Generate(x0, y0, angle);
 		} else if(typeof x === "number" && typeof y === "number" && r instanceof Angle) {
-			let angle = r;
 			x0 += x;
 			y0 += y;
-			let angle = this.Angle.CalcNewAngle(angle);
+			let angle = this.Angle.CalcNewAngle(r);
 
 			return Velocity.Generate(x0, y0, angle);
 		}

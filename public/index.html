@@ -30,8 +30,9 @@
 		<script type="module">
 			console.log("[Loading...] FuzzyKnights");
 
-			import FK from "./engine/FuzzyKnights.js";
-			const FuzzyKnights = (new FK(window)).GetFuzzyKnights();
+			import FKGE from "./engine/FKGE.js";
+			import FuzzyKnightsCore from "./modules/fuzzy-knights-core/Main.js";
+			const FuzzyKnights = (new FKGE(window, [ FuzzyKnightsCore ])).GetFuzzyKnights();
 
 			// setTimeout(() => FuzzyKnights.Client.Render.RenderManager.Camera.TrackPlayer(), 500);
 			

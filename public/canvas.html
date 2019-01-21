@@ -1,0 +1,35 @@
+<html>
+        <head>
+                <meta charset="UTF-8" />
+                <title>Document</title>
+        </head>
+        <body>
+                <canvas id="canvas" width="128" height="128" />
+
+                <script>
+                        let json = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at orci et lorem pulvinar molestie. Cras ultricies suscipit ipsum in egestas. Nam sed blandit odio, sit amet rhoncus orci. Sed in fermentum sem. Aenean scelerisque sem ac sem pulvinar, at fermentum nibh consequat. Sed efficitur tempus nulla, sed dapibus augue posuere a. In eleifend quis mauris eu efficitur. Nullam sodales dui nec neque bibendum ultrices. Sed lacus leo, pellentesque id neque ut, pharetra feugiat ligula. Suspendisse potenti. Suspendisse sit amet dapibus leo. Integer vitae aliquet ante, quis condimentum augue. Vestibulum imperdiet nunc odio, ut sollicitudin ipsum laoreet vitae. Phasellus maximus a lorem ac ultrices. Etiam varius neque lorem, pulvinar interdum tortor aliquet id. Nullam risus tellus, luctus id aliquet et, hendrerit aliquet ipsum. Nam pretium lacinia justo at dapibus. Donec commodo ligula quis diam ultrices, non convallis eros elementum. Mauris vestibulum metus eu dapibus hendrerit. Ut ac malesuada risus, eu viverra nisl. Integer eu suscipit quam, vel aliquam sapien. Ut turpis tortor, sagittis non massa a, luctus porta lectus. Donec condimentum lacus ligula, non hendrerit neque euismod non. Aliquam diam neque, condimentum vitae diam non, efficitur egestas ex. Duis sed sem ante. Ut justo magna, varius eu eleifend vitae, iaculis at quam. Nam ultricies, enim nec condimentum blandit, orci purus eleifend neque, sit amet ornare augue tellus sit amet urna. Etiam pharetra sodales posuere. In hac habitasse platea dictumst. Nullam sollicitudin et purus vel ultrices. Cras quis eros sed massa fringilla vulputate a in turpis. Sed faucibus id ligula sed fermentum. Sed eget consequat ligula. Vivamus condimentum tortor nibh, eu vehicula nunc tincidunt id. Morbi volutpat non ex vulputate commodo. In a gravida dolor. Etiam justo lacus, posuere sed pharetra ac, sagittis vel augue. Sed facilisis sollicitudin feugiat. In ut blandit enim, et accumsan orci. Duis leo ex, ultrices nec magna non, varius viverra nulla. Phasellus molestie lectus ac pharetra sagittis. Vestibulum porta ex et libero pretium elementum. Suspendisse lobortis sit amet ligula in posuere. Donec facilisis pretium placerat. Vivamus consequat mi in sapien sagittis, in malesuada mi tristique. Etiam ut nulla et nisi ornare pharetra. Cras nibh est, pharetra sit amet volutpat eget, viverra eget purus. In hac habitasse platea dictumst. Phasellus tempor sit amet nulla non congue. Phasellus tristique risus in vestibulum viverra. Maecenas vel viverra augue. Nulla ornare iaculis ante, et ullamcorper est tristique nec. Donec sodales nulla vitae ornare auctor. Sed euismod tortor nisi, non blandit elit pretium nec. Curabitur auctor ut eros sit amet egestas. Mauris non erat eget sapien pretium consequat nec sed eros. Duis elementum nulla erat, at auctor nunc sagittis id. Praesent non aliquam magna, scelerisque tincidunt odio. Mauris erat urna, condimentum sit amet euismod a, fringilla eget velit. Vivamus vitae lacus non lectus commodo efficitur. Praesent ut nisl id nisl faucibus faucibus eget vitae nibh. Suspendisse et eleifend leo. Aenean quis erat ullamcorper, porta leo at, ornare orci. In mollis, ligula eu convallis volutpat, sapien mi suscipit libero, ac feugiat lacus orci sed ante. Suspendisse vitae mi dignissim, lacinia leo eu, congue sapien. Donec blandit felis quis orci interdum facilisis. Vestibulum ut dolor nec nibh vestibulum vulputate a quis leo. Suspendisse sodales ut dolor id vestibulum. Sed arcu orci, feugiat vitae sagittis volutpat, luctus non quam.";
+
+                        let canvas = document.createElement("canvas");
+                        canvas.width = 128;
+                        canvas.height = 128;
+                        canvas.id = "icon";
+
+                        let ctx = canvas.getContext("2d"),
+                                data = ctx.getImageData(0, 0, 128, 128).data,
+                                imgd = ctx.createImageData(126, 126);
+
+                        ctx.fillStyle = "rgb(255, 0, 0)";
+                        ctx.fillRect(0, 0, 128, 128)
+                        ctx.fillStyle = "rgb(255, 255, 255)";
+                        ctx.fillRect(1, 1, 126, 126);
+                        data.forEach((e, i) => {
+                                if(json[i] !== null && json[i] !== void 0) {
+                                        imgd.data[i] = json.charCodeAt(i);
+                                }
+                        });
+                        ctx.putImageData(imgd, 1, 1);
+
+                        document.body.appendChild(canvas);
+                </script>
+        </body>
+</html>
