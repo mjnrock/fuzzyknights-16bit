@@ -1,7 +1,7 @@
 class GameManager {
 	constructor(fk, player = null) {
 		this.FuzzyKnights = fk;
-		this.GameLoop = this.FuzzyKnights.Common.Game.GameLoop;
+		this.GameLoop = new this.FuzzyKnights.Common.Game.GameLoop();
 
 		this.TickManagers = [];
 		this.RenderManagers = [];
@@ -10,6 +10,17 @@ class GameManager {
 		
 		this.GameLoop.SetTickHook((time) => this.Tick(time));
 		this.GameLoop.SetRenderHook((time) => this.Render(time));
+	}
+
+	Run() {
+		this.GameLoop.Run();
+
+		return this;
+	}
+	Pause() {
+		this.GameLoop.Pause();
+
+		return this;
 	}
 
 	AddTickManager(manager) {

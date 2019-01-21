@@ -91,7 +91,7 @@ class GameLoop {
 		this.LastTimeStep = ms;
 
 		this.TickHook(ms / 1000);
-		
+
 		// console.timeEnd("Tick");
 	}
 	Render(time) {
@@ -106,5 +106,4 @@ class GameLoop {
 	}
 }
 
-export default new GameLoop();
-export { GameLoop };
+export default GameLoop;

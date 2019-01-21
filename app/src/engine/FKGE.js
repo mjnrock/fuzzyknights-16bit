@@ -16,7 +16,7 @@ class FKGE {
 		
 		ModLoader.Install(this);
 
-		this.FuzzyKnights.Common.Game.GameLoop.Run();
+		this.FuzzyKnights.Common.Game.GameManager.Run();
 	}
 
 	/**
