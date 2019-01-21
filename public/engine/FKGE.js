@@ -1,8 +1,8 @@
 import FKFiles from "./package.js";
-import ModLoader from "./ModLoader.js";
+import ModLoader from "./../modules/lib/ModLoader.js";
 
-import registry from "../config/registry.js"
-import settings from "../config/settings.js"
+import registry from "./../config/registry.js"
+import settings from "./../config/settings.js"
 
 const FuzzyKnights = FKFiles;
 class FKGE {

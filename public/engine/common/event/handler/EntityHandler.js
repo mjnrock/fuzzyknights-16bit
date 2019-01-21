@@ -80,12 +80,13 @@ class EntityHandler {
 				//TODO Technically this works, but the numbers need to be fitted better and change curves optimized
 				//TODO Maybe fudge this by only applying frictional forces if Velocity > FrictionThreshold
 				if(terrain instanceof this.FuzzyKnights.Common.Entity.Terrain.Terrain) {
-					let fric = this.FuzzyKnights.Common.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain);
+					let fric = this.FuzzyKnights.Common.Component.Mutator.TerrainInfo.GetNavigabilityConstraint(terrain),
+						factor = 1.5;
 
 					if(Math.abs(vx) > 0.1) {
 						this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
 							entity,
-							this.FuzzyKnights.Common.Physics.D2.Force.Generate(vx < 0 ? 1 : -1 * Math.max(Math.abs(vx), Math.abs(fric)), 0)
+							this.FuzzyKnights.Common.Physics.D2.Force.Generate((vx < 0 ? factor : -factor) * Math.max(Math.abs(vx), Math.abs(fric)), 0)
 						);
 					} else {
 						vx = 0;
@@ -94,7 +95,7 @@ class EntityHandler {
 					if(Math.abs(vy) > 0.1) {
 						this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
 							entity,
-							this.FuzzyKnights.Common.Physics.D2.Force.Generate(0, vy < 0 ? 1 : -1 * Math.max(Math.abs(vy), Math.abs(fric)))
+							this.FuzzyKnights.Common.Physics.D2.Force.Generate(0, (vy < 0 ? factor : -factor) * Math.max(Math.abs(vy), Math.abs(fric)))
 						);
 					} else {
 						vy = 0;
@@ -139,32 +140,32 @@ class EntityHandler {
 		console.log(`[COLLISION EVENT]: Collidor -> Collidee`, collidor, collidee);
 
 		//TODO Do real collision logic, instead of this fake shit because legit fuck physics lol
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinematics(collidor).ResetAcceleration();
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinetics(collidor).ResetForces();
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinematics(collidee).ResetAcceleration();
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinetics(collidee).ResetForces();
+		this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinematics(collidor).ResetAcceleration();
+		this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinetics(collidor).ResetForces();
+		this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinematics(collidee).ResetAcceleration();
+		this.FuzzyKnights.Common.Component.Mutator.Physics.GetKinetics(collidee).ResetForces();
 
-		// let [ vx0, vy0 ] = this.FuzzyKnights.Common.Component.Mutator.Physics.GetVelocity(collidor).Get(),
-		// 	[ vx1, vy1 ] = this.FuzzyKnights.Common.Component.Mutator.Physics.GetVelocity(collidee).Get(),
-		// 	fudge = 1.75;
+		let [ vx0, vy0 ] = this.FuzzyKnights.Common.Component.Mutator.Physics.GetVelocity(collidor).Get(),
+			[ vx1, vy1 ] = this.FuzzyKnights.Common.Component.Mutator.Physics.GetVelocity(collidee).Get(),
+			fudge = 1;
 		
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.SetVelocity(
-		// 	collidor,
-		// 	this.FuzzyKnights.Common.Physics.D2.Velocity.Generate(-vx0 / fudge, -vy0 / fudge)
-		// );
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.SetVelocity(
-		// 	collidee,
-		// 	this.FuzzyKnights.Common.Physics.D2.Velocity.Generate(vx0 / fudge, vy0 / fudge)
-		// );
+		this.FuzzyKnights.Common.Component.Mutator.Physics.SetVelocity(
+			collidor,
+			this.FuzzyKnights.Common.Physics.D2.Velocity.Generate(-vx0 / fudge, -vy0 / fudge)
+		);
+		this.FuzzyKnights.Common.Component.Mutator.Physics.SetVelocity(
+			collidee,
+			this.FuzzyKnights.Common.Physics.D2.Velocity.Generate(vx0 / fudge, vy0 / fudge)
+		);
 		
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
-		// 	collidor,
-		// 	this.FuzzyKnights.Common.Physics.D2.Force.Generate(-vx0 * fudge, -vy0 * fudge)
-		// );
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
-		// 	collidee,
-		// 	this.FuzzyKnights.Common.Physics.D2.Force.Generate(vx0 * fudge, vy0 * fudge)
-		// );
+		this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
+			collidor,
+			this.FuzzyKnights.Common.Physics.D2.Force.Generate(-vx0 * fudge, -vy0 * fudge)
+		);
+		this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
+			collidee,
+			this.FuzzyKnights.Common.Physics.D2.Force.Generate(vx0 * fudge, vy0 * fudge)
+		);
 	}
 
 	onEntityDamage(msg, target, source, damage) {
