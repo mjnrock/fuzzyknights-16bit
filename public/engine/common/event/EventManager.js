@@ -1,18 +1,18 @@
-import { Subject, Observable } from "rxjs";
+import { Subject } from "rxjs";
 
 import { NewUUID } from "./../../../engine/common/utility/Functions.js";
 
 class EventManager {
 	/**
 	 * @eventName = string
-	 * @subscription = function
+	 * @subscription = { next, ?error, ?complete }
 	 * [ ["eventName", ?subscription ], ... ]
 	 */
 	constructor(seed = []) {
 		this.Events = {};
 		this.Subscriptions = {};
 
-		seed.forEach(e => this.Initialize(e));
+		seed.forEach(e => this.Initialize(e[0], e[1]));
 	}
 
 	Initialize(name, observer = null) {

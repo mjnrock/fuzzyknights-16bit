@@ -96,53 +96,6 @@ class Player {
 
 			// console.log(JSON.stringify(Player.FuzzyKnights.Common.Component.Mutator.Physics.GetKinetics(this.Entity).Get()));
 		}
-
-		
-
-		// //? Force Based
-		// let magnitude = 10.00,
-		// 	x = 0,
-		// 	y = 0,
-		// 	r = 0;
-
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.LEFT)) {
-		// 	x += -magnitude;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-		// 	x += magnitude;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.UP)) {
-		// 	y += -magnitude;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.DOWN)) {
-		// 	y += magnitude;
-		// }
-
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.AddForce(
-		// 	this.FuzzyKnights.Common.Game.GameManager.GetPlayer().GetEntity(),
-		// 	this.FuzzyKnights.Common.Physics.D2.Force.Generate(x, y, r)
-		// );
-
-		// let entity = this.FuzzyKnights.Common.Game.GameManager.GetPlayer().GetEntity(),
-		// 	vel = this.FuzzyKnights.Common.Component.Mutator.CreatureInfo.GetSpeed(entity),
-		// 	x = 0,
-		// 	y = 0,
-		// 	r = 0;
-
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.LEFT)) {
-		// 	x += -vel;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.RIGHT)) {
-		// 	x += vel;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.UP)) {
-		// 	y += -vel;
-		// }
-		// if(this.FuzzyKnights.Common.Utility.Bitwise.Has(state, this.FuzzyKnights.Common.Enum.Bitwise.PlayerKeyState.DOWN)) {
-		// 	y += vel;
-		// }
-
-		// this.FuzzyKnights.Common.Component.Mutator.Physics.SetVelocity(entity, this.FuzzyKnights.Common.Physics.D2.Velocity.Generate(x, y));
 	}
 }
 

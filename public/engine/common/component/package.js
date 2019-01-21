@@ -1,30 +1,14 @@
 import Enum from "./enum/package.js";
 import Element from "./element/package.js";
-
-import { Physics } from "./Physics.js";
-import { Component } from "./Component.js";
-import { TerrainInfo } from "./TerrainInfo.js";
-import { Resources } from "./Resources.js";
-import { Attributes } from "./Attributes.js";
-import { States } from "./States.js";
-import { CreatureInfo } from "./CreatureInfo.js";
-import { Worlds } from "./Worlds.js";
-
 import Mutator from "./mutator/package.js";
+
+import { Component } from "./Component.js";
+
 
 export default {
 	Enum,
-	Element,
-	
-	Physics,
-	TerrainInfo,
+	Element,	
+	Mutator,
 
-	Component,
-	Resources,
-	Attributes,
-	Worlds,
-	States,
-	CreatureInfo,
-
-	Mutator
+	Component
 };

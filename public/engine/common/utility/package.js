@@ -8,7 +8,6 @@ import AABB from "./AABB.js";
 import Grid from "./Grid.js";
 import ElementMap from "./ElementMap.js";
 import PolyElementMap from "./PolyElementMap.js"
-import Drawing from "./drawing/package.js";
 import Scalar from "./Scalar.js";
 import ClampedScalar from "./ClampedScalar.js";
 
@@ -24,7 +23,5 @@ export default {
 	ElementMap,
 	PolyElementMap,
 	Scalar,
-	ClampedScalar,
-
-	Drawing
+	ClampedScalar
 };

@@ -1,12 +1,14 @@
+import { NewUUID } from "./../../../engine/common/utility/Functions.js";
+
 class Event {
-	constructor(...payload) {
+	constructor(name, ...payload) {
+		this.Name = name;
 		this.Payload = payload;
 
+		this.UUID = NewUUID();
 		this.Timestamp = Date.now();
-	}
 
-	Invoke(message) {
-		(new message(...this.Payload, Event.FuzzyKnights.IsServer)).Send();
+		Event.FuzzyKnights.Common.Event.EventManager.Invoke(name, ...payload);
 	}
 }
 

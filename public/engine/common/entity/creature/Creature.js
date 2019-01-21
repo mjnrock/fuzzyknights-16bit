@@ -1,4 +1,3 @@
-import CircleCollisionMask from "./../../physics/d2/CircleCollisionMask.js";
 
 import EnumCreatureType from "./../../component/enum/CreatureType.js";
 import EnumEntityType from "./../../enum/bitwise/EntityType.js";
@@ -10,9 +9,6 @@ class Creature extends Entity {
 		super(EnumEntityType.CREATURE);
 
 		this.Components.push(
-			new Components.Physics(
-				new CircleCollisionMask(0, 0, Entity.FuzzyKnights.Common.Game.Settings.View.Tile.Target / 4 * 1.05)	// Add 5% fudge
-			),
 			new Components.Attributes(),
 			new Components.Resources([
 				[ Entity.FuzzyKnights.Common.Component.Enum.ResourceType.HEALTH, 125, 125],
