@@ -77,17 +77,17 @@ class AttributeModifier {
 
 		return obj;
 	}
+
+	static Unserialize = (json) => {
+		let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
+	
+		let ret = new AttributeModifier();
+		ret.Deserialize(obj);
+	
+		return ret;
+	}
 }
 AttributeModifier.EXPIRATION_FLAG = 0;
 AttributeModifier.PERSISTENCE_FLAG = -1;
 
-
-AttributeModifier.Unserialize = (json) => {
-	let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
-
-	let ret = new AttributeModifier();
-	ret.Deserialize(obj);
-
-	return ret;
-}
 export { AttributeModifier };

@@ -58,14 +58,15 @@ class Attribute extends Element {
 
 		return obj;
 	}
+
+	static Unserialize = (json) => {
+		let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
+	
+		let ret = new Attribute();
+		ret.Deserialize(obj);
+	
+		return ret;
+	}
 }
 
-Attribute.Unserialize = (json) => {
-	let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
-
-	let ret = new Attribute();
-	ret.Deserialize(obj);
-
-	return ret;
-}
 export { Attribute };

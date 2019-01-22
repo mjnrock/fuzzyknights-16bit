@@ -30,15 +30,15 @@ class State extends Element {
 
 		return obj;
 	}
-}
 
-State.Unserialize = (json) => {
-	let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
-
-	let ret = new State();
-	ret.Deserialize(obj);
-
-	return ret;
+	static Unserialize = (json) => {
+		let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
+	
+		let ret = new State();
+		ret.Deserialize(obj);
+	
+		return ret;
+	}
 }
 
 export { State };

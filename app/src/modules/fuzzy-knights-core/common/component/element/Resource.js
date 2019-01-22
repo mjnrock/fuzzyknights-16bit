@@ -66,15 +66,15 @@ class Resource extends Element {
 
 		return obj;
 	}
-}
 
-Resource.Unserialize = (json) => {
-	let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
-
-	let ret = new Resource();
-	ret.Deserialize(obj);
-
-	return ret;
+	static Unserialize = (json) => {
+		let obj = typeof json === "string" || json instanceof String ? JSON.parse(json) : json;
+	
+		let ret = new Resource();
+		ret.Deserialize(obj);
+	
+		return ret;
+	}
 }
 
 export { Resource };

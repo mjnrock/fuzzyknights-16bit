@@ -10,9 +10,11 @@ class Main {
 	}
 
 	PreInit() {
+		// console.log(this.FuzzyKnights);
+		// console.log(Module);
+
+		this.Merge(Module);
 		console.log(this.FuzzyKnights);
-		console.log(Module);
-		// this.Merge(Module);
 	}
 
 	Init() {
@@ -45,23 +47,35 @@ class Main {
 
 	Merge(mod) {
 		let fk = this.FuzzyKnights;
-		let recurse = (obj) => {
+		console.log(mod);
+		let recurse = (obj, parent = null) => {
 			let ret = {};
 	
-			for(var k in obj) {
+			// This iterates over EVERY object and function in @mod
+			// @parent currently provides the correct pathing, it just needs to be meaningfully utilized and string split (e.g. "Common.Entity.Terrain")
+			for(let k in obj) {
 				if(typeof obj[k] == "object" && obj[k] !== null) {
-					if(fk[k] === null || fk[k] === void 0) {
-						fk[k] = obj[k];
-					}
+					console.log("-- OBJECT --");
+					console.log(k);
+					console.log("-- /OBJECT --");
+					// console.log(obj[k] || obj[k].prototype.constructor);
 					
-					ret[k] = recurse(obj[k]);
+					let path = parent ? `${ parent }.${ k }` : k;
+					recurse(obj[k], path);
+				} else {
+					console.log("-- PROTO --");
+					console.log(parent, obj[k].prototype ? obj[k].prototype.constructor : null);
+					console.log("-- /PROTO --");
 				}
 			}
 	
 			return ret;
 		};
 
-		return recurse(mod);
+		console.log(111111);
+		console.log(recurse(mod));
+		console.log(111111);
+		// return recurse(mod);
 	}
 
 	GetNamespaceShape(value) {
